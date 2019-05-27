@@ -32,6 +32,7 @@ import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
+import com.generic.selector.RegistrationSelectors;
 import com.generic.setup.ExceptionMsg;
 import com.generic.setup.GlobalVariables;
 import com.generic.setup.LoggingMsg;
@@ -747,6 +748,21 @@ public class SelectorUtil extends SelTestCase {
 		return initializeSelectorsAndDoActions(subStrArr, valuesArr, true);
 	}
 
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static LinkedHashMap<String, LinkedHashMap> initializeSelectorsAndDoActions(String selector,
+			String selValue) throws Exception {
+		
+		List<String> subStrArrList = new ArrayList<String>();
+		List<String> valuesArrList = new ArrayList<String>();
+		subStrArrList.add(selector);
+		valuesArrList.add(selValue);
+
+		return initializeSelectorsAndDoActions(subStrArrList,valuesArrList); 
+	}
+	
+	
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static LinkedHashMap<String, LinkedHashMap> initializeSelectorsAndDoActions(List<String> subStrArr,
 			List<String> valuesArr, boolean action) throws Exception {

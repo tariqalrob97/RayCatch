@@ -367,11 +367,10 @@ public class Registration extends SelTestCase {
 	private static void typeAddressLine1(String address) throws Exception {
 		try {
 			getCurrentFunctionName(true);
-			List<String> subStrArr = new ArrayList<String>();
-			List<String> valuesArr = new ArrayList<String>();
-			subStrArr.add(RegistrationSelectors.AddressLine1);
-			valuesArr.add(address);
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+			String selector = RegistrationSelectors.AddressLine1;
+			String selValue = address;
+			SelectorUtil.initializeSelectorsAndDoActions(selector, selValue);
+			
 			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
