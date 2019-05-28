@@ -217,12 +217,6 @@ public class SelTestCase {
 		}
     }
     
-    public static String getSubMailAccount(String email)
-    {
-		return email.replace("tester", "tester_"+getBrowserName().replace(" ", "_"));
-    	
-    }
-    
     public static void failureHandeler(Throwable t, String info)
     {
     	setTestCaseDescription(getTestCaseDescription());
@@ -349,9 +343,6 @@ public class SelTestCase {
     {
     	logs.debug("loading data store");
     	users = Common.readUsers();
-		addresses = Common.readAddresses();
-		invintory = Common.readLocalInventory();
-		paymentCards = Common.readPaymentcards();
 		
     }
     

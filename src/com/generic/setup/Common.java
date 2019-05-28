@@ -293,40 +293,7 @@ public class Common extends SelTestCase {
 
 		ActionDriver.refreshBrowser();
 	}
-//	/**
-//	 * It compares the expected text with actual(read from application). If they are
-//	 * not equal then it throws an error and fail the test case.
-//	 *
-//	 * @param expected
-//	 * @param locator
-//	 * @throws Exception
-//	 */
-//	public static void verifyText(String expected, By locator) throws Exception {
-//		logs.debug(MessageFormat.format(LoggingMsg.FUNCTION_NAME, "In verify Text function"));
-//		String actual = "";
-//		int i = 1;
-//		WebDriverWait wait = new WebDriverWait(SelTestCase.getDriver(), SelTestCase.getWaitTime());
-//		try {
-//			logs.debug(MessageFormat.format(LoggingMsg.EXPECTED_TEXT, expected));
-//			while (i <= getWaitTime()) {
-//				actual = wait.until(ExpectedConditions.presenceOfElementLocated(locator)).getText();
-//				logs.debug(MessageFormat.format(LoggingMsg.ACTUAL_TEXT, actual));
-//				if (actual.contains(expected)) {
-//					break;
-//				}
-//				logs.debug(MessageFormat.format(LoggingMsg.WAIT_SECONDS, i));
-//				Thread.sleep(1000);
-//				i = i + 1;
-//			}
-//		} catch (Throwable t) {
-//			throw new Exception(locator + " is missing " + t);
-//		}
-//
-//		if (i > getWaitTime()) {
-//			logs.debug(MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR, actual, expected));
-//			throw new Exception("Actual : " + actual + "Expected : " + expected);
-//		}
-//	}
+
 
 	public static void killDriverServerIfRunning() throws Exception {
 		String line;
@@ -361,147 +328,6 @@ public class Common extends SelTestCase {
 			e.printStackTrace();
 		}
 	}
-
-	public static LinkedHashMap<String, Object> readAddresses() throws Exception {
-		/*
-		 * output example [ { A1={ firstName=Accept, lastName=Tester, title=MR.,
-		 * adddressLine=49FeatherstoneStreet, city=LONDON, postal=EC1Y8SY,
-		 * countery=UNITEDKINGDOM }, A2={ firstName=Accept, lastName=Tester, title=MR.,
-		 * adddressLine=ArdenhamCourt, city=LONDON, postal=HP193EQ,
-		 * countery=UNITEDKINGDOM } } ]
-		 */
-
-		LinkedHashMap<String, Object> addresses = new LinkedHashMap<>();
-		dataProviderUtils TDP = dataProviderUtils.getInstance();
-		Object[][] data = TDP.getData(SheetVariables.addresses, 1);
-
-		// data map
-		int header = 0;
-		int addresscode = 0;
-		int firstName = 1;
-		int lastName = 2;
-		int title = 3;
-		int addressLine = 4;
-		int city = 5;
-		int postal = 6;
-		int countery = 7;
-		int phone = 8;
-
-		for (int row = 1; row < data.length; row++) {
-			LinkedHashMap<String, Object> address = new LinkedHashMap<>();
-			address.put((String) data[header][firstName], data[row][firstName]);
-			address.put((String) data[header][lastName], data[row][lastName]);
-			address.put((String) data[header][title], data[row][title]);
-			address.put((String) data[header][addressLine], data[row][addressLine]);
-			address.put((String) data[header][city], data[row][city]);
-			address.put((String) data[header][postal], data[row][postal]);
-			address.put((String) data[header][countery], data[row][countery]);
-			address.put((String) data[header][phone], data[row][phone]);
-
-			addresses.put((String) data[row][addresscode], address);
-		}
-		logs.debug(Arrays.asList(addresses)+"");
-		return addresses;
-	}// readAddresses
-
-	public static LinkedHashMap<String, Object> readLocalInventory() throws Exception {
-		/*
-		 * Output example [ { P1={
-		 * url=/yacceleratorstorefront/en/Categories/Bags%2BBoardbags/Bags/Seizure-
-		 * Satchel/p/300613490, color=black, size=SizeUni,£34.792 1, qty=1 }, P2={
-		 * url=/yacceleratorstorefront/en/Categories/Bags%2BBoardbags/Bags/Seizure-Bag/p
-		 * /300441924, color=claycourt, size=SizeUni, £24.26 4, qty=1 } } ]
-		 */
-		LinkedHashMap<String, Object> products = new LinkedHashMap<>();
-		
-		dataProviderUtils TDP = dataProviderUtils.getInstance();
-		Object[][] data = TDP.getData(SheetVariables.products, 1);
-
-		
-		// data map
-		int header = 0;
-		int name = 0;
-		int id = 1;
-		int title = 2;
-		int url = 3;
-		int qty = 4;
-		int color = 5;
-		int fleece = 6;
-		int memory = 7;
-		int size = 8;
-		int bundleProducts = 9; 
-		int desc = 10;
-		int price = 11; 
-		
-
-		for (int row = 1; row < data.length; row++) {
-			LinkedHashMap<String, Object> product = new LinkedHashMap<>();
-			product.put((String) data[header][id], data[row][id]);
-			product.put((String) data[header][title], data[row][title]);
-			product.put((String) data[header][url], data[row][url]);
-			product.put((String) data[header][qty], data[row][qty]);
-			product.put((String) data[header][color], data[row][color]);
-			product.put((String) data[header][fleece], data[row][fleece]);
-			product.put((String) data[header][memory], data[row][memory]);
-			product.put((String) data[header][size], data[row][size]);
-			product.put((String) data[header][bundleProducts], data[row][bundleProducts]);
-			product.put((String) data[header][desc], data[row][desc]);
-			product.put((String) data[header][price], data[row][price]);
-
-			products.put((String) data[row][name], product);
-		}
-		logs.debug("Products: "+Arrays.asList(products)+"");
-		return products;
-	}// readProducts
-
-	public static LinkedHashMap<String, Object> readPaymentcards() throws Exception {
-		/*
-		 [
-		  {
-		    visa={
-		      number=4111111111111111,
-		      name=AcceptTester,
-		      expireYear=2022,
-		      expireMonth=6,
-		      CVCC=333
-		    },
-		    master={
-		      number=5555555555554444,
-		      name=Accept*Tester,
-		      expireYear=2022,
-		      expireMonth=6,
-		      CVCC=334
-		    }
-		  }
-		]
-		 */
-		LinkedHashMap<String, Object> cards = new LinkedHashMap<>();
-		
-		dataProviderUtils TDP = dataProviderUtils.getInstance();
-		Object[][] data = TDP.getData(SheetVariables.cards, 1);
-
-		// data map
-		int header = 0;
-		int card = 0;
-		int number = 1;
-		int name = 2;
-		int expireMonth = 3;
-		int expireYear = 4;
-		int CVCC = 5;
-
-		for (int row = 1; row < data.length; row++) {
-			LinkedHashMap<String, Object> cardOb = new LinkedHashMap<>();
-			cardOb.put((String) data[header][number], data[row][number]);
-			cardOb.put((String) data[header][name], data[row][name]);
-			cardOb.put((String) data[header][expireMonth], data[row][expireMonth]);
-			cardOb.put((String) data[header][expireYear], data[row][expireYear]);
-			cardOb.put((String) data[header][CVCC], data[row][CVCC]);
-
-			cards.put((String) data[row][card], cardOb);
-		}
-		logs.debug(Arrays.asList(cards)+"");
-		return cards;
-	}// read payments
 
 	public static LinkedHashMap<String, Object> readTestparams(String testSheet, int caseIndex) throws Exception {
 		/*
@@ -563,25 +389,19 @@ public class Common extends SelTestCase {
 
 		// data map
 		int header = 0;
-		int name = 0;
-		int title = 1;
-		int userName = 2;
-		int firstName = 3;
-		int lastName = 4;
-		int password = 5;
-		int mail = 6;
+		int id = 0;
+		int userName = 1;
+		int name = 2;
+		int password = 3;
 
 		for (int row = 1; row < data.length; row++) {
 			LinkedHashMap<String, Object> user = new LinkedHashMap<>();
-			user.put((String) data[header][name], data[row][name]);
-			user.put((String) data[header][title], data[row][title]);
+			user.put((String) data[header][id], data[row][id]);
 			user.put((String) data[header][userName], data[row][userName]);
-			user.put((String) data[header][firstName], data[row][firstName]);
-			user.put((String) data[header][lastName], data[row][lastName]);
+			user.put((String) data[header][name], data[row][name]);
 			user.put((String) data[header][password], data[row][password]);
-			user.put((String) data[header][mail], data[row][mail]);
 
-			users.put((String) data[row][name], user);
+			users.put((String) data[row][userName], user);
 		}
 		logs.debug(Arrays.asList(users)+"");
 		return users;
