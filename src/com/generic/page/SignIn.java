@@ -2,8 +2,13 @@ package com.generic.page;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.generic.selector.SignInSelectors;
 import com.generic.setup.ExceptionMsg;
@@ -19,7 +24,7 @@ public class SignIn extends SelTestCase {
 		public static final String userName = "userName";
 		public static final String name = "name";
 		public static final String password = "password";
-
+		public static final String plants ="plants";
 	}
 
 	public static void logIn(String userName, String Password) throws Exception {
@@ -131,5 +136,30 @@ public class SignIn extends SelTestCase {
 			throw e;
 		}
 	}
+	
+	public static String checkUserPlants () throws Exception {
+		WebDriver t= getDriver();
+		String plants="";
+		List<String> subStrArr = new ArrayList<String>();
+		List<String> valuesArr = new ArrayList<String>();
+		subStrArr.add(SignInSelectors.plantName);
+		valuesArr.add("");
+		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+		logs.debug(MessageFormat.format(LoggingMsg.ERROR_MSG, SelectorUtil.textValue.get()));
+		getCurrentFunctionName(false);
+		
+	   	
+	   List <WebElement> allPlants= t.findElements(By.className(SignInSelectors.plantName));
+	   for(int i=0; i<allPlants.size();i++) {
+		   plants+= allPlants.get(i).getText().toString()+",";
+		   
+	   }
+	   
+
+	    return plants;
+	
+	
+	
+}
 
 }

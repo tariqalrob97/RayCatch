@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Get User Plants" parallel="tests" thread-count="1" data-provider-thread-count="1">
+	<test name="Get_User_Plants Test_chrome">
+		<parameter name="browserName" value="chrome"></parameter>
+		<classes>
+			<class name="com.generic.tests.login.getuserplants" />
+		</classes>
+	</test><!-- Test -->
+
+</suite> <!-- Suit

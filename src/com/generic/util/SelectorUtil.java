@@ -817,6 +817,6 @@ public class SelectorUtil extends SelTestCase {
 
 		logs.debug(MessageFormat.format(LoggingMsg.FINISHED_ACTION_ON_ELEMENTS_MSG, Arrays.asList(webElementsInfo)));
 		return webElementsInfo;
-
+		
 	}
 }

@@ -1,6 +1,6 @@
-package com.generic.tests.login;
-
+package com.generic.tests.getuserplants;
 import java.text.MessageFormat;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
@@ -20,7 +20,8 @@ import com.generic.util.SASLogger;
 
 import com.generic.util.dataProviderUtils;
 
-public class LoginBase extends SelTestCase {
+
+public class GetPlantsBase extends SelTestCase {
 
 	private static int testCaseID;
 	// used sheet in test
@@ -34,7 +35,7 @@ public class LoginBase extends SelTestCase {
 		Testlogs.set(new SASLogger(test.getName() + test.getIndex()));
 		testObject = test;
 	}
-
+	
 	@DataProvider(name = "Login", parallel = true)
 	// concurrency maintenance on sheet reading
 	public static Object[][] loadTestData() throws Exception {
@@ -44,7 +45,7 @@ public class LoginBase extends SelTestCase {
 		Testlogs.get().debug(Arrays.deepToString(data).replace("\n", "--"));
 		return data;
 	}
-
+	
 	@SuppressWarnings("unchecked") // avoid warning from linked hashmap
 	@Test(dataProvider = "Login")
 	public void LoginRegressionTest(String caseId, String runTest, String desc, String proprties, String userName,
@@ -64,49 +65,15 @@ public class LoginBase extends SelTestCase {
 
 		try {
 
-			if (proprties.equals("Success login")) {
+			if (proprties.equals("Success login and check plants")) {
 				Testlogs.get().debug("Login username is: " + userName);
 				Testlogs.get().debug((String) userdetails.get(SignIn.keys.password));
 				SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
 				sassert().assertTrue(SignIn.checkUserAccount(), LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
-				sassert().assertEquals(SignIn.checkUserPlants(), (String) userdetails.get(SignIn.keys.plants));
-			}
-			/*
-			if (proprties.equals("invalidUserEmail")) {
-				SignIn.fillLoginFormAndClickSubmit(caseMail.replace("@", ""), "1234567");
-				String alertMessage = SignIn.getMailErrorMsg();
-				sassert().assertTrue(alertMessage.contains(fieldsValidation),
-						"Error message is not as expected" + fieldsValidation + " : " + alertMessage);
-			}
-			if (proprties.equals("invalidUserPassword")) {
-				Testlogs.get().debug(caseMail);
-				SignIn.fillLoginFormAndClickSubmit(caseMail, "");
-				String passwordMessage = SignIn.getPasswrdErrorMsg();
-				sassert().assertTrue(passwordMessage.contains(fieldsValidation),
-						"Error message is not as expected" + fieldsValidation + " : " + passwordMessage);
+				sassert().assertEquals(SignIn.checkUserPlants(), "Scunchipani-ITG-Mefalsim-Hewas");
 				
 			}
-			if (proprties.equals("wrongUserPassword")) {
-				Testlogs.get().debug(caseMail);
-				SignIn.fillLoginFormAndClickSubmit(caseMail, "invalid123");
-				String loginformMessage = SignIn.getErrologinMessage();
-				String failureMessage = MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR, loginformMessage,
-						fieldsValidation);
-				sassert().assertTrue(loginformMessage.contains(fieldsValidation), failureMessage);
-			}
-			if (proprties.equals("emptyData")) {
-				SignIn.fillLoginFormAndClickSubmit("", "");
-				String emailMessage = SignIn.getMailErrorMsg();
-				String passwordMessage = SignIn.getPasswrdErrorMsg();
-
-				String failureMessage = MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR,
-						emailMessage + "<br>" + passwordMessage, fieldsValidation);
-
-				sassert().assertTrue(fieldsValidation.contains(emailMessage),"Mail Validation error: "+failureMessage);
-				sassert().assertTrue(fieldsValidation.contains(passwordMessage),"Password Validation error"+ failureMessage);
-			}
-
-			*/
+		
 			sassert().assertAll();
 			Common.testPass();
 		} catch (Throwable t) {
@@ -119,4 +86,6 @@ public class LoginBase extends SelTestCase {
 			Assert.assertTrue(false, t.getMessage());
 		} // catch
 	}// test
+
+	
 }
