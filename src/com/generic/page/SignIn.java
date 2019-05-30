@@ -113,7 +113,6 @@ public class SignIn extends SelTestCase {
 			subStrArr.add(SignInSelectors.emailError);
 			valuesArr.add("");
 			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
-			logs.debug(MessageFormat.format(LoggingMsg.ERROR_MSG, SelectorUtil.textValue.get()));
 			getCurrentFunctionName(false);
 			return SelectorUtil.textValue.get();
 		} catch (NoSuchElementException e) {
@@ -151,15 +150,10 @@ public class SignIn extends SelTestCase {
 	   	
 	   List <WebElement> allPlants= t.findElements(By.className(SignInSelectors.plantName));
 	   for(int i=0; i<allPlants.size();i++) {
-		   plants+= allPlants.get(i).getText().toString()+",";
-		   
-	   }
-	   
-
-	    return plants;
+		   plants+= allPlants.get(i).getText().toString()+",";	   
+	   } 
+	    return plants;		
 	
-	
-	
-}
+    }
 
 }
