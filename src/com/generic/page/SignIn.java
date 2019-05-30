@@ -27,6 +27,7 @@ public class SignIn extends SelTestCase {
 		public static final String plants ="plants";
 	}
 
+	// done RC
 	public static void logIn(String userName, String Password) throws Exception {
 		try {
 			getCurrentFunctionName(true);
@@ -43,7 +44,7 @@ public class SignIn extends SelTestCase {
 		}
 	}
 
-	
+	// done RC
 	public static void fillLoginFormAndClickSubmit(String userName, String Password) throws Exception {
 		try {
 			getCurrentFunctionName(true);
@@ -105,23 +106,6 @@ public class SignIn extends SelTestCase {
 		}
 	}
 
-	public static String getMailErrorMsg() throws Exception {
-		getCurrentFunctionName(true);
-		try {
-			List<String> subStrArr = new ArrayList<String>();
-			List<String> valuesArr = new ArrayList<String>();
-			subStrArr.add(SignInSelectors.emailError);
-			valuesArr.add("");
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
-			getCurrentFunctionName(false);
-			return SelectorUtil.textValue.get();
-		} catch (NoSuchElementException e) {
-			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
-			}.getClass().getEnclosingMethod().getName()));
-			throw e;
-		}
-	}
-
 	// done RC
 	public static boolean checkUserAccount() throws Exception {
 		try {
@@ -136,24 +120,26 @@ public class SignIn extends SelTestCase {
 		}
 	}
 	
-	public static String checkUserPlants () throws Exception {
-		WebDriver t= getDriver();
-		String plants="";
-		List<String> subStrArr = new ArrayList<String>();
-		List<String> valuesArr = new ArrayList<String>();
-		subStrArr.add(SignInSelectors.plantName);
-		valuesArr.add("");
-		SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
-		logs.debug(MessageFormat.format(LoggingMsg.ERROR_MSG, SelectorUtil.textValue.get()));
-		getCurrentFunctionName(false);
-		
-	   	
-	   List <WebElement> allPlants= t.findElements(By.className(SignInSelectors.plantName));
-	   for(int i=0; i<allPlants.size();i++) {
-		   plants+= allPlants.get(i).getText().toString()+",";	   
-	   } 
-	    return plants;		
-	
-    }
+	// done RC
+	public static String checkUserPlants () throws Exception
+	{
+		try {
+			getCurrentFunctionName(true);
+			String plants = "";
+			SelectorUtil.initializeSelectorsAndDoActions(SignInSelectors.plantName);
+			
+			List<WebElement> allPlants = getDriver().findElements(By.className(SignInSelectors.plantName));
+			
+			for (int plant = 0; plant < allPlants.size(); plant++) {
+				plants += allPlants.get(plant).getText().toString() + ",";
+			}
+			getCurrentFunctionName(false);
+			return plants;
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
 
 }
