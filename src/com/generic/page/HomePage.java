@@ -27,7 +27,7 @@ public class HomePage extends SelTestCase {
 			List<WebElement> allPlants = getDriver().findElements(By.className(SignInSelectors.plantName));
 
 			for (int plant = 0; plant < allPlants.size(); plant++) {
-				plants += allPlants.get(plant).getText().toString() + ",";
+				plants += allPlants.get(plant).getText().toString() + "\n";
 			}
 			getCurrentFunctionName(false);
 			return plants;

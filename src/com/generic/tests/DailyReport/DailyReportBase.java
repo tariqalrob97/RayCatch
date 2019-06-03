@@ -47,66 +47,33 @@ public class DailyReportBase extends SelTestCase {
 
 	@SuppressWarnings("unchecked") // avoid warning from linked hashmap
 	@Test(dataProvider = "Login")
-	public void LoginRegressionTest(String caseId, String runTest, String desc, String proprties, String userName,
-			String fieldsValidation) {
+	public void LoginRegressionTest(String caseId, String runTest, String desc, String proprties, String userName) {
 
-		Testlogs.set(new SASLogger("Login " + getBrowserName()));
+		Testlogs.set(new SASLogger("DailyReport " + getBrowserName()));
 		// Important to add this for logging/reporting
-		setTestCaseReportName(SheetVariables.loginTestCaseId);
+		setTestCaseReportName(SheetVariables.DailyReportTestCaseId);
 		logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC, testDataSheet + "." + caseId,
 				this.getClass().getCanonicalName(), desc, proprties.replace("\n", "<br>- ")));
 
 		LinkedHashMap<String, String> userdetails = null;
 		if (!userName.equals("")) {
 			userdetails = (LinkedHashMap<String, String>) users.get(userName);
-			Testlogs.get().debug("Mail will be used is: " + userdetails);
+			Testlogs.get().debug("User will be used is: " + userdetails);
 		}
 
 		try {
 
-			if (proprties.equals("Success login")) {
-				Testlogs.get().debug("Login username is: " + userName);
-				Testlogs.get().debug((String) userdetails.get(SignIn.keys.password));
-				SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
-				sassert().assertTrue(SignIn.checkUserAccount(), LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
-				sassert().assertEquals(HomePage.checkUserPlants(), (String) userdetails.get(SignIn.keys.plants));
-			}
-			/*
-			if (proprties.equals("invalidUserEmail")) {
-				SignIn.fillLoginFormAndClickSubmit(caseMail.replace("@", ""), "1234567");
-				String alertMessage = SignIn.getMailErrorMsg();
-				sassert().assertTrue(alertMessage.contains(fieldsValidation),
-						"Error message is not as expected" + fieldsValidation + " : " + alertMessage);
-			}
-			if (proprties.equals("invalidUserPassword")) {
-				Testlogs.get().debug(caseMail);
-				SignIn.fillLoginFormAndClickSubmit(caseMail, "");
-				String passwordMessage = SignIn.getPasswrdErrorMsg();
-				sassert().assertTrue(passwordMessage.contains(fieldsValidation),
-						"Error message is not as expected" + fieldsValidation + " : " + passwordMessage);
-				
-			}
-			if (proprties.equals("wrongUserPassword")) {
-				Testlogs.get().debug(caseMail);
-				SignIn.fillLoginFormAndClickSubmit(caseMail, "invalid123");
-				String loginformMessage = SignIn.getErrologinMessage();
-				String failureMessage = MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR, loginformMessage,
-						fieldsValidation);
-				sassert().assertTrue(loginformMessage.contains(fieldsValidation), failureMessage);
-			}
-			if (proprties.equals("emptyData")) {
-				SignIn.fillLoginFormAndClickSubmit("", "");
-				String emailMessage = SignIn.getMailErrorMsg();
-				String passwordMessage = SignIn.getPasswrdErrorMsg();
+			// Step 1 do log-in
+			Testlogs.get().debug("Login username is: " + userName);
+			Testlogs.get().debug((String) userdetails.get(SignIn.keys.password));
+			SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
+			sassert().assertTrue(SignIn.checkUserAccount(), LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
 
-				String failureMessage = MessageFormat.format(LoggingMsg.ACTUAL_EXPECTED_ERROR,
-						emailMessage + "<br>" + passwordMessage, fieldsValidation);
+			// Step 2 get available plant and validate them with the plants that should appear
+			String availblePlants = HomePage.checkUserPlants().trim();
+			String accountPlants = (String) userdetails.get(SignIn.keys.plants).trim();
+			sassert().assertEquals(availblePlants, accountPlants);
 
-				sassert().assertTrue(fieldsValidation.contains(emailMessage),"Mail Validation error: "+failureMessage);
-				sassert().assertTrue(fieldsValidation.contains(passwordMessage),"Password Validation error"+ failureMessage);
-			}
-
-			*/
 			sassert().assertAll();
 			Common.testPass();
 		} catch (Throwable t) {

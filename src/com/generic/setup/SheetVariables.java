@@ -11,7 +11,7 @@ public class SheetVariables {
    
 	
     //Test Case id
-    public static final String loginTestCaseId = "Login Case";
+    public static final String DailyReportTestCaseId = "Daily report generator";
 
 
 
