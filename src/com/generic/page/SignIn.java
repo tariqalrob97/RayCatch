@@ -17,14 +17,14 @@ import com.generic.setup.SelTestCase;
 import com.generic.util.SelectorUtil;
 
 public class SignIn extends SelTestCase {
-	
+
 	public static class keys {
 		public static final String caseId = "caseId";
 		public static final String id = "id";
 		public static final String userName = "userName";
 		public static final String name = "name";
 		public static final String password = "password";
-		public static final String plants ="plants";
+		public static final String plants = "plants";
 	}
 
 	// done RC
@@ -49,7 +49,7 @@ public class SignIn extends SelTestCase {
 		try {
 			getCurrentFunctionName(true);
 			typeUsername(userName);
-			//typePassword(Password + ",pressEnter");
+			// typePassword(Password + ",pressEnter");
 			typePassword(Password);
 			clickLogin();
 			Thread.sleep(3000);
@@ -82,7 +82,7 @@ public class SignIn extends SelTestCase {
 			getCurrentFunctionName(true);
 			String subStrArr = SignInSelectors.password;
 			String valuesArr = password;
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr,valuesArr);
+			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -97,7 +97,7 @@ public class SignIn extends SelTestCase {
 			getCurrentFunctionName(true);
 			String subStrArr = SignInSelectors.userName;
 			String valuesArr = userName;
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr,valuesArr);
+			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
 			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -113,28 +113,6 @@ public class SignIn extends SelTestCase {
 			String url = getDriver().getCurrentUrl();
 			getCurrentFunctionName(false);
 			return url.contains("portfolio");
-		} catch (NoSuchElementException e) {
-			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
-			}.getClass().getEnclosingMethod().getName()));
-			throw e;
-		}
-	}
-	
-	// done RC
-	public static String checkUserPlants () throws Exception
-	{
-		try {
-			getCurrentFunctionName(true);
-			String plants = "";
-			SelectorUtil.initializeSelectorsAndDoActions(SignInSelectors.plantName);
-			
-			List<WebElement> allPlants = getDriver().findElements(By.className(SignInSelectors.plantName));
-			
-			for (int plant = 0; plant < allPlants.size(); plant++) {
-				plants += allPlants.get(plant).getText().toString() + ",";
-			}
-			getCurrentFunctionName(false);
-			return plants;
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));

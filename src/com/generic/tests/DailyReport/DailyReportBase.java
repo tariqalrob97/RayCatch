@@ -1,4 +1,4 @@
-package com.generic.tests.login;
+package com.generic.tests.DailyReport;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -10,6 +10,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.xml.XmlTest;
 
+import com.generic.page.HomePage;
 import com.generic.page.SignIn;
 import com.generic.setup.Common;
 import com.generic.setup.LoggingMsg;
@@ -20,9 +21,8 @@ import com.generic.util.SASLogger;
 
 import com.generic.util.dataProviderUtils;
 
-public class LoginBase extends SelTestCase {
+public class DailyReportBase extends SelTestCase {
 
-	private static int testCaseID;
 	// used sheet in test
 	public static final String testDataSheet = SheetVariables.loginSheet;
 	private static XmlTest testObject;
@@ -69,7 +69,7 @@ public class LoginBase extends SelTestCase {
 				Testlogs.get().debug((String) userdetails.get(SignIn.keys.password));
 				SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
 				sassert().assertTrue(SignIn.checkUserAccount(), LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
-				sassert().assertEquals(SignIn.checkUserPlants(), (String) userdetails.get(SignIn.keys.plants));
+				sassert().assertEquals(HomePage.checkUserPlants(), (String) userdetails.get(SignIn.keys.plants));
 			}
 			/*
 			if (proprties.equals("invalidUserEmail")) {

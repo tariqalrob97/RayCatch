@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="RestPassword Regression" parallel="tests" thread-count="10" data-provider-thread-count="2">
-
-	<test name="RestPassword chrome">
+<suite name="Login Regression" parallel="tests" thread-count="1" data-provider-thread-count="1">
+	<test name="Login Regression Test_chrome">
 		<parameter name="browserName" value="chrome"></parameter>
 		<classes>
-			<class name="com.generic.tests.Password.ChangePassword_base" />
+			<class name="com.generic.tests.DailyReport.DailyReportBase" />
 		</classes>
 	</test><!-- Test -->
+
 </suite> <!-- Suite -->
