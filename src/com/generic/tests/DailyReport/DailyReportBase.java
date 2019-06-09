@@ -3,7 +3,9 @@ package com.generic.tests.DailyReport;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -11,6 +13,7 @@ import org.testng.annotations.Test;
 import org.testng.xml.XmlTest;
 
 import com.generic.page.HomePage;
+import com.generic.page.PlantOverview_General;
 import com.generic.page.SignIn;
 import com.generic.setup.Common;
 import com.generic.setup.LoggingMsg;
@@ -61,18 +64,64 @@ public class DailyReportBase extends SelTestCase {
 			Testlogs.get().debug("User will be used is: " + userdetails);
 		}
 
+		//prepare datasheet  
+		
+		
 		try {
 
 			// Step 1 do log-in
-			Testlogs.get().debug("Login username is: " + userName);
-			Testlogs.get().debug((String) userdetails.get(SignIn.keys.password));
+			Testlogs.get().debug("Login username/password is: " + userName + " " + (String) userdetails.get(SignIn.keys.password) );
 			SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
 			sassert().assertTrue(SignIn.checkUserAccount(), LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
 
-			// Step 2 get available plant and validate them with the plants that should appear
-			String availblePlants = HomePage.checkUserPlants().trim();
-			String accountPlants = (String) userdetails.get(SignIn.keys.plants).trim();
-			sassert().assertEquals(availblePlants, accountPlants);
+			// Step 2 get available plants from web
+			List<WebElement> availblePlants = HomePage.getUserPlants();
+			String accountPlantes = (String) userdetails.get(SignIn.keys.plants);
+			
+			Testlogs.get().debug("Found " + availblePlants.size() + " plants");
+			for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
+				Testlogs.get().debug(availblePlants.get(plantIndex).getText());
+			}
+			Testlogs.get().debug("Account plants " + accountPlantes.replace("\n", "<br>") + " plants");
+			
+			
+			// Step 3 reiterate all plants and validate calculations
+			for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
+				// get all plants - to avoid element is not attached to the page document
+				List<WebElement> currentAvailablePlants = HomePage.getUserPlants();
+				WebElement plant = currentAvailablePlants.get(plantIndex);
+
+				// Step 4 Navigate to plant status
+				HomePage.navigateToPlant(plant);
+				sassert().assertTrue(accountPlantes.contains(plant.getText()), "Plant "+ plant.getText() + " is not exist in account plants");
+
+				// Step 5 get plant status general information
+				String PlantStatusValue = PlantOverview_General.getPlantOverallExtraIncomeValue();
+				String PlantStatusPercent = PlantOverview_General.getPlantOverallExtraIncomePercent();
+
+				String PlantPerformanceValue = PlantOverview_General.getOverallPlantPerformanceValue();
+				String PlantPerformancePercent = PlantOverview_General.getOverallPlantPerformancePercent();
+
+				String PlantAvailabilityValue = PlantOverview_General.getOverallPlantavailabilityValue();
+				String PlantAvailabilityPercent = PlantOverview_General.getOverallPlantavailabilityPercent();
+				
+				Testlogs.get()
+						.debug("<b>The Values of plant " + plant.getText() + "is  :</b><br>" + PlantStatusValue + "<br>"
+								+ PlantStatusPercent + "<br>" + PlantPerformanceValue + "<br>" + PlantPerformancePercent
+								+ "<br>" + PlantAvailabilityValue + "<br>" + PlantAvailabilityPercent + "<br>");
+				
+				//get the day before data from data sheet  
+				//compare data provide judgment 
+				//get data from other tabs (inverters, strings)
+				//do aggregation and other calculations  
+				//get insight panels information (4 values) 
+				//compare insight information with the day before. 
+				//get data for health   
+				//compare health data with the previous day
+				// get Plant heatmap
+				// compare current plant heatmap with the day before  
+								
+			}
 
 			sassert().assertAll();
 			Common.testPass();

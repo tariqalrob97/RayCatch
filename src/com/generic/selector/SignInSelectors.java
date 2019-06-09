@@ -5,7 +5,7 @@ public class SignInSelectors
 	public static final String loginBtn = "css,form>fieldset>div>button";
 	public static final String  password = "login-password";
 	public static final String userName = "login-username";
-	public static final String plantName = "plant-name";
+	public static final String plantName = "span.plant-name";
 	
 	public static final String emailError = "j_username-error"; 
 	public static final String passwordError = "j_password-error";
