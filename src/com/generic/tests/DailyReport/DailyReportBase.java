@@ -1,6 +1,7 @@
 package com.generic.tests.DailyReport;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.testng.xml.XmlTest;
 import com.generic.page.HomePage;
 import com.generic.page.PlantOverview_General;
 import com.generic.page.SignIn;
+import com.generic.page.plant;
 import com.generic.setup.Common;
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
@@ -63,10 +65,9 @@ public class DailyReportBase extends SelTestCase {
 			userdetails = (LinkedHashMap<String, String>) users.get(userName);
 			Testlogs.get().debug("User will be used is: " + userdetails);
 		}
-
+		
 		//prepare datasheet  
-		
-		
+				
 		try {
 
 			// Step 1 do log-in
@@ -85,30 +86,37 @@ public class DailyReportBase extends SelTestCase {
 			Testlogs.get().debug("Account plants " + accountPlantes.replace("\n", "<br>") + " plants");
 			
 			
+			ArrayList<plant> PlantsInfo;
+			
 			// Step 3 reiterate all plants and validate calculations
 			for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
 				// get all plants - to avoid element is not attached to the page document
 				List<WebElement> currentAvailablePlants = HomePage.getUserPlants();
 				WebElement plant = currentAvailablePlants.get(plantIndex);
-
+				
 				// Step 4 Navigate to plant status
 				HomePage.navigateToPlant(plant);
 				sassert().assertTrue(accountPlantes.contains(plant.getText()), "Plant "+ plant.getText() + " is not exist in account plants");
 
 				// Step 5 get plant status general information
-				String PlantStatusValue = PlantOverview_General.getPlantOverallExtraIncomeValue();
-				String PlantStatusPercent = PlantOverview_General.getPlantOverallExtraIncomePercent();
+				//Initiating new plant object to be used to store all plant object
+				plant tmpPlant  = new plant();
+				
+				tmpPlant.PEI_value = PlantOverview_General.getPlantOverallExtraIncomeValue();
+				tmpPlant.PEI_percentage = PlantOverview_General.getPlantOverallExtraIncomePercent();
 
-				String PlantPerformanceValue = PlantOverview_General.getOverallPlantPerformanceValue();
-				String PlantPerformancePercent = PlantOverview_General.getOverallPlantPerformancePercent();
+				tmpPlant.PERF_value = PlantOverview_General.getOverallPlantPerformanceValue();
+				tmpPlant.PERF_percentage = PlantOverview_General.getOverallPlantPerformancePercent();
 
-				String PlantAvailabilityValue = PlantOverview_General.getOverallPlantavailabilityValue();
-				String PlantAvailabilityPercent = PlantOverview_General.getOverallPlantavailabilityPercent();
+				tmpPlant.Avilability_value = PlantOverview_General.getOverallPlantavailabilityValue();
+				tmpPlant.Avilability_percentage = PlantOverview_General.getOverallPlantavailabilityPercent();
+				
+				
 				
 				Testlogs.get()
-						.debug("<b>The Values of plant " + plant.getText() + "is  :</b><br>" + PlantStatusValue + "<br>"
-								+ PlantStatusPercent + "<br>" + PlantPerformanceValue + "<br>" + PlantPerformancePercent
-								+ "<br>" + PlantAvailabilityValue + "<br>" + PlantAvailabilityPercent + "<br>");
+						.debug("<b>The Values of plant " + plant.getText() + "is  :</b><br>" + tmpPlant.PEI_value + "<br>"
+								+ tmpPlant.PEI_percentage + "<br>" + tmpPlant.PERF_value + "<br>" + tmpPlant.PERF_percentage
+								+ "<br>" + tmpPlant.Avilability_value + "<br>" + tmpPlant.Avilability_percentage + "<br>");
 				
 				//get the day before data from data sheet  
 				//compare data provide judgment 

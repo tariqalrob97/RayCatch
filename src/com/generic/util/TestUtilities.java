@@ -281,5 +281,22 @@ public class TestUtilities extends SelTestCase {
 			return null;
 		}
 	}
+	
+	
+	public static double valueParser(String value)
+	{
+		getCurrentFunctionName(true);
+		double results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","")) ;
+		if (value.contains("M"))
+		{
+			results = results*1000000;
+		}
+		else if (value.contains("K"))
+			results = results*1000;
+		else
+			logs.debug("Not a value but a percentage");
+		getCurrentFunctionName(false);
+		return results; 
+	}
 
 }
