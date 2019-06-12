@@ -202,10 +202,7 @@ public class Xls_Reader {
 			}
 			sheet = workbook.getSheetAt(index);
 			row = sheet.getRow(0);
-			for (int i = 0; i < row.getLastCellNum(); i++) {
-				if (row.getCell(i).getStringCellValue().trim().equals(colName))
-					colNum = i;
-			}
+			colNum = getColName(colName);
 			if (colNum == -1) {
 				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Col"));
 				return false;
@@ -246,6 +243,15 @@ public class Xls_Reader {
 			 * e) { e.printStackTrace(); } } }
 			 */
 		return true;
+	}//setCell
+
+	public int getColName(String colName) {
+		int colNum = -1;  
+		for (int i = 0; i < row.getLastCellNum(); i++) {
+			if (row.getCell(i).getStringCellValue().trim().equals(colName))
+				colNum = i;
+		}
+		return colNum;
 	}
 
 	// returns true if data is set successfully else false

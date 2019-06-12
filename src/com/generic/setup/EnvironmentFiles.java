@@ -12,6 +12,9 @@ public class EnvironmentFiles {
 	//log file path,getter and setter
 	public static String logFilePath = null;
 	public static String logReportPath = null;
+	
+	public static String DatabasePath = null;
+	
 	//log file name,getter and setter
 	public static String logFileName = "Application.log";
 	//reports folder directory path,getter and setter
@@ -55,6 +58,15 @@ public class EnvironmentFiles {
 			return System.getProperty("user.dir") + "/" + SelTestCase.getCONFIG().getProperty("logs")+ "/" + "reportLogs";
 		} else {
 			return logReportPath;
+		}
+	}
+	
+	public static String getDatabasePath() {
+		if(Strings.isNullOrEmpty(DatabasePath)) {
+			SelTestCase.logs.debug(MessageFormat.format(LoggingMsg.NULL_FILE_PATH_ERROR_MSG, "reportLogs"));
+			return System.getProperty("user.dir") + "/" + SelTestCase.getCONFIG().getProperty("database");
+		} else {
+			return DatabasePath;
 		}
 	}
 

@@ -25,6 +25,7 @@ import com.generic.util.ReportUtil;
 import com.generic.util.SASLogger;
 
 import com.generic.util.dataProviderUtils;
+import com.generic.util.sqLiteUtils;
 
 public class DailyReportBase extends SelTestCase {
 
@@ -117,7 +118,11 @@ public class DailyReportBase extends SelTestCase {
 						.debug("<b>The Values of plant " + plant.getText() + "is  :</b><br>" + tmpPlant.PEI_value + "<br>"
 								+ tmpPlant.PEI_percentage + "<br>" + tmpPlant.PERF_value + "<br>" + tmpPlant.PERF_percentage
 								+ "<br>" + tmpPlant.Avilability_value + "<br>" + tmpPlant.Avilability_percentage + "<br>");
+
+				//this statement should be after getting all data   
+				//sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
 				
+				//insert tmpPlant into data base
 				//get the day before data from data sheet  
 				//compare data provide judgment 
 				//get data from other tabs (inverters, strings)
