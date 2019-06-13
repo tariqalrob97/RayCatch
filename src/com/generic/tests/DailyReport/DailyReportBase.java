@@ -150,10 +150,10 @@ public class DailyReportBase extends SelTestCase {
 
 							Testlogs.get()
 									.debug("Insight Name: " + values[0] + " Status is: "
-											+ tmpPlant.Panel_Degradation_status + " Total # of devices is: "
-											+ tmpPlant.Panel_Degradation_total_devices + " Total # of faulty devices "
-											+ tmpPlant.Panel_Degradation_faulty_devices + " Value is: "
-											+ tmpPlant.Panel_Degradation_value + " Percantage is: "
+											+ tmpPlant.Panel_Degradation_status + ", Total # of devices is: "
+											+ tmpPlant.Panel_Degradation_total_devices + ", Total # of faulty devices "
+											+ tmpPlant.Panel_Degradation_faulty_devices + ", Value is: "
+											+ tmpPlant.Panel_Degradation_value + ", Percantage is: "
 											+ tmpPlant.Panel_Degradation_percentage);
 
 						}
@@ -173,11 +173,10 @@ public class DailyReportBase extends SelTestCase {
 
 							Testlogs.get()
 									.debug("Insight Name: " + values[0] + " Status is: "
-											+ tmpPlant.Inverter_Efficiency_Below_Spec_status + " Total # of devices is: "
-											+ tmpPlant.Inverter_Efficiency_Below_Spec_total_devices
-											+ " Total # of faulty devices "
+											+ tmpPlant.Inverter_Efficiency_Below_Spec_status + ", Total # of devices is: "
+											+ tmpPlant.Inverter_Efficiency_Below_Spec_total_devices+ ", Total # of faulty devices "
 											+ tmpPlant.Inverter_Efficiency_Below_Spec_faulty_devices + " Value is: "
-											+ tmpPlant.Inverter_Efficiency_Below_Spec_value + " Percantage is: "
+											+ tmpPlant.Inverter_Efficiency_Below_Spec_value + ", Percantage is: "
 											+ tmpPlant.Inverter_Efficiency_Below_Spec_percentage);
 
 						}
@@ -197,10 +196,10 @@ public class DailyReportBase extends SelTestCase {
 
 							Testlogs.get()
 									.debug("Insight Name: " + values[0] + " Status is: "
-											+ tmpPlant.Voltage_Deviation_status + " Total # of devices is: "
-											+ tmpPlant.Voltage_Deviation_total_devices + " Total # of faulty devices "
-											+ tmpPlant.Voltage_Deviation_faulty_devices + " Value is: "
-											+ tmpPlant.Voltage_Deviation_value + " Percantage is: "
+											+ tmpPlant.Voltage_Deviation_status + ", Total # of devices is: "
+											+ tmpPlant.Voltage_Deviation_total_devices + ", Total # of faulty devices "
+											+ tmpPlant.Voltage_Deviation_faulty_devices + ", Value is: "
+											+ tmpPlant.Voltage_Deviation_value + ", Percantage is: "
 											+ tmpPlant.Voltage_Deviation_percentage);
 
 						}
@@ -220,10 +219,10 @@ public class DailyReportBase extends SelTestCase {
 							
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Mppt_status + " Total # of devices is: "
-									+ tmpPlant.Mppt_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Mppt_faulty_devices + " Value is: "
-									+ tmpPlant.Mppt_value + " Percantage is: "
+									+ tmpPlant.Mppt_status + ", Total # of devices is: "
+									+ tmpPlant.Mppt_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Mppt_faulty_devices + ", Value is: "
+									+ tmpPlant.Mppt_value + ", Percantage is: "
 									+ tmpPlant.Mppt_percentage);
 						}
 
@@ -243,10 +242,10 @@ public class DailyReportBase extends SelTestCase {
 
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.String_Data_integrity_status + " Total # of devices is: "
-									+ tmpPlant.String_Data_integrity_total_devices + " Total # of faulty devices "
-									+ tmpPlant.String_Data_integrity_faulty_devices + " Value is: "
-									+ tmpPlant.String_Data_integrity_value + " Percantage is: "
+									+ tmpPlant.String_Data_integrity_status + ", Total # of devices is: "
+									+ tmpPlant.String_Data_integrity_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.String_Data_integrity_faulty_devices + ", Value is: "
+									+ tmpPlant.String_Data_integrity_value + ", Percantage is: "
 									+ tmpPlant.String_Data_integrity_percentage);
 						}
 
@@ -265,10 +264,10 @@ public class DailyReportBase extends SelTestCase {
 							
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Inverter_Relative_Efficiency_status + " Total # of devices is: "
-									+ tmpPlant.Inverter_Relative_Efficiency_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Inverter_Relative_Efficiency_faulty_devices + " Value is: "
-									+ tmpPlant.Inverter_Relative_Efficiency_value + " Percantage is: "
+									+ tmpPlant.Inverter_Relative_Efficiency_status + ", Total # of devices is: "
+									+ tmpPlant.Inverter_Relative_Efficiency_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Inverter_Relative_Efficiency_faulty_devices + ", Value is: "
+									+ tmpPlant.Inverter_Relative_Efficiency_value + ", Percantage is: "
 									+ tmpPlant.Inverter_Relative_Efficiency_percentage);
 						}
 
@@ -286,11 +285,11 @@ public class DailyReportBase extends SelTestCase {
 									.getInsightStatus(values[2]);
 							
 							Testlogs.get()
-							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Inverter_Downtime_status + " Total # of devices is: "
-									+ tmpPlant.Inverter_Downtime_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Inverter_Downtime_faulty_devices + " Value is: "
-									+ tmpPlant.Inverter_Downtime_value + " Percantage is: "
+							.debug("Insight Name: " + values[0] + ", Status is: "
+									+ tmpPlant.Inverter_Downtime_status + ", Total # of devices is: "
+									+ tmpPlant.Inverter_Downtime_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Inverter_Downtime_faulty_devices + ", Value is: "
+									+ tmpPlant.Inverter_Downtime_value + ", Percantage is: "
 									+ tmpPlant.Inverter_Downtime_percentage);
 						}
 
@@ -309,10 +308,10 @@ public class DailyReportBase extends SelTestCase {
 							
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Late_Awakening_status + " Total # of devices is: "
-									+ tmpPlant.Late_Awakening_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Late_Awakening_faulty_devices + " Value is: "
-									+ tmpPlant.Late_Awakening_value + " Percantage is: "
+									+ tmpPlant.Late_Awakening_status + ", Total # of devices is: "
+									+ tmpPlant.Late_Awakening_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Late_Awakening_faulty_devices + ", Value is: "
+									+ tmpPlant.Late_Awakening_value + ", Percantage is: "
 									+ tmpPlant.Late_Awakening_percentage);
 						}
 
@@ -331,10 +330,10 @@ public class DailyReportBase extends SelTestCase {
 							
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Clipping_status + " Total # of devices is: "
-									+ tmpPlant.Clipping_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Clipping_faulty_devices + " Value is: "
-									+ tmpPlant.Clipping_value + " Percantage is: "
+									+ tmpPlant.Clipping_status + ", Total # of devices is: "
+									+ tmpPlant.Clipping_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Clipping_faulty_devices + ", Value is: "
+									+ tmpPlant.Clipping_value + ", Percantage is: "
 									+ tmpPlant.Clipping_percentage);
 
 						} 
@@ -354,10 +353,10 @@ public class DailyReportBase extends SelTestCase {
 							
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Temperature_Alert_status + " Total # of devices is: "
-									+ tmpPlant.Temperature_Alert_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Temperature_Alert_faulty_devices + " Value is: "
-									+ tmpPlant.Temperature_Alert_value + " Percantage is: "
+									+ tmpPlant.Temperature_Alert_status + ", Total # of devices is: "
+									+ tmpPlant.Temperature_Alert_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Temperature_Alert_faulty_devices + ", Value is: "
+									+ tmpPlant.Temperature_Alert_value + ", Percantage is: "
 									+ tmpPlant.Temperature_Alert_percentage);
 							
 						}
@@ -377,10 +376,10 @@ public class DailyReportBase extends SelTestCase {
 							
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Frequency_Deviation_status + " Total # of devices is: "
-									+ tmpPlant.Frequency_Deviation_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Frequency_Deviation_faulty_devices + " Value is: "
-									+ tmpPlant.Frequency_Deviation_value + " Percantage is: "
+									+ tmpPlant.Frequency_Deviation_status + ", Total # of devices is: "
+									+ tmpPlant.Frequency_Deviation_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Frequency_Deviation_faulty_devices + ", Value is: "
+									+ tmpPlant.Frequency_Deviation_value + ", Percantage is: "
 									+ tmpPlant.Frequency_Deviation_percentage);
 							
 						}
@@ -400,10 +399,10 @@ public class DailyReportBase extends SelTestCase {
 							
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Temperature_Coefficient_status + " Total # of devices is: "
-									+ tmpPlant.Temperature_Coefficient_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Temperature_Coefficient_faulty_devices + " Value is: "
-									+ tmpPlant.Temperature_Coefficient_value + " Percantage is: "
+									+ tmpPlant.Temperature_Coefficient_status + ", Total # of devices is: "
+									+ tmpPlant.Temperature_Coefficient_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Temperature_Coefficient_faulty_devices + ", Value is: "
+									+ tmpPlant.Temperature_Coefficient_value + ", Percantage is: "
 									+ tmpPlant.Temperature_Coefficient_percentage);
 							
 						}
@@ -423,10 +422,10 @@ public class DailyReportBase extends SelTestCase {
 							
 							Testlogs.get()
 							.debug("Insight Name: " + values[0] + " Status is: "
-									+ tmpPlant.Disconnected_Strings_status + " Total # of devices is: "
-									+ tmpPlant.Disconnected_Strings_total_devices + " Total # of faulty devices "
-									+ tmpPlant.Disconnected_Strings_faulty_devices + " Value is: "
-									+ tmpPlant.Disconnected_Strings_value + " Percantage is: "
+									+ tmpPlant.Disconnected_Strings_status + ", Total # of devices is: "
+									+ tmpPlant.Disconnected_Strings_total_devices + ", Total # of faulty devices "
+									+ tmpPlant.Disconnected_Strings_faulty_devices + ", Value is: "
+									+ tmpPlant.Disconnected_Strings_value + ", Percantage is: "
 									+ tmpPlant.Disconnected_Strings_percentage);
 						}
 
