@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.generic.page.plant;
@@ -19,13 +18,11 @@ import com.generic.sql.SqlStatements;
 public class sqLiteUtils extends SelTestCase{
 	@Test()
 	public static void builder() {
-		setTestCaseReportName(SheetVariables.DailyReportTestCaseId);
-		 createNewDatabase(DatabaseName);
-		 createNewTable(TableName, DatabaseName);
-//		insertData(23, "tarw", 2, "test.db");
-//		selectData("23", "test.db");
-//		updateData(23, "tarwqqqqq", 2333, "test.db");
-//		selectData("23", "test.db");
+		//setTestCaseReportName(SheetVariables.DailyReportTestCaseId);
+		 //createNewDatabase(DatabaseName);
+		 //createNewTable(TableName, DatabaseName);
+		plant test = selectDataForTheDayBefore("demo","Italy Milan",TableName, DatabaseName);
+		logs.debug("done");
 	}
 
 	// Create a new database if it doesn't exist, this methods requires the name of
@@ -50,9 +47,10 @@ public class sqLiteUtils extends SelTestCase{
 			Assert.assertTrue(false, e.getMessage());
 		}
 		getCurrentFunctionName(false);
-	}
+	}//create NewDatabase
 
 	public static void closeConnection(Connection conn) {
+		getCurrentFunctionName(true);
 		if (conn != null) {
 			try {
 				conn.close();
@@ -61,11 +59,13 @@ public class sqLiteUtils extends SelTestCase{
 				Assert.assertTrue(false, e.getMessage());
 			}
 		}
-	}
+		getCurrentFunctionName(false);
+	}//close connection 
 
 	// Creates a new table in a specified database, this method takes the query and
 	// the name of the database
 	public static void createNewTable(String TableName, String DatabaseName) {
+		getCurrentFunctionName(true);
 		String url = "jdbc:sqlite:"+EnvironmentFiles.getDatabasePath()+"/" + DatabaseName;
 		String querey = SqlStatements.CreateTableStatement.replace("TableName", TableName);
 		
@@ -76,17 +76,22 @@ public class sqLiteUtils extends SelTestCase{
 			logs.debug("Table is not created" + e.getMessage());
 			Assert.assertTrue(false, e.getMessage());
 		}
-	}
+		getCurrentFunctionName(false);
+	}//createNewTable
 
 	// Inserts data into a specific table, this method requires the data and the
 	// name of the database
 	public static void insertData(plant plantInfo, String TableName, String DatabaseName) {
+		getCurrentFunctionName(true);
 		String url = "jdbc:sqlite:" + EnvironmentFiles.getDatabasePath() + "/" + DatabaseName;
 
 		try (Connection conn = DriverManager.getConnection(url)) {
 			// Best way to pass the data to the database by passing it as injections
 			String Statement = SqlStatements.insertStetment.replace("TableName", TableName)
-					+ " VALUES("+plantInfo.PEI_value +","+
+					+ " VALUES("+
+					"'"+plantInfo.user +"',"+
+					"'"+plantInfo.plant +"',"+
+					plantInfo.PEI_value +","+
 					plantInfo.PEI_percentage +","+
 					plantInfo.PERF_value +","+
 					plantInfo.PERF_percentage +","+
@@ -200,55 +205,160 @@ public class sqLiteUtils extends SelTestCase{
 				logs.debug("Inserted sucessfuly");
 			else
 				logs.debug("Failed to insert");
-
+			closeConnection(conn);
 		} catch (SQLException e) {
 			logs.debug(e.getMessage());
 			Assert.assertTrue(false, e.getMessage());
 		}
+		getCurrentFunctionName(false);
+	}//insrtData
 
-	}
-
-	// This method selects a specific record of data in a specific table,and it
-	// requires the database name
-	public static void selectData(String id, String fileName) {
-
-		String url = "jdbc:sqlite:"+EnvironmentFiles.getDatabasePath()+"/" + fileName;
-
+	
+	// This method selects a specific record of data in a specific table, based on the date 
+	public static plant selectDataForTheDayBefore(String user, String plant, String TableName, String DatabaseName) {
+		getCurrentFunctionName(true);
+		String url = "jdbc:sqlite:"+EnvironmentFiles.getDatabasePath()+"/" + DatabaseName;
+		plant results = null; 
+		
 		try (Connection conn = DriverManager.getConnection(url);) {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM warehouses WHERE id = ?");
-			ps.setString(1, id);
+			logs.debug(SqlStatements.SelectPreviousDate.replace("?1",user).replace("?2",plant));
+			PreparedStatement ps = conn.prepareStatement(SqlStatements.SelectPreviousDate.replace("?1",user).replace("?2",plant));
+			
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				System.out.println(rs.getInt("id") + "\t" + rs.getString("name") + "\t" + rs.getDouble("capacity"));
+			
+			rs.next();	
+			results = parsePlantresult(rs);
+			
+			if (rs.next())
+			{
+				new SQLException("More than one row returned for this function");
 			}
+			
+			
+			closeConnection(conn);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logs.debug(e.getMessage());
+			Assert.assertTrue(false, e.getMessage());
 		}
+		getCurrentFunctionName(false);
+		return results;
+	}//selectData
+	
 
-	}
-
-	// Updates data into a specific table, this method requires the data and the
-	// name of the database
-	public static void updateData(int id, String name, int capacity, String fileName) {
-		String url = "jdbc:sqlite:"+EnvironmentFiles.getDatabasePath()+"/" + fileName;
-
-		try (Connection conn = DriverManager.getConnection(url)) {
-			// Best way to pass the data to the database by passing it as injections
-			PreparedStatement ps = conn.prepareStatement("UPDATE warehouses SET name = ? ,capacity = ? WHERE id = ?");
-			ps.setString(1, name);
-			ps.setString(2, capacity + "");
-			ps.setString(3, id + "");
-
-			// if it returns less than 0, no rows were updated
-			if (ps.executeUpdate() > 0)
-				System.out.println("Record updated sucessfuly");
-			else
-				System.out.println("Failed to update record");
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
+	public static plant parsePlantresult(ResultSet rs) throws SQLException {
+		getCurrentFunctionName(true);
+		
+		plant results = new plant();
+		results.user = rs.getString("user");
+		results.plant = rs.getString("plant");
+		results.PEI_value = rs.getDouble("PEI_value");
+		results.PEI_percentage = rs.getDouble("PEI_percentage");
+		results.PERF_value = rs.getDouble("PERF_value");
+		results.PERF_percentage = rs.getDouble("PERF_percentage");
+		results.Avilability_value = rs.getDouble("Avilability_value");
+		results.Avilability_percentage = rs.getDouble("Avilability_percentage");
+		results.inverters___Performance = rs.getDouble("inverters___Performance");
+		results.inverters_Mppt = rs.getDouble("inverters_Mppt");
+		results.inverters_relative_efficiency = rs.getDouble("inverters_relative_efficiency");
+		results.inverters_efficiency_below_spec = rs.getDouble("inverters_efficiency_below_spec");
+		results.inverters___availability = rs.getDouble("inverters___availability");
+		results.inverters___downtime = rs.getDouble("inverters___downtime");
+		results.strings___performance = rs.getDouble("strings___performance");
+		results.strings___panel_degradation = rs.getDouble("strings___panel_degradation");
+		results.strings___disconnected_strings = rs.getDouble("strings___disconnected_strings");
+		results.strings___availability = rs.getDouble("strings___availability");
+		results.Health_PRpercentage = rs.getDouble("Health_PRpercentage");
+		results.Health_PR_STCpercentage = rs.getDouble("Health_PR_STCpercentage");
+		results.Health_Data_integrity_percentage = rs.getDouble("Health_Data_integrity_percentage");
+		results.Health_plantAvilability_percentage = rs.getDouble("Health_plantAvilability_percentage");
+		results.Health_Power_Factor_percentage = rs.getDouble("Health_Power_Factor_percentage");
+		results.Healty_Inverters = rs.getDouble("Healty_Inverters");
+		results.Healty_Strings = rs.getDouble("Healty_Strings");
+		results.OK_Inverters = rs.getDouble("OK_Inverters");
+		results.OK_Strings = rs.getDouble("OK_Strings");
+		results.Faulty_Inverters = rs.getDouble("Faulty_Inverters");
+		results.Faulty_Strings = rs.getDouble("Faulty_Strings");
+		results.Messing_data_inverters = rs.getDouble("Messing_data_inverters");
+		results.Messing_data_Strings = rs.getDouble("Messing_data_Strings");
+		results.Disconnected_Strings_total_devices = rs.getDouble("Disconnected_Strings_total_devices");
+		results.Disconnected_Strings_faulty_devices = rs.getDouble("Disconnected_Strings_faulty_devices");
+		results.Disconnected_Strings_value = rs.getDouble("Disconnected_Strings_value");
+		results.Disconnected_Strings_percentage = rs.getDouble("Disconnected_Strings_percentage");
+		results.Disconnected_Strings_status = rs.getString("Disconnected_Strings_status");
+		results.Panel_Degradation_total_devices = rs.getDouble("Panel_Degradation_total_devices");
+		results.Panel_Degradation_faulty_devices = rs.getDouble("Panel_Degradation_faulty_devices");
+		results.Panel_Degradation_value = rs.getDouble("Panel_Degradation_value");
+		results.Panel_Degradation_percentage = rs.getDouble("Panel_Degradation_percentage");
+		results.Panel_Degradation_status = rs.getString("Panel_Degradation_status");
+		results.String_Data_integrity_total_devices = rs.getDouble("String_Data_integrity_total_devices");
+		results.String_Data_integrity_faulty_devices = rs.getDouble("String_Data_integrity_faulty_devices");
+		results.String_Data_integrity_value = rs.getDouble("String_Data_integrity_value");
+		results.String_Data_integrity_percentage = rs.getDouble("String_Data_integrity_percentage");
+		results.String_Data_integrity_status = rs.getString("String_Data_integrity_status");
+		results.Temperature_Coefficient_total_devices = rs.getDouble("Temperature_Coefficient_total_devices");
+		results.Temperature_Coefficient_faulty_devices = rs.getDouble("Temperature_Coefficient_faulty_devices");
+		results.Temperature_Coefficient_value = rs.getDouble("Temperature_Coefficient_value");
+		results.Temperature_Coefficientpercentage = rs.getDouble("Temperature_Coefficientpercentage");
+		results.Temperature_Coefficient__status = rs.getString("Temperature_Coefficient__status");
+		results.Inverter_Downtime_total_devices = rs.getDouble("Inverter_Downtime_total_devices");
+		results.Inverter_Downtime_faulty_devices = rs.getDouble("Inverter_Downtime_faulty_devices");
+		results.Inverter_Downtime_value = rs.getDouble("Inverter_Downtime_value");
+		results.Inverter_Downtime_percentage = rs.getDouble("Inverter_Downtime_percentage");
+		results.Inverter_Downtime__status = rs.getString("Inverter_Downtime__status");
+		results.Inverter_Data_integrity_total_devices = rs.getDouble("Inverter_Data_integrity_total_devices");
+		results.Inverter_Data_integrity_faulty_devices = rs.getDouble("Inverter_Data_integrity_faulty_devices");
+		results.Inverter_Data_integrity_value = rs.getDouble("Inverter_Data_integrity_value");
+		results.Inverter_Data_integrity_percentage = rs.getDouble("Inverter_Data_integrity_percentage");
+		results.Inverter_Data_integrity_status = rs.getString("Inverter_Data_integrity_status");
+		results.Inverter_Efficiency_Below_Spec_total_devices = rs.getDouble("Inverter_Efficiency_Below_Spec_total_devices");
+		results.Inverter_Efficiency_Below_Spec_faulty_devices = rs.getDouble("Inverter_Efficiency_Below_Spec_faulty_devices");
+		results.Inverter_Efficiency_Below_Spec_value = rs.getDouble("Inverter_Efficiency_Below_Spec_value");
+		results.Inverter_Efficiency_Below_Spec_percentage = rs.getDouble("Inverter_Efficiency_Below_Spec_percentage");
+		results.Inverter_Efficiency_Below_Spec_status = rs.getString("Inverter_Efficiency_Below_Spec_status");
+		results.Late_Awakening_total_devices = rs.getDouble("Late_Awakening_total_devices");
+		results.Late_Awakening_faulty_devices = rs.getDouble("Late_Awakening_faulty_devices");
+		results.Late_Awakening_value = rs.getDouble("Late_Awakening_value");
+		results.Late_Awakening_percentage = rs.getDouble("Late_Awakening_percentage");
+		results.Late_Awakening_status = rs.getString("Late_Awakening_status");
+		results.Mppt_total_devices = rs.getDouble("Mppt_total_devices");
+		results.Mppt_faulty_devices = rs.getDouble("Mppt_faulty_devices");
+		results.Mppt_value = rs.getDouble("Mppt_value");
+		results.Mppt_percentage = rs.getDouble("Mppt_percentage");
+		results.Mppt_status = rs.getString("Mppt_status");
+		results.Inverter_Relative_Efficiency_total_devices = rs.getDouble("Inverter_Relative_Efficiency_total_devices");
+		results.Inverter_Relative_Efficiency_faulty_devices = rs.getDouble("Inverter_Relative_Efficiency_faulty_devices");
+		results.Inverter_Relative_Efficiency_value = rs.getDouble("Inverter_Relative_Efficiency_value");
+		results.Inverter_Relative_Efficiency_percentage = rs.getDouble("Inverter_Relative_Efficiency_percentage");
+		results.Inverter_Relative_Efficiency_status = rs.getString("Inverter_Relative_Efficiency_status");
+		results.Clipping_total_devices = rs.getDouble("Clipping_total_devices");
+		results.Clipping_faulty_devices = rs.getDouble("Clipping_faulty_devices");
+		results.Clipping_value = rs.getDouble("Clipping_value");
+		results.Clipping_percentage = rs.getDouble("Clipping_percentage");
+		results.Clipping_status = rs.getString("Clipping_status");
+		results.Power_Factor_total_devices = rs.getDouble("Power_Factor_total_devices");
+		results.Power_Factor_faulty_devices = rs.getDouble("Power_Factor_faulty_devices");
+		results.Power_Factor_value = rs.getDouble("Power_Factor_value");
+		results.Power_Factor_percentage = rs.getDouble("Power_Factor_percentage");
+		results.Power_Factor_status = rs.getString("Power_Factor_status");
+		results.Temperature_Alert_total_devices = rs.getDouble("Temperature_Alert_total_devices");
+		results.Temperature_Alert_faulty_devices = rs.getDouble("Temperature_Alert_faulty_devices");
+		results.Temperature_Alert_value = rs.getDouble("Temperature_Alert_value");
+		results.Temperature_Alert_percentage = rs.getDouble("Temperature_Alert_percentage");
+		results.Temperature_Alert_status = rs.getString("Temperature_Alert_status");
+		results.Frequency_Deviation_total_devices = rs.getDouble("Frequency_Deviation_total_devices");
+		results.Frequency_Deviation_faulty_devices = rs.getDouble("Frequency_Deviation_faulty_devices");
+		results.Frequency_Deviation_value = rs.getDouble("Frequency_Deviation_value");
+		results.Frequency_Deviation_percentage = rs.getDouble("Frequency_Deviation_percentage");
+		results.Frequency_Deviation_status = rs.getString("Frequency_Deviation_status");
+		results.Voltage_Deviation_total_devices = rs.getDouble("Voltage_Deviation_total_devices");
+		results.Voltage_Deviation_faulty_devices = rs.getDouble("Voltage_Deviation_faulty_devices");
+		results.Voltage_Deviation_value = rs.getDouble("Voltage_Deviation_value");
+		results.Voltage_Deviation_percentage = rs.getDouble("Voltage_Deviation_percentage");
+		results.Voltage_Deviation_status = rs.getString("Voltage_Deviation_status");
+		
+		getCurrentFunctionName(false);
+		
+		return results;
+	}//parsePlantResults
 
 }

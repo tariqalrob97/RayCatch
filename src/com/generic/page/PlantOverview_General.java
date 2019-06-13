@@ -106,7 +106,24 @@ public class PlantOverview_General extends SelTestCase {
 		}
 	}
 	
-	
-	
+	// get all general data
+	public static void getGeneralPlantInfo(plant tmpPlant) throws Exception {
+		try {
+			getCurrentFunctionName(true);
+			tmpPlant.PEI_value = getPlantOverallExtraIncomeValue();
+			tmpPlant.PEI_percentage = getPlantOverallExtraIncomePercent();
+
+			tmpPlant.PERF_value = getOverallPlantPerformanceValue();
+			tmpPlant.PERF_percentage = getOverallPlantPerformancePercent();
+
+			tmpPlant.Avilability_value = getOverallPlantavailabilityValue();
+			tmpPlant.Avilability_percentage = getOverallPlantavailabilityPercent();
+			getCurrentFunctionName(false);
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
 
 }
