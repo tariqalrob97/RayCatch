@@ -83,7 +83,7 @@ public class plant {
 	public double Mppt_faulty_devices = 0;
 	public double Mppt_value = 0;               //remove late
 	public double Mppt_percentage = 0;			//remove late
-	public String Mpptc_status = "Healthy";
+	public String Mppt_status = "Healthy";
 
 	public double Inverter_Relative_Efficiency_total_devices = 0;
 	public double Inverter_Relative_Efficiency_faulty_devices = 0;
@@ -95,9 +95,9 @@ public class plant {
 	public double Clipping_faulty_devices = 0;
 	public double Clipping_value = 0;
 	public double Clipping_percentage = 0;   // was wrong
-	public String Clipping_percentage_status = "Healthy";
+	public String Clipping_status = "Healthy";
 
-	public double Power_Factor_total_devices = 0;
+	public double Power_Factor_total_dzevices = 0;
 	public double Power_Factor_faulty_devices = 0;
 	public double Power_Factor_value = 0;
 	public double Power_Factor_percentage = 0;
@@ -121,7 +121,7 @@ public class plant {
 	public double Voltage_Deviation_faulty_devices = 0;
 	public double Voltage_Deviation_value = 0;
 	public double Voltage_Deviation_percentage = 0;
-	public String Voltage_Deviationn_status = "Healthy";
+	public String Voltage_Deviation_status = "Healthy";
 
 	
 	
