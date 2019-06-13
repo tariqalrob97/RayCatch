@@ -15,6 +15,7 @@ import org.testng.xml.XmlTest;
 
 import com.generic.page.HomePage;
 import com.generic.page.PlantOverview_General;
+import com.generic.page.PlantOverview_PlantInsights;
 import com.generic.page.SignIn;
 import com.generic.page.plant;
 import com.generic.setup.Common;
@@ -102,18 +103,18 @@ public class DailyReportBase extends SelTestCase {
 				// Step 5 get plant status general information
 				//Initiating new plant object to be used to store all plant object
 				plant tmpPlant  = new plant();	
-				
 				tmpPlant.user = userName;
 				tmpPlant.plant = plant.getText();
-				
 				PlantOverview_General.getGeneralPlantInfo(tmpPlant);
 				
+				// Step 6 get all plants insights
+ 				PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
 				
 				//get data from other tabs (inverters, strings)
 				//do aggregation and other calculations  
 				//get insight panels information (5 values)  
 				//get data for health
-				// get Plant heatmap
+				// get Plant heat map
 				
 				//print all data 
 				Testlogs.get()

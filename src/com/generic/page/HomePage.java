@@ -47,8 +47,8 @@ public class HomePage extends SelTestCase {
 		try {
 			getCurrentFunctionName(true);
 			List<WebElement> allInsights = getDriver().findElements(By.cssSelector(PlantOverViewSelector.Insight));
+			logs.debug("Found " + allInsights.size() + " Insights");
 			getCurrentFunctionName(false);
-			logs.debug("Found "+allInsights.size()+ " Insights");
 			return allInsights;
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
