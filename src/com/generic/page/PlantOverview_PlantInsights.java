@@ -1,41 +1,92 @@
 package com.generic.page;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import com.generic.selector.SignInSelectors;
 import com.generic.setup.ExceptionMsg;
-import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
-import com.generic.util.SelectorUtil;
+import com.generic.util.TestUtilities;
+
 
 public class PlantOverview_PlantInsights extends SelTestCase {
-
-	// Sample
-	public static String checkUserPlants() throws Exception {
+	public static double getInsightTotalDevices(String totalDevicesText) {
+		getCurrentFunctionName(true);
+		
 		try {
-			getCurrentFunctionName(true);
-			String plants = "";
-			SelectorUtil.initializeSelectorsAndDoActions(SignInSelectors.plantName);
-
-			List<WebElement> allPlants = getDriver().findElements(By.className(SignInSelectors.plantName));
-
-			for (int plant = 0; plant < allPlants.size(); plant++) {
-				plants += allPlants.get(plant).getText().toString() + ",";
-			}
 			getCurrentFunctionName(false);
-			return plants;
-		} catch (NoSuchElementException e) {
+			return Double.parseDouble(totalDevicesText.trim().substring(13, totalDevicesText.length()));
+		} 
+		
+		catch (Exception e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;
 		}
 	}
+
+	public static double getInsightTotalFaultyDevices(String totalFaultyDevicesText) {
+		getCurrentFunctionName(true);
+		
+		try {
+			getCurrentFunctionName(false);
+			return Double.parseDouble(totalFaultyDevicesText.trim().substring(
+					totalFaultyDevicesText.trim().indexOf("(") + 1, totalFaultyDevicesText.trim().indexOf(")")));
+		} 
+		
+		catch (Exception e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
+	public static double getInsightValue(String valueText) {
+		getCurrentFunctionName(true);
+		
+		try {
+			getCurrentFunctionName(false);
+			if(valueText.contains("$"))
+					return TestUtilities.valueParser(valueText.trim());
+			else
+					return 0;
+		} 
+		
+		catch (Exception e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
+	public static double getInsightPercentage(String percantageText) {
+		getCurrentFunctionName(true);
+		
+		try {
+			getCurrentFunctionName(false);
+			if( percantageText.contains("%"))
+				return TestUtilities.valueParser(percantageText);
+			else
+				return 0;
+		} 
+		
+		catch (Exception e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
+	public static String getInsightStatus(String statusText) {
+		getCurrentFunctionName(true);
+		
+		try {
+			getCurrentFunctionName(false);
+			return statusText.trim().substring(0, statusText.trim().indexOf(" "));
+		} 
+		
+		catch (Exception e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
 }

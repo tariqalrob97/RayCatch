@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.generic.selector.PlantOverViewSelector;
 import com.generic.selector.SignInSelectors;
 import com.generic.setup.ExceptionMsg;
 import com.generic.setup.SelTestCase;
@@ -39,6 +40,21 @@ public class HomePage extends SelTestCase {
 			throw e;
 		}
 
+	}
+	
+	// done RC
+	public static List<WebElement> getAllInsights() throws Exception {
+		try {
+			getCurrentFunctionName(true);
+			List<WebElement> allInsights = getDriver().findElements(By.cssSelector(PlantOverViewSelector.Insight));
+			getCurrentFunctionName(false);
+			logs.debug("Found "+allInsights.size()+ " Insights");
+			return allInsights;
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
 	}
 
 }
