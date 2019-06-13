@@ -129,5 +129,9 @@ public class plant {
 	public double Voltage_Deviation_value = 0;
 	public double Voltage_Deviation_percentage = 0;
 	public String Voltage_Deviation_status = "Healthy";
+	
+	
+	public String user = "NA";
+	public String plant = "NA";
 
 }

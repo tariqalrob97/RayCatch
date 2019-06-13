@@ -1,10 +1,14 @@
 package com.generic.sql;
 
+import java.time.LocalDate;
+
 import com.generic.setup.SelTestCase;
 
 public class SqlStatements extends SelTestCase {
 	public static String CreateTableStatement = "CREATE TABLE TableName (\r\n"
 			+ "RayDate date NOT NULL DEFAULT (datetime('now','localtime')),\r\n"
+			+ "user string NOT NULL DEFAULT 'NA',"
+			+ "plant string NOT NULL DEFAULT 'NA',"
 			+ "PEI_value double NOT NULL DEFAULT 0,\r\n" + "PEI_percentage double NOT NULL DEFAULT 0,\r\n"
 			+ "PERF_value double NOT NULL DEFAULT 0,\r\n" + "PERF_percentage double NOT NULL DEFAULT 0,\r\n"
 			+ "Avilability_value double NOT NULL DEFAULT 0,\r\n"
@@ -101,7 +105,7 @@ public class SqlStatements extends SelTestCase {
 			+ "Voltage_Deviation_percentage double NOT NULL DEFAULT 0,\r\n"
 			+ "Voltage_Deviation_status string NOT NULL DEFAULT 'Healthy'\r\n" + ");";
 
-	public static String insertStetment = "INSERT INTO TableName (PEI_value ,\r\n" + "PEI_percentage ,\r\n" + "PERF_value ,\r\n"
+	public static String insertStetment = "INSERT INTO TableName (user,plant,PEI_value ,\r\n" + "PEI_percentage ,\r\n" + "PERF_value ,\r\n"
 			+ "PERF_percentage ,\r\n" + "Avilability_value ,\r\n" + "Avilability_percentage ,\r\n"
 			+ "inverters___Performance ,\r\n" + "inverters_Mppt ,\r\n" + "inverters_relative_efficiency ,\r\n"
 			+ "inverters_efficiency_below_spec ,\r\n" + "inverters___availability ,\r\n" + "inverters___downtime ,\r\n"
@@ -145,4 +149,7 @@ public class SqlStatements extends SelTestCase {
 			+ "Frequency_Deviation_status ,\r\n" + "Voltage_Deviation_total_devices ,\r\n"
 			+ "Voltage_Deviation_faulty_devices ,\r\n" + "Voltage_Deviation_value ,\r\n"
 			+ "Voltage_Deviation_percentage ,\r\n" + "Voltage_Deviation_status \r\n" + ")\r\n";
+	
+	public static String SelectPreviousDate = "SELECT * FROM RayDailyData WHERE strftime('%s', raydate) BETWEEN strftime('%s', '"
+			+ LocalDate.now().minusDays(1) + "') AND strftime('%s', '" + LocalDate.now() + "') and user = '?1' and plant = '?2'";
 }
