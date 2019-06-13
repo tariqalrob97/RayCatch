@@ -101,39 +101,34 @@ public class DailyReportBase extends SelTestCase {
 
 				// Step 5 get plant status general information
 				//Initiating new plant object to be used to store all plant object
-				plant tmpPlant  = new plant();
+				plant tmpPlant  = new plant();	
 				
-				tmpPlant.PEI_value = PlantOverview_General.getPlantOverallExtraIncomeValue();
-				tmpPlant.PEI_percentage = PlantOverview_General.getPlantOverallExtraIncomePercent();
-
-				tmpPlant.PERF_value = PlantOverview_General.getOverallPlantPerformanceValue();
-				tmpPlant.PERF_percentage = PlantOverview_General.getOverallPlantPerformancePercent();
-
-				tmpPlant.Avilability_value = PlantOverview_General.getOverallPlantavailabilityValue();
-				tmpPlant.Avilability_percentage = PlantOverview_General.getOverallPlantavailabilityPercent();
+				tmpPlant.user = userName;
+				tmpPlant.plant = plant.getText();
+				
+				PlantOverview_General.getGeneralPlantInfo(tmpPlant);
 				
 				
-				
-				Testlogs.get()
-						.debug("<b>The Values of plant " + plant.getText() + "is  :</b><br>" + tmpPlant.PEI_value + "<br>"
-								+ tmpPlant.PEI_percentage + "<br>" + tmpPlant.PERF_value + "<br>" + tmpPlant.PERF_percentage
-								+ "<br>" + tmpPlant.Avilability_value + "<br>" + tmpPlant.Avilability_percentage + "<br>");
-
-				//this statement should be after getting all data   
-				//sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
-				
-				//insert tmpPlant into data base
-				//get the day before data from data sheet  
-				//compare data provide judgment 
 				//get data from other tabs (inverters, strings)
 				//do aggregation and other calculations  
-				//get insight panels information (4 values) 
-				//compare insight information with the day before. 
-				//get data for health   
-				//compare health data with the previous day
+				//get insight panels information (5 values)  
+				//get data for health
 				// get Plant heatmap
-				// compare current plant heatmap with the day before  
-								
+				
+				//print all data 
+				Testlogs.get()
+				.debug("<b>The Values of plant " + plant.getText() + "is  :</b><br>" + tmpPlant.PEI_value + "<br>"
+						+ tmpPlant.PEI_percentage + "<br>" + tmpPlant.PERF_value + "<br>" + tmpPlant.PERF_percentage
+						+ "<br>" + tmpPlant.Avilability_value + "<br>" + tmpPlant.Avilability_percentage + "<br>");
+				
+				//this statement should be after getting all data   
+				//insert tmpPlant into data base
+				sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
+				//get the day before data from data sheet
+				sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant, TableName, DatabaseName);
+				
+				//compare data provide judgment [challenging representation]
+				
 			}
 
 			sassert().assertAll();
@@ -148,4 +143,5 @@ public class DailyReportBase extends SelTestCase {
 			Assert.assertTrue(false, t.getMessage());
 		} // catch
 	}// test
+
 }
