@@ -84,6 +84,11 @@ public class SelTestCase {
     public static LinkedHashMap<String, Object> addresses = null; 
     public static LinkedHashMap<String, Object> invintory = null;
     public static LinkedHashMap<String, Object> paymentCards = null;
+    
+    
+    //Database conf 
+    public static String TableName = "RayDailyData"; 
+    public static String DatabaseName = "RayBase.db";
 
     public static String getBrowserName() {
         //return browserName;
