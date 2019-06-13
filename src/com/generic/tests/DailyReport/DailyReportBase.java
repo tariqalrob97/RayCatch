@@ -23,7 +23,7 @@ import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
 import com.generic.util.ReportUtil;
 import com.generic.util.SASLogger;
-
+import com.generic.util.TestUtilities;
 import com.generic.util.dataProviderUtils;
 
 public class DailyReportBase extends SelTestCase {
@@ -111,12 +111,160 @@ public class DailyReportBase extends SelTestCase {
 				tmpPlant.Avilability_value = PlantOverview_General.getOverallPlantavailabilityValue();
 				tmpPlant.Avilability_percentage = PlantOverview_General.getOverallPlantavailabilityPercent();
 				
+				// For each plant this line will get all insgits listed in the page 
+				List<WebElement> availbleInsights = HomePage.getAllInsights();
 				
+				//Inverter Relative Efficiency arrow_drop_down0: Click Investigate to see which inverters require treatment to improve efficiency.0: Faulty (22)0: $55.59K0: 0.10%0: Total Devices220: Investigate
 				
 				Testlogs.get()
 						.debug("<b>The Values of plant " + plant.getText() + "is  :</b><br>" + tmpPlant.PEI_value + "<br>"
 								+ tmpPlant.PEI_percentage + "<br>" + tmpPlant.PERF_value + "<br>" + tmpPlant.PERF_percentage
 								+ "<br>" + tmpPlant.Avilability_value + "<br>" + tmpPlant.Avilability_percentage + "<br>");
+				
+				// This for loop will go over all the insights to check wich ones are faulty and stores thier info
+				for (int insightIndex = 0; insightIndex < availbleInsights.size(); insightIndex++) {
+					WebElement insight = availbleInsights.get(insightIndex);
+					
+					if(insight.getText().contains("Faulty")){
+						String [] values = insight.getText().replace("arrow_drop_down", "").replace("0:","\n").split("\n");
+						
+						if(values[0].contains("Panel Degradation") ) {
+							
+							tmpPlant.Panel_Degradation_total_devices = Double.parseDouble(values[2].trim().substring(8,values[2].length()-1));
+							tmpPlant.Panel_Degradation_faulty_devices = Double.parseDouble(values[2].trim().substring( values[2].trim().indexOf("(")+1, values[2].trim().indexOf(")")));
+							tmpPlant.Panel_Degradation_value = TestUtilities.valueParser(values[3].trim());
+							tmpPlant.Panel_Degradation_percentage = TestUtilities.valueParser(values[4].trim());;
+							tmpPlant.Panel_Degradation_status = values[2].trim().substring(0,values[2].trim().indexOf(" "));
+							
+							
+							Testlogs.get().debug("Insight Name: "+values[0]+" Status is: "+tmpPlant.Panel_Degradation_status+" Total # of devices is: "+tmpPlant.Panel_Degradation_total_devices 
+									+" Total # of faulty devices "+tmpPlant.Panel_Degradation_faulty_devices+" Value is: "+
+									tmpPlant.Panel_Degradation_value+ " Percantage is: "+tmpPlant.Panel_Degradation_percentage);
+							
+							
+						}
+						
+						else if (values[0].contains("Inverter Efficiency Below Spec ") ) {
+							
+							tmpPlant.Inverter_Efficiency_Below_Spec_total_devices = 0;
+							tmpPlant.Inverter_Efficiency_Below_Spec_faulty_devices = 0;
+							tmpPlant.Inverter_Efficiency_Below_Spec_value = 0;
+							tmpPlant.Inverter_Efficiency_Below_Spec_percentage = 0;
+							
+						}
+						
+						else if (values[0].contains("Voltage Deviation") ) {
+							
+							tmpPlant.Voltage_Deviation_total_devices = 0;
+							tmpPlant.Voltage_Deviation_faulty_devices = 0;
+							tmpPlant.Voltage_Deviation_value = 0;
+							tmpPlant.Voltage_Deviation_percentage = 0;
+							
+						}
+						
+						else if (values[0].contains("MPPT") ) {
+							
+							tmpPlant.Mppt_total_devices = 0;
+							tmpPlant.Mppt_faulty_devices = 0;
+							tmpPlant.Mppt_value = 0;               
+							tmpPlant.Mppt_percentage = 0;
+							
+						}
+						
+						else if (values[0].contains("String Data Integrity") ) {
+							
+							tmpPlant.String_Data_integrity_total_devices = 0;
+							tmpPlant.String_Data_integrity_faulty_devices = 0;
+							tmpPlant.String_Data_integrity_value = 0;
+							tmpPlant.String_Data_integrity_percentage = 0;
+							
+						}
+						
+						else if (values[0].contains("Inverter Relative Efficiency") ) {
+							
+							tmpPlant.Inverter_Relative_Efficiency_total_devices = 0;
+							tmpPlant.Inverter_Relative_Efficiency_faulty_devices = 0;
+							tmpPlant.Inverter_Relative_Efficiency_value = 0; 
+							tmpPlant.Inverter_Relative_Efficiency_percentage = 0;
+							
+						}
+						
+						else if (values[0].contains("Inverter Downtime") ) {
+							
+							tmpPlant.Inverter_Downtime_total_devices = 0;
+							tmpPlant.Inverter_Downtime_faulty_devices = 0;
+							tmpPlant.Inverter_Downtime_value = 0;
+							tmpPlant.Inverter_Downtime_percentage = 0;
+							
+						}
+						
+						else if (values[0].contains("Late Awakening") ) {
+							
+							tmpPlant.Late_Awakening_total_devices = 0;
+							tmpPlant.Late_Awakening_faulty_devices = 0;
+							tmpPlant.Late_Awakening_value = 0;
+							tmpPlant.Late_Awakening_percentage = 0;
+	
+						}
+						
+						else if (values[0].contains("Clipping") ) {
+							
+							tmpPlant.Clipping_total_devices = 0;
+							tmpPlant.Clipping_faulty_devices = 0;
+							tmpPlant.Clipping_value = 0;
+							tmpPlant.Clipping_percentage = 0;
+	
+						}
+						else if (values[0].contains("Temperature Alert ") ) {
+							
+							tmpPlant.Temperature_Alert_total_devices = 0;
+							tmpPlant.Temperature_Alert_faulty_devices = 0;
+							tmpPlant.Temperature_Alert_value = 0;
+							tmpPlant.Temperature_Alert_percentage = 0;
+	
+						}
+	
+						else if (values[0].contains("Frequency Deviation") ) {
+							
+							tmpPlant.Frequency_Deviation_total_devices = 0;
+							tmpPlant.Frequency_Deviation_faulty_devices = 0;
+							tmpPlant.Frequency_Deviation_value = 0;
+							tmpPlant.Frequency_Deviation_percentage = 0;
+	
+						}
+						
+						else if (values[0].contains("Temperature Coefficient ") ) {
+							
+							tmpPlant.Temperature_Coefficient_total_devices = 0;
+							tmpPlant.Temperature_Coefficient_faulty_devices = 0;
+							tmpPlant.Temperature_Coefficient_value = 0;
+							tmpPlant.Temperature_Coefficient_percentage = 0;
+
+	
+						}
+	
+						else if (values[0].contains("Disconnected Strings ") ) {
+							
+							tmpPlant.Disconnected_Strings_total_devices = 0;
+							tmpPlant.Disconnected_Strings_faulty_devices = 0;
+							tmpPlant.Disconnected_Strings_value = 0;
+							tmpPlant.Disconnected_Strings_percentage = 0;
+
+	
+						}
+						
+						
+						
+						
+	
+	
+						
+						
+						
+						
+					}
+					
+				}
 				
 				//get the day before data from data sheet  
 				//compare data provide judgment 
