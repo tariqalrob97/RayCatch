@@ -57,7 +57,7 @@ public class HomePage extends SelTestCase {
 			throw e;
 		}
 	}
-
+	// done RC
 	public static WebElement getPlantHealthIndicators() {
 
 		try {
@@ -74,7 +74,7 @@ public class HomePage extends SelTestCase {
 			throw e;
 		}
 	}
-
+	// done RC
 	public static WebElement getPlantHeatMapContaitnerString() {
 
 		try {
