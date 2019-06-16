@@ -107,7 +107,7 @@ public class DailyReportBase extends SelTestCase {
  				PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
  				
  				// Step 7 Health indicators
-				PlantOverview_PlantHealthIndicators.getPlantHealthIndicators(tmpPlant,HomePage.getPlantHealthIndicators().getText());
+				PlantOverview_PlantHealthIndicators.getPlantHealthIndicators(tmpPlant);
 
 				//get data from other tabs (inverters, strings)
 				//do aggregation and other calculations  
@@ -125,7 +125,7 @@ public class DailyReportBase extends SelTestCase {
 				plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant, TableName, DatabaseName);
 				
 				//compare data provide judgment [challenging representation]
-				plant.comparPlantsAndwriteResults(tmpPlant,previousPlantData); 
+				//plant.comparPlantsAndwriteResults(tmpPlant,previousPlantData); 
 				
 				
 				//write them all to excel sheet [challenging representation]

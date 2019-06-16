@@ -5,7 +5,7 @@ public class SheetVariables {
 	public static final String users = "users";
 	
 	//SheetNames
-    public static final String loginSheet = "LoginRegression";
+    public static final String loginSheet = "DailyReportRegression";
     public static final String RunnersRegressionSheet = "SetupRunners";
 	public static final String BrowsersListingSheet = "SetupBrowsers";
    
