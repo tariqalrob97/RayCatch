@@ -16,6 +16,7 @@ import org.testng.xml.XmlTest;
 import com.generic.page.HomePage;
 import com.generic.page.PlantOverview_General;
 import com.generic.page.PlantOverview_PlantHealthIndicators;
+import com.generic.page.PlantOverview_PlantHeatmap;
 import com.generic.page.PlantOverview_PlantInsights;
 import com.generic.page.SignIn;
 import com.generic.page.plant;
@@ -108,6 +109,10 @@ public class DailyReportBase extends SelTestCase {
  				
  				// Step 7 Health indicators
 				PlantOverview_PlantHealthIndicators.getPlantHealthIndicators(tmpPlant);
+				
+				// Step 8 Heat map
+				PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
+
 
 				//get data from other tabs (inverters, strings)
 				//do aggregation and other calculations  
