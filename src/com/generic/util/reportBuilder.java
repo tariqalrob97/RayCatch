@@ -18,7 +18,7 @@ import com.generic.setup.SelTestCase;
 
 public class reportBuilder extends SelTestCase {
 
-	public static SASLogger logs = new SASLogger("Default");
+	public static loggerUtils logs = new loggerUtils("Default");
 	private static File PathObj ;
 
 	public static void main(String[] args) throws IOException {

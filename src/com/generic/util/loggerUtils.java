@@ -5,7 +5,7 @@ import org.apache.log4j.Logger;
 
 //import org.apache.log4j.Logger;
 
-public class SASLogger {
+public class loggerUtils {
 	//private static ThreadLocal<Logger> loggers = new ThreadLocal<Logger>();
 	private String testName = "";
 	private Logger logs22;
@@ -17,7 +17,7 @@ public class SASLogger {
 		//Reporter.log(msg, true );
 	}
 	
-	public SASLogger(String testNameincome) {
+	public loggerUtils(String testNameincome) {
 		testName = testNameincome;
 		logs22 = Logger.getLogger("logs");
 		debug(">>logs init TEST:" +Thread.currentThread().getId()+" : " +testNameincome);

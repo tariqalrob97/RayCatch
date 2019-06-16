@@ -14,7 +14,7 @@ import org.xml.sax.SAXException;
 import com.generic.setup.Common;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
-import com.generic.util.SASLogger;
+import com.generic.util.loggerUtils;
 import com.generic.util.TestUtilities;
 
 public class BuildFullRegression extends SelTestCase {
@@ -26,12 +26,12 @@ public class BuildFullRegression extends SelTestCase {
 	public static final String testDataSheet = SheetVariables.RunnersRegressionSheet;
 	private static XmlTest testObject;
 
-	private static ThreadLocal<SASLogger> Testlogs = new ThreadLocal<SASLogger>();
+	private static ThreadLocal<loggerUtils> Testlogs = new ThreadLocal<loggerUtils>();
 
 	@BeforeTest
 	public static void initialSetUp(XmlTest test) throws Exception {
 		try {
-			Testlogs.set(new SASLogger(test.getName() + test.getIndex()));
+			Testlogs.set(new loggerUtils(test.getName() + test.getIndex()));
 			testObject = test;
 			
 			try {

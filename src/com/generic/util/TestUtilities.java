@@ -140,7 +140,7 @@ public class TestUtilities extends SelTestCase {
 
 		logs.debug(MessageFormat.format(LoggingMsg.REPORT_TCID_MSG, testCaseRepotId));
 
-		setDatatable(new Xls_Reader(EnvironmentFiles.getDataSheetPath()));
+		setDatatable(new XlsUtils(EnvironmentFiles.getDataSheetPath()));
 
 		// set the max wait time
 		setWaitTime(Integer.parseInt(getCONFIG().getProperty("waitTime")));

@@ -23,7 +23,7 @@ import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
 import com.generic.util.ReportUtil;
-import com.generic.util.SASLogger;
+import com.generic.util.loggerUtils;
 
 import com.generic.util.dataProviderUtils;
 import com.generic.util.sqLiteUtils;
@@ -34,11 +34,11 @@ public class DailyReportBase extends SelTestCase {
 	public static final String testDataSheet = SheetVariables.loginSheet;
 	private static XmlTest testObject;
 
-	private static ThreadLocal<SASLogger> Testlogs = new ThreadLocal<SASLogger>();
+	private static ThreadLocal<loggerUtils> Testlogs = new ThreadLocal<loggerUtils>();
 
 	@BeforeTest
 	public static void initialSetUp(XmlTest test) throws Exception {
-		Testlogs.set(new SASLogger(test.getName() + test.getIndex()));
+		Testlogs.set(new loggerUtils(test.getName() + test.getIndex()));
 		testObject = test;
 	}
 
@@ -56,7 +56,7 @@ public class DailyReportBase extends SelTestCase {
 	@Test(dataProvider = "Login")
 	public void LoginRegressionTest(String caseId, String runTest, String desc, String proprties, String userName) {
 
-		Testlogs.set(new SASLogger("DailyReport " + getBrowserName()));
+		Testlogs.set(new loggerUtils("DailyReport " + getBrowserName()));
 		// Important to add this for logging/reporting
 		setTestCaseReportName(SheetVariables.DailyReportTestCaseId);
 		logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC, testDataSheet + "." + caseId,
@@ -68,8 +68,6 @@ public class DailyReportBase extends SelTestCase {
 			Testlogs.get().debug("User will be used is: " + userdetails);
 		}
 		
-		//prepare datasheet  
-				
 		try {
 
 			// Step 1 do log-in
@@ -87,48 +85,46 @@ public class DailyReportBase extends SelTestCase {
 			}
 			Testlogs.get().debug("Account plants " + accountPlantes.replace("\n", "<br>") + " plants");
 			
-			
-			ArrayList<plant> PlantsInfo;
-			
 			// Step 3 reiterate all plants and validate calculations
 			for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
 				// get all plants - to avoid element is not attached to the page document
 				List<WebElement> currentAvailablePlants = HomePage.getUserPlants();
-				WebElement plant = currentAvailablePlants.get(plantIndex);
+				WebElement Web_plant = currentAvailablePlants.get(plantIndex);
 				
 				// Step 4 Navigate to plant status
-				HomePage.navigateToPlant(plant);
-				sassert().assertTrue(accountPlantes.contains(plant.getText()), "Plant "+ plant.getText() + " is not exist in account plants");
+				HomePage.navigateToPlant(Web_plant);
+				sassert().assertTrue(accountPlantes.contains(Web_plant.getText()), "Plant "+ Web_plant.getText() + " is not exist in account plants");
 
 				// Step 5 get plant status general information
 				//Initiating new plant object to be used to store all plant object
 				plant tmpPlant  = new plant();	
 				tmpPlant.user = userName;
-				tmpPlant.plant = plant.getText();
+				tmpPlant.plant = Web_plant.getText();
 				PlantOverview_General.getGeneralPlantInfo(tmpPlant);
 				
-				// Step 6 get all plants insights
+				// Step 6 get all plants insights and values for each plant
  				PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
 				
 				//get data from other tabs (inverters, strings)
 				//do aggregation and other calculations  
-				//get insight panels information (5 values)  
 				//get data for health
-				// get Plant heat map
+				//get Plant heat map
 				
-				//print all data 
-				Testlogs.get()
-				.debug("<b>The Values of plant " + plant.getText() + "is  :</b><br>" + tmpPlant.PEI_value + "<br>"
-						+ tmpPlant.PEI_percentage + "<br>" + tmpPlant.PERF_value + "<br>" + tmpPlant.PERF_percentage
-						+ "<br>" + tmpPlant.Avilability_value + "<br>" + tmpPlant.Avilability_percentage + "<br>");
+				
+ 				//print all data
+ 				plant.printPlant(tmpPlant);
 				
 				//this statement should be after getting all data   
 				//insert tmpPlant into data base
 				sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
 				//get the day before data from data sheet
-				sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant, TableName, DatabaseName);
+				plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant, TableName, DatabaseName);
 				
 				//compare data provide judgment [challenging representation]
+				plant.comparPlantsAndwriteResults(tmpPlant,previousPlantData); 
+				
+				
+				//write them all to excel sheet [challenging representation]
 				
 			}
 

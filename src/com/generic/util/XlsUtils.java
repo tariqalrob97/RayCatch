@@ -1,12 +1,9 @@
 package com.generic.util;
 
-import org.apache.poi.common.usermodel.HyperlinkType;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.*;
 
@@ -18,7 +15,7 @@ import java.text.MessageFormat;
 import java.util.Calendar;
 
 
-public class Xls_Reader {
+public class XlsUtils {
 	public String path;
 	public FileInputStream fis = null;
 	public FileOutputStream fileOut = null;
@@ -30,9 +27,9 @@ public class Xls_Reader {
 	private XSSFCellStyle my_style = null;
 	private XSSFFont my_font = null;
 
-	public static SASLogger logs = SelTestCase.logs;
+	public static loggerUtils logs = SelTestCase.logs;
 
-	public Xls_Reader(String path) {
+	public XlsUtils(String path) {
 		System.out.println("Inputs file: " + path);
 
 		this.path = path;
@@ -42,7 +39,6 @@ public class Xls_Reader {
 			sheet = workbook.getSheetAt(0);
 			fis.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -184,6 +180,15 @@ public class Xls_Reader {
 		}
     }// getCellData()
 
+	public int getColName(String colName) {
+		int colNum = -1;  
+		for (int i = 0; i < row.getLastCellNum(); i++) {
+			if (row.getCell(i).getStringCellValue().trim().equals(colName))
+				colNum = i;
+		}
+		return colNum;
+	}
+
 	// returns true if data is set successfully else false
 	public boolean setCellData(String sheetName, String colName, int rowNum, String data) {
 		try {
@@ -245,192 +250,6 @@ public class Xls_Reader {
 		return true;
 	}//setCell
 
-	public int getColName(String colName) {
-		int colNum = -1;  
-		for (int i = 0; i < row.getLastCellNum(); i++) {
-			if (row.getCell(i).getStringCellValue().trim().equals(colName))
-				colNum = i;
-		}
-		return colNum;
-	}
-
-	// returns true if data is set successfully else false
-	public boolean setCellData(String sheetName, String colName, int rowNum, String data, String url) {
-		// System.out.println("setCellData setCellData******************");
-		try {
-			fis = new FileInputStream(path);
-			workbook = new XSSFWorkbook(fis);
-
-			if (rowNum <= 0)
-				return false;
-
-			int index = workbook.getSheetIndex(sheetName);
-			int colNum = -1;
-			if (index == -1)
-				return false;
-
-			sheet = workbook.getSheetAt(index);
-			row = sheet.getRow(0);
-			for (int i = 0; i < row.getLastCellNum(); i++) {
-				if (row.getCell(i).getStringCellValue().trim().equalsIgnoreCase(colName))
-					colNum = i;
-			}
-
-			if (colNum == -1)
-				return false;
-			sheet.autoSizeColumn(colNum);
-			row = sheet.getRow(rowNum - 1);
-			if (row == null)
-				row = sheet.createRow(rowNum - 1);
-
-			cell = row.getCell(colNum);
-			if (cell == null)
-				cell = row.createCell(colNum);
-
-			cell.setCellValue(data);
-			XSSFCreationHelper createHelper = workbook.getCreationHelper();
-
-			// cell style for hyperlinks
-			// by default hypelrinks are blue and underlined
-			CellStyle hlink_style = workbook.createCellStyle();
-			XSSFFont hlink_font = workbook.createFont();
-			hlink_font.setUnderline(XSSFFont.U_SINGLE);
-			hlink_font.setColor(IndexedColors.BLUE.getIndex());
-			hlink_style.setFont(hlink_font);
-			// hlink_style.setWrapText(true);
-
-			XSSFHyperlink link = createHelper.createHyperlink(HyperlinkType.FILE);
-			link.setAddress(url);
-			cell.setHyperlink(link);
-			cell.setCellStyle(hlink_style);
-
-			fileOut = new FileOutputStream(path);
-			workbook.write(fileOut);
-
-			fileOut.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-
-	// returns true if sheet is created successfully else false
-	public boolean addSheet(String sheetname) {
-
-		FileOutputStream fileOut;
-		try {
-			workbook.createSheet(sheetname);
-			fileOut = new FileOutputStream(path);
-			workbook.write(fileOut);
-			fileOut.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-
-	// returns true if sheet is removed successfully else false if sheet does not
-	// exist
-	public boolean removeSheet(String sheetName) {
-		int index = workbook.getSheetIndex(sheetName);
-		if (index == -1)
-			return false;
-
-		FileOutputStream fileOut;
-		try {
-			workbook.removeSheetAt(index);
-			fileOut = new FileOutputStream(path);
-			workbook.write(fileOut);
-			fileOut.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-
-	// returns true if column is created successfully
-	public boolean addColumn(String sheetName, String colName) {
-		// System.out.println("**************addColumn*********************");
-
-		try {
-			fis = new FileInputStream(path);
-			workbook = new XSSFWorkbook(fis);
-			int index = workbook.getSheetIndex(sheetName);
-			if (index == -1)
-				return false;
-
-			XSSFCellStyle style = workbook.createCellStyle();
-			style.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
-			style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-			sheet = workbook.getSheetAt(index);
-
-			row = sheet.getRow(0);
-			if (row == null)
-				row = sheet.createRow(0);
-
-			// cell = row.getCell();
-			// if (cell == null)
-			// System.out.println(row.getLastCellNum());
-			if (row.getLastCellNum() == -1)
-				cell = row.createCell(0);
-			else
-				cell = row.createCell(row.getLastCellNum());
-
-			cell.setCellValue(colName);
-			cell.setCellStyle(style);
-
-			fileOut = new FileOutputStream(path);
-			workbook.write(fileOut);
-			fileOut.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-
-		return true;
-
-	}
-
-	// removes a column and all the contents
-	public boolean removeColumn(String sheetName, int colNum) {
-		try {
-			if (!isSheetExist(sheetName))
-				return false;
-			fis = new FileInputStream(path);
-			workbook = new XSSFWorkbook(fis);
-			sheet = workbook.getSheet(sheetName);
-			XSSFCellStyle style = workbook.createCellStyle();
-			style.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
-			XSSFCreationHelper createHelper = workbook.getCreationHelper();
-			style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-			for (int i = 0; i < getRowCount(sheetName); i++) {
-				row = sheet.getRow(i);
-				if (row != null) {
-					cell = row.getCell(colNum);
-					if (cell != null) {
-						cell.setCellStyle(style);
-						row.removeCell(cell);
-					}
-				}
-			}
-			fileOut = new FileOutputStream(path);
-			workbook.write(fileOut);
-			fileOut.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-
-	}
-
 	// find whether sheets exists
 	public boolean isSheetExist(String sheetName) {
 		int index = workbook.getSheetIndex(sheetName);
@@ -458,29 +277,6 @@ public class Xls_Reader {
 
 		return row.getLastCellNum();
 
-	}
-
-	// String sheetName, String testCaseName,String keyword ,String URL,String
-	// message
-	public boolean addHyperLink(String sheetName, String screenShotColName, String testCaseName, int index, String url,
-			String message) {
-		// System.out.println("ADDING addHyperLink******************");
-
-		url = url.replace('\\', '/');
-		if (!isSheetExist(sheetName))
-			return false;
-
-		sheet = workbook.getSheet(sheetName);
-
-		for (int i = 2; i <= getRowCount(sheetName); i++) {
-			if (getCellData(sheetName, 0, i).equalsIgnoreCase(testCaseName)) {
-				// System.out.println("**caught "+(i+index));
-				setCellData(sheetName, screenShotColName, i + index, message, url);
-				break;
-			}
-		}
-
-		return true;
 	}
 
 	public int getCellRowNum(String sheetName, String colName, String cellValue) {

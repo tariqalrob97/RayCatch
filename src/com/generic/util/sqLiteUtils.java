@@ -222,6 +222,7 @@ public class sqLiteUtils extends SelTestCase{
 		
 		try (Connection conn = DriverManager.getConnection(url);) {
 			logs.debug(SqlStatements.SelectPreviousDate.replace("?1",user).replace("?2",plant));
+			//TODO: IMPORTANT TO HANDLE WEEKEND 
 			PreparedStatement ps = conn.prepareStatement(SqlStatements.SelectPreviousDate.replace("?1",user).replace("?2",plant));
 			
 			ResultSet rs = ps.executeQuery();

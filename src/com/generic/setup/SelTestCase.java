@@ -13,7 +13,7 @@ import java.util.Properties;
 
 //import org.apache.log4j.Logger;
 
-import com.generic.util.SASLogger;
+import com.generic.util.loggerUtils;
 import com.generic.util.SendMail;
 
 import org.testng.Assert;
@@ -29,7 +29,7 @@ import com.generic.setup.GlobalVariables.browsers;
 import com.generic.util.ReportAnalyzer;
 import com.generic.util.ReportUtil;
 import com.generic.util.TestUtilities;
-import com.generic.util.Xls_Reader;
+import com.generic.util.XlsUtils;
 import com.generic.util.reportBuilder;
 
 public class SelTestCase {
@@ -44,7 +44,7 @@ public class SelTestCase {
     public static String mainReportDir = null;
     public static String reportDirectory = null;
     
-    public static SASLogger logs = new SASLogger("Default");
+    public static loggerUtils logs = new loggerUtils("Default");
     
     //protected SoftAssert softAssert = new SoftAssert();
     private static ThreadLocal<SoftAssert> softAssert = new ThreadLocal<SoftAssert>();
@@ -57,10 +57,10 @@ public class SelTestCase {
     //private WebDriver driver = null;
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
     
-    private static ThreadLocal<SASLogger>TestLog = new ThreadLocal<SASLogger>();
+    private static ThreadLocal<loggerUtils>TestLog = new ThreadLocal<loggerUtils>();
     
     private static int waitTime;
-    private static Xls_Reader datatable = null;
+    private static XlsUtils datatable = null;
     protected static String testCaseReportName = "";
     private static String startTime = null;
     private static String testStatus = null;
@@ -127,12 +127,12 @@ public class SelTestCase {
         SelTestCase.startTime = startTime;
     }
 
-    public static Xls_Reader getDatatable() {
+    public static XlsUtils getDatatable() {
         return datatable;
     }
 
 
-    public static void setDatatable(Xls_Reader datatable) {
+    public static void setDatatable(XlsUtils datatable) {
         SelTestCase.datatable = datatable;
     }
     
@@ -257,11 +257,11 @@ public class SelTestCase {
     
     
     
-    public static  SASLogger getlogger()
+    public static  loggerUtils getlogger()
     {
     	return TestLog.get();
     }
-    public static  void setlogger(SASLogger log)
+    public static  void setlogger(loggerUtils log)
     {
     	TestLog.set(log);
     }

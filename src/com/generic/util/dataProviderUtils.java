@@ -8,7 +8,7 @@ import com.generic.setup.SelTestCase;
 public class dataProviderUtils {
 
 	private static dataProviderUtils myObj;
-	SASLogger logs = new SASLogger("DataProviderUtils");
+	loggerUtils logs = new loggerUtils("DataProviderUtils");
 
 	private dataProviderUtils() {
 		// TODO Auto-generated constructor stub
@@ -35,7 +35,7 @@ public class dataProviderUtils {
 		 */
 		// starting row 1 to rows sheets
 		logs.debug("Pulling data from sheet: "+ testName );
-		Xls_Reader dataTable = new Xls_Reader(EnvironmentFiles.getDataSheetPath());
+		XlsUtils dataTable = new XlsUtils(EnvironmentFiles.getDataSheetPath());
 		int rows = dataTable.getRowCount(testName) - 1;
 		// if empty sheet return empty data
 		if (rows <= 0) {
