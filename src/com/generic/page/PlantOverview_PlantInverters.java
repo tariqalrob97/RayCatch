@@ -10,31 +10,76 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.generic.selector.PlantOverViewSelector;
 import com.generic.selector.SignInSelectors;
 import com.generic.setup.ExceptionMsg;
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
 import com.generic.util.SelectorUtil;
+import com.generic.util.TestUtilities;
 
 public class PlantOverview_PlantInverters extends SelTestCase {
-	// Sample
-	public static String checkUserPlants() throws Exception {
+	
+	public static double getInvertersDataGeneral (String selector) throws Exception {
 		try {
 			getCurrentFunctionName(true);
-			String plants = "";
-			SelectorUtil.initializeSelectorsAndDoActions(SignInSelectors.plantName);
 
-			List<WebElement> allPlants = getDriver().findElements(By.className(SignInSelectors.plantName));
-
-			for (int plant = 0; plant < allPlants.size(); plant++) {
-				plants += allPlants.get(plant).getText().toString() + ",";
-			}
+			SelectorUtil.initializeSelectorsAndDoActions(selector);
+			String GrneralExtraIncomeValue = SelectorUtil.textValue.get();
 			getCurrentFunctionName(false);
-			return plants;
+			return TestUtilities.valueParser(GrneralExtraIncomeValue) ;
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+		
+		
+	}
+
+
+
+	// get inverters overall performance value
+	public static double getInvertersTabOverallPerformanceValue() throws Exception {
+			return getInvertersDataGeneral(PlantOverViewSelector.PlantPerformanceValue);
+	}
+
+	// get inverters overall performance percent
+	public static double getInvertersTabOverallPerformancePercent() throws Exception {
+			return getInvertersDataGeneral(PlantOverViewSelector.PlantPerformancePrecent);
+	}
+
+//  get inverters overall availability value 
+	public static double getInvertersTabOverallAvailabilityValue() throws Exception {
+		return getInvertersDataGeneral(PlantOverViewSelector.PlantAvailabilityValue);
+	}
+
+	// get inverters overall availability percent
+	public static double getInvertersTabOverallAvailabilityPercent() throws Exception {
+			return getInvertersDataGeneral(PlantOverViewSelector.PlantAvailabilityPrecent);
+	}
+	
+	
+	public static void getInvertersTabGeneralInfo(plant tmpPlant) throws Exception {
+		try {
+			getCurrentFunctionName(true);
+		
+
+			tmpPlant.inverters___Performance = getInvertersTabOverallPerformanceValue();
+			tmpPlant.inverters___availability = getInvertersTabOverallAvailabilityValue();
+			tmpPlant.inverters_efficiency_below_spec = tmpPlant.Inverter_Efficiency_Below_Spec_value;
+			tmpPlant.inverters_relative_efficiency = tmpPlant.Inverter_Relative_Efficiency_value;
+			tmpPlant.inverters_Mppt = tmpPlant.Mppt_value;
+			tmpPlant.inverters___downtime = tmpPlant.Inverter_Downtime_value;
+			
+			
+			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;
 		}
 	}
+	
+	
 }

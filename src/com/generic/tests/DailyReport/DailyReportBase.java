@@ -18,8 +18,11 @@ import com.generic.page.PlantOverview_General;
 import com.generic.page.PlantOverview_PlantHealthIndicators;
 import com.generic.page.PlantOverview_PlantHeatmap;
 import com.generic.page.PlantOverview_PlantInsights;
+import com.generic.page.PlantOverview_PlantInverters;
+import com.generic.page.PlantOverview_PlantStrings;
 import com.generic.page.SignIn;
 import com.generic.page.plant;
+import com.generic.selector.PlantOverViewSelector;
 import com.generic.setup.Common;
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
@@ -113,7 +116,24 @@ public class DailyReportBase extends SelTestCase {
 				// Step 8 Heat map
 				PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
 
-
+				// Step 9 Aggregation 
+				// Step 9.1 Inverters tab data
+				HomePage.navigateToTab(PlantOverViewSelector.InvertersTab);
+				PlantOverview_PlantInverters.getInvertersTabGeneralInfo(tmpPlant);
+				// Step 9.2 Inverters Aggregation
+				
+				
+				
+				
+				// Step 9.3 Strings tab data
+				HomePage.navigateToTab(PlantOverViewSelector.StringsTab);
+				PlantOverview_PlantStrings.getStringsTabGeneralInfo(tmpPlant);
+				// Step 9.4 Inverters Aggregation
+				
+				
+				
+				Testlogs.get().debug(PlantOverview_General.checkInvertersAvilabilityLossesAggregation(tmpPlant)+"ttt"+PlantOverview_General.checkInvertersPerformanceLossesAggregation(tmpPlant)+"ttttt"+ PlantOverview_General.checkStringsPerformanceLossesAggregation(tmpPlant)+"tarrrrrrr");
+				
 				//get data from other tabs (inverters, strings)
 				//do aggregation and other calculations  
 				//get data for health

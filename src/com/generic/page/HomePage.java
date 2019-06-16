@@ -42,6 +42,21 @@ public class HomePage extends SelTestCase {
 		}
 
 	}
+	
+	public static void navigateToTab(String tabSelector) {
+		try {
+			getCurrentFunctionName(true);
+			WebElement tab = getDriver().findElement(By.cssSelector(tabSelector));
+			logs.debug("Navigating to Tab:" + tab.getText());
+			tab.click();
+			getCurrentFunctionName(false);
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+
+	}
 
 	// done RC
 	public static List<WebElement> getAllInsights() throws Exception {
