@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import com.generic.selector.HomePageSelector;
 import com.generic.selector.PlantOverViewSelector;
 import com.generic.selector.SignInSelectors;
 import com.generic.setup.ExceptionMsg;
@@ -56,5 +57,22 @@ public class HomePage extends SelTestCase {
 			throw e;
 		}
 	}
+	
+public static WebElement getPlantHealthIndicators() {
+		
+		try {
+			getCurrentFunctionName(true);
+			WebElement allHealthIndicators = getDriver().findElement(By.cssSelector(HomePageSelector.PlantHealthIndicators));
+			logs.debug("Found "+allHealthIndicators.getText()+ " Health Indicators");
+			getCurrentFunctionName(false);
+			return allHealthIndicators;
+			
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
 
 }
