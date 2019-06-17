@@ -1,7 +1,8 @@
 package com.generic.tests.DailyReport;
 
+import static org.testng.Assert.assertFalse;
+
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,9 +29,8 @@ import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
 import com.generic.util.ReportUtil;
-import com.generic.util.loggerUtils;
-
 import com.generic.util.dataProviderUtils;
+import com.generic.util.loggerUtils;
 import com.generic.util.sqLiteUtils;
 
 public class DailyReportBase extends SelTestCase {
@@ -74,7 +74,21 @@ public class DailyReportBase extends SelTestCase {
 		}
 		
 		try {
-
+			
+			
+//			/*
+//			 * TODO: TO delete
+//			 * 
+//			 */
+//			
+//			//get the day before data from data sheet
+//			plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore("demo", "Italy Milan", TableName, DatabaseName);
+//			
+//			//compare data provide judgment [challenging representation]
+//			plant.comparPlantsAndwriteResults(previousPlantData,previousPlantData); 
+//
+//			assertFalse(true);
+			
 			// Step 1 do log-in
 			Testlogs.get().debug("Login username/password is: " + userName + " " + (String) userdetails.get(SignIn.keys.password) );
 			SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
@@ -150,7 +164,7 @@ public class DailyReportBase extends SelTestCase {
 				plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant, TableName, DatabaseName);
 				
 				//compare data provide judgment [challenging representation]
-				//plant.comparPlantsAndwriteResults(tmpPlant,previousPlantData); 
+				plant.comparPlantsAndwriteResults(tmpPlant,previousPlantData); 
 				
 				
 				//write them all to excel sheet [challenging representation]

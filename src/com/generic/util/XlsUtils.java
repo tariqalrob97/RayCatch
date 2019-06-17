@@ -181,21 +181,114 @@ public class XlsUtils {
     }// getCellData()
 
 	public int getColName(String colName) {
-		int colNum = -1;  
+		row = sheet.getRow(5);
+		int colNum = -1;
+	
 		for (int i = 0; i < row.getLastCellNum(); i++) {
 			if (row.getCell(i).getStringCellValue().trim().equals(colName))
+			{
 				colNum = i;
+				break;
+			}
 		}
 		return colNum;
-	}
+	}//getColName
+
+	private int getRowNumber(String sheetName, String rowName) {
+		int rowNum = -1;  
+		int plantNamesStarts = 4 ; 
+		int plantNameCol = 3;
+		
+		for (int rowNumber = plantNamesStarts; rowNumber < getRowCount(sheetName); rowNumber++) {
+			row = sheet.getRow(rowNumber);
+			if (row.getCell(plantNameCol).getStringCellValue().trim().contains(rowName))
+			{
+				rowNum = rowNumber;
+				break;
+			}
+			
+		}
+		
+		logs.debug("Row number is: "+rowNum +"for rowName: "+rowName);
+		return rowNum+1;
+	}//getRowNumber
+	
+	
+	
+	// returns true if data is set successfully else false
+		public boolean setCellData(String sheetName, int colNumber, String PlantName, String data) {
+			try {
+				logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber, data));
+				fis = new FileInputStream(path);
+				workbook = new XSSFWorkbook(fis);
+
+				int rowNum = getRowNumber(sheetName,PlantName);
+				
+				if (rowNum <= 0)
+					return false;
+
+				int index = workbook.getSheetIndex(sheetName);
+				int colNum = -1;
+				if (index == -1) {
+					logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Sheet"));
+					return false;
+				}
+				sheet = workbook.getSheetAt(index);
+				row = sheet.getRow(0);
+				colNum = colNumber;
+				if (colNum == -1) {
+					logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Col"));
+					return false;
+				} else {
+					// logs.debug(MessageFormat.format(LoggingMsg.COL_INDEX_MSG, colNum));
+				}
+
+				sheet.autoSizeColumn(colNum);
+				row = sheet.getRow(rowNum - 1);
+				if (row == null)
+					row = sheet.createRow(rowNum - 1);
+
+				cell = row.getCell(colNum);
+				if (cell == null)
+					cell = row.createCell(colNum);
+
+				if (data.contains("Fail") || data.contains("fail")) {
+					my_style = workbook.createCellStyle();
+					my_font = workbook.createFont();
+					my_font.setColor(XSSFFont.COLOR_RED);
+					my_style.setFont(my_font);
+				}
+
+				if (!cell.getStringCellValue().equals(data))
+					cell.setCellValue(data);
+				
+				if (data.contains("Fail") || data.contains("fail")) {
+					cell.setCellStyle(my_style);
+				}
+
+				fileOut = new FileOutputStream(path);
+				workbook.write(fileOut);
+				fileOut.close();
+				// fileOut = null;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			} /*
+				 * finally { if (fileOut != null) { try { fileOut.close(); } catch (IOException
+				 * e) { e.printStackTrace(); } } }
+				 */
+			return true;
+		}//setCell
 
 	// returns true if data is set successfully else false
-	public boolean setCellData(String sheetName, String colName, int rowNum, String data) {
+	public boolean setCellData(String sheetName, String plantProprty, String PlantName, String data) {
 		try {
-			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, rowNum, colName, data));
+			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, plantProprty, data));
 			fis = new FileInputStream(path);
 			workbook = new XSSFWorkbook(fis);
 
+			int rowNum = getRowNumber(sheetName,PlantName);
+			
 			if (rowNum <= 0)
 				return false;
 
@@ -207,7 +300,7 @@ public class XlsUtils {
 			}
 			sheet = workbook.getSheetAt(index);
 			row = sheet.getRow(0);
-			colNum = getColName(colName);
+			colNum = getColName(plantProprty);
 			if (colNum == -1) {
 				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Col"));
 				return false;
