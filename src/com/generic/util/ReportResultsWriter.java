@@ -79,7 +79,6 @@ public class ReportResultsWriter {
 			end_date = simpleDateFormat.parse(testCaseEndTime);
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.print(testCaseStartTime + testCaseEndTime );
 			return "<td><b>NA</b></td>\n";

@@ -12,6 +12,7 @@ public class plant extends SelTestCase {
 
 	public String user = "NA";
 	public String plant = "NA";
+	public String login = "FAIL";
 	
 	// general
 	public double PEI_value = 0;
@@ -265,10 +266,10 @@ public class plant extends SelTestCase {
 	public static void comparPlantsAndwriteResults(plant tmpPlant, plant previousPlantData) {
 		getCurrentFunctionName(true);
 		try {
-			//compareGeneralDataAndWriteResults(tmpPlant, previousPlantData);
-			//compareAggregationDataAndWriteResults(tmpPlant, previousPlantData); TODO: update functions and tabs  
-			//compareHealthDataAndWriteResults(tmpPlant, previousPlantData);
-			//compareHeatMapDataAndWriteResults(tmpPlant, previousPlantData);
+			compareGeneralDataAndWriteResults(tmpPlant, previousPlantData);
+			compareAggregationDataAndWriteResults(tmpPlant, previousPlantData); 
+			compareHealthDataAndWriteResults(tmpPlant, previousPlantData);
+			compareHeatMapDataAndWriteResults(tmpPlant, previousPlantData);
 			compareInsightsDataAndWriteResults(tmpPlant, previousPlantData);
 
 		} catch (NoSuchElementException e) {
@@ -285,9 +286,10 @@ public class plant extends SelTestCase {
 		try {
 
 			ArrayList<String> generalData = new ArrayList<String>();
-
 			double Delta = 0;
-
+			
+			generalData.add(tmpPlant.login);
+			
 			Delta = previousPlantData.PEI_value - tmpPlant.PEI_value;
 			generalData.add(previousPlantData.PEI_value + "");
 			generalData.add(tmpPlant.PEI_value + "");
@@ -319,8 +321,7 @@ public class plant extends SelTestCase {
 			generalData.add(Delta + "%");
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				// TODO: add login pass , start from index 5
-				getDatatable().setCellData(SheetVariables.GeneralTab, dataIndex + 5, tmpPlant.plant,
+				getDatatable().setCellData(SheetVariables.GeneralTab, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex));
 			}
 
@@ -338,64 +339,26 @@ public class plant extends SelTestCase {
 		try {
 			ArrayList<String> generalData = new ArrayList<String>();
 
-			double Delta = 0;
-
-			Delta = previousPlantData.inverters___Performance - tmpPlant.inverters___Performance;
-			generalData.add(previousPlantData.inverters___Performance + "");
 			generalData.add(tmpPlant.inverters___Performance + "");
-			generalData.add(Delta + "");
-			
-			//TODO: use Tariq code to calculate the performance 
-			//TODO: compare the value  tmpPlant.inverters___Performance with the calculated one 
-			//TODO: if they are not identical change the font color to RED 
-			
-			Delta = previousPlantData.inverters_Mppt - tmpPlant.inverters_Mppt;
-			generalData.add(previousPlantData.inverters_Mppt + "");
+			generalData.add(PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant) + "");
 			generalData.add(tmpPlant.inverters_Mppt + "");
-			generalData.add(Delta + "");
-
-			Delta = previousPlantData.inverters_relative_efficiency - tmpPlant.inverters_relative_efficiency;
-			generalData.add(previousPlantData.inverters_relative_efficiency + "");
 			generalData.add(tmpPlant.inverters_relative_efficiency + "");
-			generalData.add(Delta + "");
-
-			Delta = previousPlantData.inverters_efficiency_below_spec - tmpPlant.inverters_efficiency_below_spec;
-			generalData.add(previousPlantData.inverters_efficiency_below_spec + "");
 			generalData.add(tmpPlant.inverters_efficiency_below_spec + "");
-			generalData.add(Delta + "");
-
-			Delta = previousPlantData.inverters___availability - tmpPlant.inverters___availability;
-			generalData.add(previousPlantData.inverters___availability + "");
+			
 			generalData.add(tmpPlant.inverters___availability + "");
-			generalData.add(Delta + "");
-
-			Delta = previousPlantData.inverters___downtime - tmpPlant.inverters___downtime;
-			generalData.add(previousPlantData.inverters___downtime + "");
-			generalData.add(tmpPlant.inverters___downtime + "");
-			generalData.add(Delta + "");
-
-			Delta = previousPlantData.strings___performance - tmpPlant.strings___performance;
-			generalData.add(previousPlantData.strings___performance + "");
-			generalData.add(tmpPlant.strings___performance + "");
-			generalData.add(Delta + "");
-
-			Delta = previousPlantData.strings___panel_degradation - tmpPlant.strings___panel_degradation;
-			generalData.add(previousPlantData.strings___panel_degradation + "");
-			generalData.add(tmpPlant.strings___panel_degradation + "");
-			generalData.add(Delta + "");
-
-			Delta = previousPlantData.strings___disconnected_strings - tmpPlant.strings___disconnected_strings;
-			generalData.add(previousPlantData.strings___disconnected_strings + "");
-			generalData.add(tmpPlant.strings___disconnected_strings + "");
-			generalData.add(Delta + "");
-
-			Delta = previousPlantData.strings___availability - tmpPlant.strings___availability;
-			generalData.add(previousPlantData.strings___availability + "");
-			generalData.add(tmpPlant.strings___availability + "");
-			generalData.add(Delta + "");
-
+			generalData.add(tmpPlant.inverters___downtime+ "");
+			
+			generalData.add(tmpPlant.strings___performance+ "");
+			generalData.add(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant)+"");
+			generalData.add(tmpPlant.strings___panel_degradation+ "");
+			generalData.add(tmpPlant.strings___disconnected_strings+"");
+			
+			generalData.add(tmpPlant.strings___availability+"");
+			generalData.add("0");
+			
+			//TODO: colonization 
+		
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				// TODO: add login pass , start from index 4
 				getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex));
 			}
@@ -403,6 +366,9 @@ public class plant extends SelTestCase {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;
+		} catch (Exception e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
 		}
 		getCurrentFunctionName(false);
 
@@ -441,7 +407,6 @@ public class plant extends SelTestCase {
 			generalData.add(Delta + "%");
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				// TODO: add login pass , start from index 4
 				getDatatable().setCellData(SheetVariables.HealthTab, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex));
 			}
@@ -502,7 +467,6 @@ public class plant extends SelTestCase {
 			generalData.add(Delta + "");
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				// TODO: add login pass , start from index 4
 				getDatatable().setCellData(SheetVariables.HeatMapTab, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex));
 			}
@@ -913,7 +877,6 @@ public class plant extends SelTestCase {
 
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				// TODO: add login pass , start from index 4
 				getDatatable().setCellData(SheetVariables.InsightsTabs, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex));
 			}

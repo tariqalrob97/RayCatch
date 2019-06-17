@@ -11,7 +11,6 @@ public class dataProviderUtils {
 	loggerUtils logs = new loggerUtils("DataProviderUtils");
 
 	private dataProviderUtils() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static dataProviderUtils getInstance() {

@@ -93,7 +93,7 @@ public class DailyReportBase extends SelTestCase {
 			Testlogs.get().debug("Login username/password is: " + userName + " " + (String) userdetails.get(SignIn.keys.password) );
 			SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
 			sassert().assertTrue(SignIn.checkUserAccount(), LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
-
+			
 			// Step 2 get available plants from web
 			List<WebElement> availblePlants = HomePage.getUserPlants();
 			String accountPlantes = (String) userdetails.get(SignIn.keys.plants);
@@ -119,6 +119,8 @@ public class DailyReportBase extends SelTestCase {
 				plant tmpPlant  = new plant();	
 				tmpPlant.user = userName;
 				tmpPlant.plant = Web_plant.getText();
+				tmpPlant.login = "PASS";
+				
 				PlantOverview_General.getGeneralPlantInfo(tmpPlant);
 				
 				// Step 6 get all plants insights and values for each plant
@@ -138,20 +140,17 @@ public class DailyReportBase extends SelTestCase {
 				HomePage.navigateToTab(PlantOverViewSelector.StringsTab);
 				PlantOverview_PlantStrings.getStringsTabGeneralInfo(tmpPlant);				
 				
- 				//print all data
+ 				//Step 11 print all data
  				plant.printPlant(tmpPlant);
 				
-				//this statement should be after getting all data   
-				//insert tmpPlant into data base
+				//Step 12 insert tmpPlant into data base
 				sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
-				//get the day before data from data sheet
+
+				//Step 13 get the day before data from database
 				plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant, TableName, DatabaseName);
 				
-				//compare data provide judgment [challenging representation]
+				//Step 14 compare data provide judgment and write data to excel 
 				plant.comparPlantsAndwriteResults(tmpPlant,previousPlantData); 
-				
-				
-				//write them all to excel sheet [challenging representation]
 				
 			}
 

@@ -135,7 +135,7 @@ public class PlantOverview_General extends SelTestCase {
 			getCurrentFunctionName(false);
 
 			return tmpPlant.inverters___downtime;
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;
@@ -153,7 +153,7 @@ public class PlantOverview_General extends SelTestCase {
 			return (tmpPlant.inverters_efficiency_below_spec
 					+ tmpPlant.inverters_relative_efficiency + tmpPlant.inverters_Mppt);
 
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;
@@ -171,7 +171,7 @@ public class PlantOverview_General extends SelTestCase {
 			return tmpPlant.strings___panel_degradation
 					+ tmpPlant.strings___disconnected_strings;
 
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;
@@ -188,7 +188,7 @@ public class PlantOverview_General extends SelTestCase {
 
 			return 0;
 
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;

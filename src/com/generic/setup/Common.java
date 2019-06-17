@@ -442,7 +442,6 @@ public class Common extends SelTestCase {
 	}//read browsers
 
 	public static void takeScreenShot2() {
-		// TODO Auto-generated method stub
 		ReportUtil.takeScreenShot(getDriver(), "common");
 	}
 

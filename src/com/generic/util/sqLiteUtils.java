@@ -228,8 +228,8 @@ public class sqLiteUtils extends SelTestCase{
 				logs.debug("Detected Weeked Day: " + LocalDate.now().getDayOfWeek());
 				negDays = 3;
 			}
-			logs.debug(SqlStatements.SelectPreviousDate.replace("?1", user).replace("?2", plant).replace("?3",
-					negDays + ""));
+			logs.debug(SqlStatements.SelectPreviousDate.replace("?1", user)
+					.replace("?2", plant).replace("?3", LocalDate.now().minusDays(negDays) + ""));
 			PreparedStatement ps = conn.prepareStatement(SqlStatements.SelectPreviousDate.replace("?1", user)
 					.replace("?2", plant).replace("?3", LocalDate.now().minusDays(negDays) + ""));
 
