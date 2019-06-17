@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import com.generic.page.plant;
@@ -221,12 +223,18 @@ public class sqLiteUtils extends SelTestCase{
 		plant results = null; 
 		
 		try (Connection conn = DriverManager.getConnection(url);) {
-			logs.debug(SqlStatements.SelectPreviousDate.replace("?1",user).replace("?2",plant));
-			//TODO: IMPORTANT TO HANDLE WEEKEND 
-			PreparedStatement ps = conn.prepareStatement(SqlStatements.SelectPreviousDate.replace("?1",user).replace("?2",plant));
-			
+			int negDays = 1;
+			if (LocalDate.now().getDayOfWeek().toString().contains("SUNDAY")) {
+				logs.debug("Detected Weeked Day: " + LocalDate.now().getDayOfWeek());
+				negDays = 3;
+			}
+			logs.debug(SqlStatements.SelectPreviousDate.replace("?1", user).replace("?2", plant).replace("?3",
+					negDays + ""));
+			PreparedStatement ps = conn.prepareStatement(SqlStatements.SelectPreviousDate.replace("?1", user)
+					.replace("?2", plant).replace("?3", LocalDate.now().minusDays(negDays) + ""));
+
 			ResultSet rs = ps.executeQuery();
-			
+
 			rs.next();	
 			results = parsePlantresult(rs);
 			
