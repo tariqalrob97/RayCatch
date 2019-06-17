@@ -43,6 +43,21 @@ public class HomePage extends SelTestCase {
 
 	}
 	
+	public static void navigateToTab(String tabSelector) {
+		try {
+			getCurrentFunctionName(true);
+			WebElement tab = getDriver().findElement(By.cssSelector(tabSelector));
+			logs.debug("Navigating to Tab:" + tab.getText());
+			tab.click();
+			getCurrentFunctionName(false);
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+
+	}
+
 	// done RC
 	public static List<WebElement> getAllInsights() throws Exception {
 		try {
@@ -57,22 +72,39 @@ public class HomePage extends SelTestCase {
 			throw e;
 		}
 	}
-	
-public static WebElement getPlantHealthIndicators() {
-		
+	// done RC
+	public static WebElement getPlantHealthIndicators() {
+
 		try {
 			getCurrentFunctionName(true);
-			WebElement allHealthIndicators = getDriver().findElement(By.cssSelector(HomePageSelector.PlantHealthIndicators));
-			logs.debug("Found "+allHealthIndicators.getText()+ " Health Indicators");
+			WebElement allHealthIndicators = getDriver()
+					.findElement(By.cssSelector(HomePageSelector.PlantHealthIndicators));
+			logs.debug("Found " + allHealthIndicators.getText() + "Health Indicators ");
 			getCurrentFunctionName(false);
 			return allHealthIndicators;
-			
+
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;
 		}
 	}
+	// done RC
+	public static WebElement getPlantHeatMapContaitnerString() {
 
+		try {
+			getCurrentFunctionName(true);
+			WebElement heatMapContainer = getDriver()
+					.findElement(By.cssSelector(HomePageSelector.PlantHeatMap));
+			logs.debug("Found " + heatMapContainer.getText() + "Heat Map Numbers ");
+			getCurrentFunctionName(false);
+			return heatMapContainer;
+
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
 
 }

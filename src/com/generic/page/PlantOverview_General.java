@@ -18,7 +18,7 @@ public class PlantOverview_General extends SelTestCase {
 			SelectorUtil.initializeSelectorsAndDoActions(PlantOverViewSelector.PlantPotentialExtraIncomeValue);
 			String GrneralExtraIncomeValue = SelectorUtil.textValue.get();
 			getCurrentFunctionName(false);
-			return TestUtilities.valueParser(GrneralExtraIncomeValue) ;
+			return TestUtilities.valueParser(GrneralExtraIncomeValue);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
@@ -105,7 +105,7 @@ public class PlantOverview_General extends SelTestCase {
 			throw e;
 		}
 	}
-	
+
 	// get all general data
 	public static void getGeneralPlantInfo(plant tmpPlant) throws Exception {
 		try {
@@ -119,6 +119,75 @@ public class PlantOverview_General extends SelTestCase {
 			tmpPlant.Avilability_value = getOverallPlantavailabilityValue();
 			tmpPlant.Avilability_percentage = getOverallPlantavailabilityPercent();
 			getCurrentFunctionName(false);
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
+	// checks the aggregation of the availability losses of the inverters in the
+	// plant, returns 0 if
+	// pass and double value if fails
+	public static double checkInvertersAvilabilityLossesAggregation(plant tmpPlant) throws Exception {
+		try {
+			getCurrentFunctionName(true);
+			getCurrentFunctionName(false);
+
+			return tmpPlant.inverters___availability - tmpPlant.inverters___downtime;
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
+	// checks the aggregation of the performance losses of the inverters in
+	// the plant, returns 0 if
+	// pass and double value if fails
+	public static double checkInvertersPerformanceLossesAggregation(plant tmpPlant) throws Exception {
+		try {
+			getCurrentFunctionName(true);
+			getCurrentFunctionName(false);
+
+			return tmpPlant.inverters___Performance - (tmpPlant.inverters_efficiency_below_spec
+					+ tmpPlant.inverters_relative_efficiency + tmpPlant.inverters_Mppt);
+
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
+	// checks the aggregation of the performance losses of the strings in the plant,
+	// returns 0 if
+	// pass and double value if fails
+	public static double checkStringsPerformanceLossesAggregation(plant tmpPlant) throws Exception {
+		try {
+			getCurrentFunctionName(true);
+			getCurrentFunctionName(false);
+
+			return tmpPlant.strings___performance - tmpPlant.strings___panel_degradation
+					+ tmpPlant.strings___disconnected_strings;
+
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
+	// checks the aggregation of the availability losses of the strings in the
+	// plant, returns 0 if
+	// pass and double value if fails
+	public static double checkStringsAvilabilityLossesAggregation(plant tmpPlant) throws Exception {
+		try {
+			getCurrentFunctionName(true);
+			getCurrentFunctionName(false);
+
+			return 0;
+
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));

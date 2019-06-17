@@ -1,40 +1,63 @@
 package com.generic.page;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import com.generic.selector.SignInSelectors;
 import com.generic.setup.ExceptionMsg;
-import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
-import com.generic.util.SelectorUtil;
+
 
 public class PlantOverview_PlantHeatmap extends SelTestCase {
-	// Sample
-	public static String checkUserPlants() throws Exception {
+
+	public static void getPlantHeatMapNumbers(plant tmpPlant) {
+
+		getCurrentFunctionName(true);
 		try {
-			getCurrentFunctionName(true);
-			String plants = "";
-			SelectorUtil.initializeSelectorsAndDoActions(SignInSelectors.plantName);
+			String[] HeatMapContainerStrings = HomePage.getPlantHeatMapContaitnerString().getText().trim().split("\n");
+			//Array's data looks like this
+			/*
+			 * Healthy 
+			 * 0 
+			 * Inverters 
+			 * 69 
+			 * strings 
+			 * OK 
+			 * 7 
+			 * Inverters 
+			 * 0 
+			 * strings 
+			 * Faulty 
+			 * 6 
+			 * Inverters 
+			 * 55
+			 * strings 
+			 * Missing data 
+			 * 0 
+			 * Inverters 
+			 * 4 
+			 * strings
+			 */
+			int healthyInvertersIndex = 1;
+			int healthyStringsIndex = 3;
+			int faultyInvertersIndex = 11;
+			int faultyStringsIndex = 13;
+			int okInvertersIndex = 6;
+			int okStringsIndex = 8;
+			int messingDataInvertersIndex = 16;
+			int messingDataStringsIndex = 18;
 
-			List<WebElement> allPlants = getDriver().findElements(By.className(SignInSelectors.plantName));
+			tmpPlant.Healty_Inverters = Double.parseDouble(HeatMapContainerStrings[healthyInvertersIndex]);
+			tmpPlant.Healty_Strings = Double.parseDouble(HeatMapContainerStrings[healthyStringsIndex]);
+			tmpPlant.Faulty_Inverters = Double.parseDouble(HeatMapContainerStrings[faultyInvertersIndex]);
+			tmpPlant.Faulty_Strings = Double.parseDouble(HeatMapContainerStrings[faultyStringsIndex]);
+			tmpPlant.OK_Inverters = Double.parseDouble(HeatMapContainerStrings[okInvertersIndex]);
+			tmpPlant.OK_Strings = Double.parseDouble(HeatMapContainerStrings[okStringsIndex]);
+			tmpPlant.Messing_data_inverters = Double.parseDouble(HeatMapContainerStrings[messingDataInvertersIndex]);
+			tmpPlant.Messing_data_Strings = Double.parseDouble(HeatMapContainerStrings[messingDataStringsIndex]);
 
-			for (int plant = 0; plant < allPlants.size(); plant++) {
-				plants += allPlants.get(plant).getText().toString() + ",";
-			}
 			getCurrentFunctionName(false);
-			return plants;
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
-			throw e;
 		}
+
 	}
 }
