@@ -129,12 +129,12 @@ public class PlantOverview_General extends SelTestCase {
 	// checks the aggregation of the availability losses of the inverters in the
 	// plant, returns 0 if
 	// pass and double value if fails
-	public static double checkInvertersAvilabilityLossesAggregation(plant tmpPlant) throws Exception {
+	public static double getCalculatedInvertersAvilability(plant tmpPlant) throws Exception {
 		try {
 			getCurrentFunctionName(true);
 			getCurrentFunctionName(false);
 
-			return tmpPlant.inverters___availability - tmpPlant.inverters___downtime;
+			return tmpPlant.inverters___downtime;
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
@@ -145,12 +145,12 @@ public class PlantOverview_General extends SelTestCase {
 	// checks the aggregation of the performance losses of the inverters in
 	// the plant, returns 0 if
 	// pass and double value if fails
-	public static double checkInvertersPerformanceLossesAggregation(plant tmpPlant) throws Exception {
+	public static double getCalcualtedInvertersPerformance(plant tmpPlant) throws Exception {
 		try {
 			getCurrentFunctionName(true);
 			getCurrentFunctionName(false);
 
-			return tmpPlant.inverters___Performance - (tmpPlant.inverters_efficiency_below_spec
+			return (tmpPlant.inverters_efficiency_below_spec
 					+ tmpPlant.inverters_relative_efficiency + tmpPlant.inverters_Mppt);
 
 		} catch (NoSuchElementException e) {
@@ -163,12 +163,12 @@ public class PlantOverview_General extends SelTestCase {
 	// checks the aggregation of the performance losses of the strings in the plant,
 	// returns 0 if
 	// pass and double value if fails
-	public static double checkStringsPerformanceLossesAggregation(plant tmpPlant) throws Exception {
+	public static double getCalculatedStringsPerformance(plant tmpPlant) throws Exception {
 		try {
 			getCurrentFunctionName(true);
 			getCurrentFunctionName(false);
 
-			return tmpPlant.strings___performance - tmpPlant.strings___panel_degradation
+			return tmpPlant.strings___panel_degradation
 					+ tmpPlant.strings___disconnected_strings;
 
 		} catch (NoSuchElementException e) {
@@ -181,7 +181,7 @@ public class PlantOverview_General extends SelTestCase {
 	// checks the aggregation of the availability losses of the strings in the
 	// plant, returns 0 if
 	// pass and double value if fails
-	public static double checkStringsAvilabilityLossesAggregation(plant tmpPlant) throws Exception {
+	public static double getCalculatedStringsAvilability(plant tmpPlant) throws Exception {
 		try {
 			getCurrentFunctionName(true);
 			getCurrentFunctionName(false);

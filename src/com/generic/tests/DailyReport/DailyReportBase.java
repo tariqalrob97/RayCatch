@@ -130,29 +130,13 @@ public class DailyReportBase extends SelTestCase {
 				// Step 8 Heat map
 				PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
 
-				// Step 9 Aggregation 
-				// Step 9.1 Inverters tab data
+				// Step 9 Inverters tab data
 				HomePage.navigateToTab(PlantOverViewSelector.InvertersTab);
 				PlantOverview_PlantInverters.getInvertersTabGeneralInfo(tmpPlant);
-				// Step 9.2 Inverters Aggregation
-				
-				
-				
-				
-				// Step 9.3 Strings tab data
+						
+				// Step 10 Strings tab data
 				HomePage.navigateToTab(PlantOverViewSelector.StringsTab);
-				PlantOverview_PlantStrings.getStringsTabGeneralInfo(tmpPlant);
-				// Step 9.4 Inverters Aggregation
-				
-				
-				
-				Testlogs.get().debug(PlantOverview_General.checkInvertersAvilabilityLossesAggregation(tmpPlant)+"ttt"+PlantOverview_General.checkInvertersPerformanceLossesAggregation(tmpPlant)+"ttttt"+ PlantOverview_General.checkStringsPerformanceLossesAggregation(tmpPlant)+"tarrrrrrr");
-				
-				//get data from other tabs (inverters, strings)
-				//do aggregation and other calculations  
-				//get data for health
-				//get Plant heat map
-				
+				PlantOverview_PlantStrings.getStringsTabGeneralInfo(tmpPlant);				
 				
  				//print all data
  				plant.printPlant(tmpPlant);
