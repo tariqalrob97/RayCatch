@@ -143,7 +143,8 @@ public class plant extends SelTestCase {
 	public double Voltage_Deviation_value = 0;
 	public double Voltage_Deviation_percentage = 0;
 	public String Voltage_Deviation_status = "Healthy";
-
+	
+	private static String isRed ="Red";
 	// RC- ready
 	public static void printPlant(plant tmpPlant) {
 		getCurrentFunctionName(true);
@@ -349,7 +350,7 @@ public class plant extends SelTestCase {
 			if (PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)
 					- tmpPlant.inverters___Performance != 0)
 				generalData.add(TestUtilities.roundingFormater
-						.format(PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)) + "Red");
+						.format(PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)) + isRed);
 			else
 				generalData.add(TestUtilities.roundingFormater
 						.format(PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)) + "");
@@ -361,7 +362,7 @@ public class plant extends SelTestCase {
 			// Inverters availability
 			generalData.add(tmpPlant.inverters___availability + "");
 			if (tmpPlant.inverters___availability - tmpPlant.inverters___downtime != 0)
-				generalData.add(tmpPlant.inverters___downtime + "Red");
+				generalData.add(tmpPlant.inverters___downtime + isRed);
 			else
 				generalData.add(tmpPlant.inverters___downtime + "");
 
@@ -369,7 +370,7 @@ public class plant extends SelTestCase {
 			// Strings performance
 			generalData.add(tmpPlant.strings___performance + "");
 			if (tmpPlant.strings___performance - PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) != 0)
-				generalData.add(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) + "Red");
+				generalData.add(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) + isRed);
 			else
 				generalData.add(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) + "");
 			generalData.add(TestUtilities.roundingFormater
