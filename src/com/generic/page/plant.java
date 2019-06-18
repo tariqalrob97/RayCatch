@@ -339,40 +339,27 @@ public class plant extends SelTestCase {
 		getCurrentFunctionName(true);
 		try {
 			ArrayList<String> generalData = new ArrayList<String>();
-			HashMap<Integer,Double> redValues=new HashMap<Integer,Double>();
-			
+
 			generalData.add(tmpPlant.inverters___Performance + "");
 			generalData.add(TestUtilities.roundingFormater.format(PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)) + "");
 			generalData.add(tmpPlant.inverters_Mppt + "");
 			generalData.add(tmpPlant.inverters_relative_efficiency + "");
 			generalData.add(tmpPlant.inverters_efficiency_below_spec + "");
-			redValues.put(1,PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant) - tmpPlant.inverters___Performance);
-		
 			
 			generalData.add(tmpPlant.inverters___availability + "");
 			generalData.add(tmpPlant.inverters___downtime+ "");
-			redValues.put(6,tmpPlant.inverters___availability - tmpPlant.inverters___downtime);
 			
 			generalData.add(tmpPlant.strings___performance+ "");
 			generalData.add(TestUtilities.roundingFormater.format(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant)) +"");
 			generalData.add(tmpPlant.strings___panel_degradation+ "");
 			generalData.add(tmpPlant.strings___disconnected_strings+"");
-			redValues.put(8,PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) - tmpPlant.strings___performance);
-
-			
 			
 			generalData.add(tmpPlant.strings___availability+"");
 			generalData.add("0");
-			
-			//TODO: colonization 
 		
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				if(dataIndex==1 || dataIndex== 6 || dataIndex==8) {		
-					getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant, generalData.get(dataIndex),(redValues.get(dataIndex) != 0.0));		
-					continue;
-				}
-					
-				getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant, generalData.get(dataIndex));
+				getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant,
+						generalData.get(dataIndex));
 			}
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {

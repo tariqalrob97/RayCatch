@@ -112,11 +112,11 @@ public class HomePage extends SelTestCase {
 
 		try {
 			getCurrentFunctionName(true);
-			WebElement heatMapContainer = getDriver()
+			WebElement GeneralInfoContainer = getDriver()
 					.findElement(By.cssSelector(PlantOverViewSelector.GeneralInfoContainer));
 
 			getCurrentFunctionName(false);
-			return heatMapContainer;
+			return GeneralInfoContainer;
 
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {

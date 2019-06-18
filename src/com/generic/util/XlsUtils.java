@@ -213,14 +213,9 @@ public class XlsUtils {
 		return rowNum+1;
 	}//getRowNumber
 	
+	
 	// returns true if data is set successfully else false
 	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data) {
-		return setCellData(sheetName, colNumber, PlantName, data,false);
-	}
-	
-	
-	// returns true if data is set successfully else false
-	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data, boolean Red) {
 		try {
 			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber,
 					data));
@@ -257,19 +252,20 @@ public class XlsUtils {
 			if (cell == null)
 				cell = row.createCell(colNum);
 
-			if (data.contains("Fail") || data.contains("fail") || Red) {
+			if (data.contains("Red"))
+			{
 				my_style = workbook.createCellStyle();
 				my_font = workbook.createFont();
 				my_font.setColor(XSSFFont.COLOR_RED);
+				my_font.setFamily(XSSFFont.DEFAULT_FONT_SIZE);
+				my_font.setFontName("Arial");
 				my_style.setFont(my_font);
+				cell.setCellStyle(my_style);
+				data = data.replace("Red", "");
 			}
-
+			
 			if (!cell.getStringCellValue().equals(data))
 				cell.setCellValue(data);
-
-			if (data.contains("Fail") || data.contains("fail" ) || Red) {
-				cell.setCellStyle(my_style);
-			}
 
 			fileOut = new FileOutputStream(path);
 			workbook.write(fileOut);
