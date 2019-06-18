@@ -1,19 +1,15 @@
 package com.generic.tests.DailyReport;
 
-import static org.testng.Assert.assertFalse;
-
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
-
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.xml.XmlTest;
-
 import com.generic.page.HomePage;
 import com.generic.page.PlantOverview_General;
 import com.generic.page.PlantOverview_PlantHealthIndicators;

@@ -106,5 +106,23 @@ public class HomePage extends SelTestCase {
 			throw e;
 		}
 	}
+	
+	// done RC
+	public static WebElement getPlantGeneralInfoContainer() {
+
+		try {
+			getCurrentFunctionName(true);
+			WebElement heatMapContainer = getDriver()
+					.findElement(By.cssSelector(PlantOverViewSelector.GeneralInfoContainer));
+
+			getCurrentFunctionName(false);
+			return heatMapContainer;
+
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
 
 }
