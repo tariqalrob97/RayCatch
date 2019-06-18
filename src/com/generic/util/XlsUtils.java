@@ -213,72 +213,77 @@ public class XlsUtils {
 		return rowNum+1;
 	}//getRowNumber
 	
+	// returns true if data is set successfully else false
+	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data) {
+		return setCellData(sheetName, colNumber, PlantName, data,false);
+	}
 	
 	
 	// returns true if data is set successfully else false
-		public boolean setCellData(String sheetName, int colNumber, String PlantName, String data) {
-			try {
-				logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber, data));
-				fis = new FileInputStream(path);
-				workbook = new XSSFWorkbook(fis);
+	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data, boolean Red) {
+		try {
+			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber,
+					data));
+			fis = new FileInputStream(path);
+			workbook = new XSSFWorkbook(fis);
 
-				int rowNum = getRowNumber(sheetName,PlantName);
-				
-				if (rowNum <= 0)
-					return false;
+			int rowNum = getRowNumber(sheetName, PlantName);
 
-				int index = workbook.getSheetIndex(sheetName);
-				int colNum = -1;
-				if (index == -1) {
-					logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Sheet"));
-					return false;
-				}
-				sheet = workbook.getSheetAt(index);
-				row = sheet.getRow(0);
-				colNum = colNumber;
-				if (colNum == -1) {
-					logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Col"));
-					return false;
-				} else {
-					// logs.debug(MessageFormat.format(LoggingMsg.COL_INDEX_MSG, colNum));
-				}
-
-				sheet.autoSizeColumn(colNum);
-				row = sheet.getRow(rowNum - 1);
-				if (row == null)
-					row = sheet.createRow(rowNum - 1);
-
-				cell = row.getCell(colNum);
-				if (cell == null)
-					cell = row.createCell(colNum);
-
-				if (data.contains("Fail") || data.contains("fail")) {
-					my_style = workbook.createCellStyle();
-					my_font = workbook.createFont();
-					my_font.setColor(XSSFFont.COLOR_RED);
-					my_style.setFont(my_font);
-				}
-
-				if (!cell.getStringCellValue().equals(data))
-					cell.setCellValue(data);
-				
-				if (data.contains("Fail") || data.contains("fail")) {
-					cell.setCellStyle(my_style);
-				}
-
-				fileOut = new FileOutputStream(path);
-				workbook.write(fileOut);
-				fileOut.close();
-				// fileOut = null;
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (rowNum <= 0)
 				return false;
-			} /*
-				 * finally { if (fileOut != null) { try { fileOut.close(); } catch (IOException
-				 * e) { e.printStackTrace(); } } }
-				 */
-			return true;
-		}//setCell
+
+			int index = workbook.getSheetIndex(sheetName);
+			int colNum = -1;
+			if (index == -1) {
+				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Sheet"));
+				return false;
+			}
+			sheet = workbook.getSheetAt(index);
+			row = sheet.getRow(0);
+			colNum = colNumber;
+			if (colNum == -1) {
+				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Col"));
+				return false;
+			} else {
+				// logs.debug(MessageFormat.format(LoggingMsg.COL_INDEX_MSG, colNum));
+			}
+
+			sheet.autoSizeColumn(colNum);
+			row = sheet.getRow(rowNum - 1);
+			if (row == null)
+				row = sheet.createRow(rowNum - 1);
+
+			cell = row.getCell(colNum);
+			if (cell == null)
+				cell = row.createCell(colNum);
+
+			if (data.contains("Fail") || data.contains("fail") || Red) {
+				my_style = workbook.createCellStyle();
+				my_font = workbook.createFont();
+				my_font.setColor(XSSFFont.COLOR_RED);
+				my_style.setFont(my_font);
+			}
+
+			if (!cell.getStringCellValue().equals(data))
+				cell.setCellValue(data);
+
+			if (data.contains("Fail") || data.contains("fail" ) || Red) {
+				cell.setCellStyle(my_style);
+			}
+
+			fileOut = new FileOutputStream(path);
+			workbook.write(fileOut);
+			fileOut.close();
+			// fileOut = null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} /*
+			 * finally { if (fileOut != null) { try { fileOut.close(); } catch (IOException
+			 * e) { e.printStackTrace(); } } }
+			 */
+		return true;
+	}// setCell
 
 	// returns true if data is set successfully else false
 	public boolean setCellData(String sheetName, String plantProprty, String PlantName, String data) {

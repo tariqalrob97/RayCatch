@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,13 +37,14 @@ import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
 
 public class TestUtilities extends SelTestCase {
-
+	public static DecimalFormat roundingFormater = new DecimalFormat("#########.00");
+	
 	public static void prepareLogs() throws Exception {
 		logs.debug(MessageFormat.format(LoggingMsg.CLEAR_LOGS_MSG, ""));
 		String logs_dir = EnvironmentFiles.getLogFilePath();
 		String log_file = EnvironmentFiles.getLogFileName();
 		String log_abs_path = logs_dir + "/" + log_file;
-
+		
 		PrintWriter writer = new PrintWriter(log_abs_path);
 		writer.print("");
 		writer.close();

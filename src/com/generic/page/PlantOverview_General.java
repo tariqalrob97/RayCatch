@@ -76,7 +76,7 @@ public class PlantOverview_General extends SelTestCase {
 			getCurrentFunctionName(true);
 			getCurrentFunctionName(false);
 
-			return (tmpPlant.inverters_efficiency_below_spec + tmpPlant.inverters_relative_efficiency
+			 return (tmpPlant.inverters_efficiency_below_spec + tmpPlant.inverters_relative_efficiency
 					+ tmpPlant.inverters_Mppt);
 
 		} catch (NoSuchElementException e) {
@@ -92,7 +92,7 @@ public class PlantOverview_General extends SelTestCase {
 			getCurrentFunctionName(true);
 			getCurrentFunctionName(false);
 
-			return tmpPlant.strings___panel_degradation + tmpPlant.strings___disconnected_strings;
+			 return ( tmpPlant.strings___panel_degradation + tmpPlant.strings___disconnected_strings);
 
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
