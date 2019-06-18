@@ -268,11 +268,11 @@ public class plant extends SelTestCase {
 	public static void comparPlantsAndwriteResults(plant tmpPlant, plant previousPlantData) {
 		getCurrentFunctionName(true);
 		try {
-			//compareGeneralDataAndWriteResults(tmpPlant, previousPlantData);
+			compareGeneralDataAndWriteResults(tmpPlant, previousPlantData);
 			compareAggregationDataAndWriteResults(tmpPlant, previousPlantData); 
-			//compareHealthDataAndWriteResults(tmpPlant, previousPlantData);
-			//compareHeatMapDataAndWriteResults(tmpPlant, previousPlantData);
-			//compareInsightsDataAndWriteResults(tmpPlant, previousPlantData);
+			compareHealthDataAndWriteResults(tmpPlant, previousPlantData);
+			compareHeatMapDataAndWriteResults(tmpPlant, previousPlantData);
+			compareInsightsDataAndWriteResults(tmpPlant, previousPlantData);
 
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -339,7 +339,6 @@ public class plant extends SelTestCase {
 		getCurrentFunctionName(true);
 		try {
 			ArrayList<String> generalData = new ArrayList<String>();
-			//ArrayList<String> redValues = new ArrayList<String>();
 			HashMap<Integer,Double> redValues=new HashMap<Integer,Double>();
 			
 			generalData.add(tmpPlant.inverters___Performance + "");
@@ -370,7 +369,6 @@ public class plant extends SelTestCase {
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				if(dataIndex==1 || dataIndex== 6 || dataIndex==8) {		
 					getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant, generalData.get(dataIndex),(redValues.get(dataIndex) != 0.0));		
-					logs.debug(redValues.get(dataIndex) + "tarrrrrr" +dataIndex + "fasfsafasfssss" + (redValues.get(dataIndex) != 0.0));
 					continue;
 				}
 					
