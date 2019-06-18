@@ -15,7 +15,7 @@ public class plant extends SelTestCase {
 	public String user = "NA";
 	public String plant = "NA";
 	public String login = "FAIL";
-	
+
 	// general
 	public double PEI_value = 0;
 	public double PEI_percentage = 0;
@@ -95,7 +95,7 @@ public class plant extends SelTestCase {
 	public double Inverter_Efficiency_Below_Spec_value = 0;
 	public double Inverter_Efficiency_Below_Spec_percentage = 0;
 	public String Inverter_Efficiency_Below_Spec_status = "Healthy";
-	
+
 	public double Late_Awakening_total_devices = 0;
 	public double Late_Awakening_faulty_devices = 0;
 	public double Late_Awakening_value = 0;
@@ -113,7 +113,7 @@ public class plant extends SelTestCase {
 	public double Inverter_Relative_Efficiency_value = 0;
 	public double Inverter_Relative_Efficiency_percentage = 0;
 	public String Inverter_Relative_Efficiency_status = "Healthy";
-	
+
 	public double Clipping_total_devices = 0;
 	public double Clipping_faulty_devices = 0;
 	public double Clipping_value = 0;
@@ -143,10 +143,9 @@ public class plant extends SelTestCase {
 	public double Voltage_Deviation_value = 0;
 	public double Voltage_Deviation_percentage = 0;
 	public String Voltage_Deviation_status = "Healthy";
-	
-	//RC- ready
-	public static void printPlant(plant tmpPlant)
-	{
+
+	// RC- ready
+	public static void printPlant(plant tmpPlant) {
 		getCurrentFunctionName(true);
 		try {
 			logs.debug("user:" + tmpPlant.user);
@@ -210,10 +209,13 @@ public class plant extends SelTestCase {
 			logs.debug("Inverter_Data_integrity_value:" + tmpPlant.Inverter_Data_integrity_value);
 			logs.debug("Inverter_Data_integrity_percentage:" + tmpPlant.Inverter_Data_integrity_percentage);
 			logs.debug("Inverter_Data_integrity_status:" + tmpPlant.Inverter_Data_integrity_status);
-			logs.debug("Inverter_Efficiency_Below_Spec_total_devices:" + tmpPlant.Inverter_Efficiency_Below_Spec_total_devices);
-			logs.debug("Inverter_Efficiency_Below_Spec_faulty_devices:" + tmpPlant.Inverter_Efficiency_Below_Spec_faulty_devices);
+			logs.debug("Inverter_Efficiency_Below_Spec_total_devices:"
+					+ tmpPlant.Inverter_Efficiency_Below_Spec_total_devices);
+			logs.debug("Inverter_Efficiency_Below_Spec_faulty_devices:"
+					+ tmpPlant.Inverter_Efficiency_Below_Spec_faulty_devices);
 			logs.debug("Inverter_Efficiency_Below_Spec_value:" + tmpPlant.Inverter_Efficiency_Below_Spec_value);
-			logs.debug("Inverter_Efficiency_Below_Spec_percentage:" + tmpPlant.Inverter_Efficiency_Below_Spec_percentage);
+			logs.debug(
+					"Inverter_Efficiency_Below_Spec_percentage:" + tmpPlant.Inverter_Efficiency_Below_Spec_percentage);
 			logs.debug("Inverter_Efficiency_Below_Spec_status:" + tmpPlant.Inverter_Efficiency_Below_Spec_status);
 			logs.debug("Late_Awakening_total_devices:" + tmpPlant.Late_Awakening_total_devices);
 			logs.debug("Late_Awakening_faulty_devices:" + tmpPlant.Late_Awakening_faulty_devices);
@@ -225,8 +227,10 @@ public class plant extends SelTestCase {
 			logs.debug("Mppt_value:" + tmpPlant.Mppt_value);
 			logs.debug("Mppt_percentage:" + tmpPlant.Mppt_percentage);
 			logs.debug("Mppt_status:" + tmpPlant.Mppt_status);
-			logs.debug("Inverter_Relative_Efficiency_total_devices:" + tmpPlant.Inverter_Relative_Efficiency_total_devices);
-			logs.debug("Inverter_Relative_Efficiency_faulty_devices:" + tmpPlant.Inverter_Relative_Efficiency_faulty_devices);
+			logs.debug("Inverter_Relative_Efficiency_total_devices:"
+					+ tmpPlant.Inverter_Relative_Efficiency_total_devices);
+			logs.debug("Inverter_Relative_Efficiency_faulty_devices:"
+					+ tmpPlant.Inverter_Relative_Efficiency_faulty_devices);
 			logs.debug("Inverter_Relative_Efficiency_value:" + tmpPlant.Inverter_Relative_Efficiency_value);
 			logs.debug("Inverter_Relative_Efficiency_percentage:" + tmpPlant.Inverter_Relative_Efficiency_percentage);
 			logs.debug("Inverter_Relative_Efficiency_status:" + tmpPlant.Inverter_Relative_Efficiency_status);
@@ -255,7 +259,7 @@ public class plant extends SelTestCase {
 			logs.debug("Voltage_Deviation_value:" + tmpPlant.Voltage_Deviation_value);
 			logs.debug("Voltage_Deviation_percentage:" + tmpPlant.Voltage_Deviation_percentage);
 			logs.debug("Voltage_Deviation_status:" + tmpPlant.Voltage_Deviation_status);
-			
+
 			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -263,13 +267,13 @@ public class plant extends SelTestCase {
 			throw e;
 		}
 		getCurrentFunctionName(false);
-	}//print 
+	}// print
 
 	public static void comparPlantsAndwriteResults(plant tmpPlant, plant previousPlantData) {
 		getCurrentFunctionName(true);
 		try {
 			compareGeneralDataAndWriteResults(tmpPlant, previousPlantData);
-			compareAggregationDataAndWriteResults(tmpPlant, previousPlantData); 
+			compareAggregationDataAndWriteResults(tmpPlant, previousPlantData);
 			compareHealthDataAndWriteResults(tmpPlant, previousPlantData);
 			compareHeatMapDataAndWriteResults(tmpPlant, previousPlantData);
 			compareInsightsDataAndWriteResults(tmpPlant, previousPlantData);
@@ -288,9 +292,9 @@ public class plant extends SelTestCase {
 		try {
 			ArrayList<String> generalData = new ArrayList<String>();
 			double Delta = 0;
-			
+
 			generalData.add(tmpPlant.login);
-			
+
 			Delta = previousPlantData.PEI_value - tmpPlant.PEI_value;
 			generalData.add(previousPlantData.PEI_value + "");
 			generalData.add(tmpPlant.PEI_value + "");
@@ -339,24 +343,46 @@ public class plant extends SelTestCase {
 		getCurrentFunctionName(true);
 		try {
 			ArrayList<String> generalData = new ArrayList<String>();
-
+			
+			// Inverters performance
 			generalData.add(tmpPlant.inverters___Performance + "");
-			generalData.add(TestUtilities.roundingFormater.format(PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)) + "");
+			if (PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)
+					- tmpPlant.inverters___Performance != 0)
+				generalData.add(TestUtilities.roundingFormater
+						.format(PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)) + "Red");
+			else
+				generalData.add(TestUtilities.roundingFormater
+						.format(PlantOverview_General.getCalcualtedInvertersPerformance(tmpPlant)) + "");
 			generalData.add(tmpPlant.inverters_Mppt + "");
 			generalData.add(tmpPlant.inverters_relative_efficiency + "");
 			generalData.add(tmpPlant.inverters_efficiency_below_spec + "");
+
 			
+			// Inverters availability
 			generalData.add(tmpPlant.inverters___availability + "");
-			generalData.add(tmpPlant.inverters___downtime+ "");
+			if (tmpPlant.inverters___availability - tmpPlant.inverters___downtime != 0)
+				generalData.add(tmpPlant.inverters___downtime + "Red");
+			else
+				generalData.add(tmpPlant.inverters___downtime + "");
+
 			
-			generalData.add(tmpPlant.strings___performance+ "");
-			generalData.add(TestUtilities.roundingFormater.format(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant)) +"");
-			generalData.add(tmpPlant.strings___panel_degradation+ "");
-			generalData.add(tmpPlant.strings___disconnected_strings+"");
+			// Strings performance
+			generalData.add(tmpPlant.strings___performance + "");
+			if (tmpPlant.strings___performance - PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) != 0)
+				generalData.add(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) + "Red");
+			else
+				generalData.add(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) + "");
+			generalData.add(TestUtilities.roundingFormater
+					.format(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant)) + "");
+			generalData.add(tmpPlant.strings___panel_degradation + "");
+			generalData.add(tmpPlant.strings___disconnected_strings + "");
+
 			
-			generalData.add(tmpPlant.strings___availability+"");
+			
+			// Strings availability
+			generalData.add(tmpPlant.strings___availability + "");
 			generalData.add("0");
-		
+
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex));
@@ -383,7 +409,7 @@ public class plant extends SelTestCase {
 			Delta = previousPlantData.Health_PRpercentage - tmpPlant.Health_PRpercentage;
 			generalData.add(previousPlantData.Health_PRpercentage + "%");
 			generalData.add(tmpPlant.Health_PRpercentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta)+ "%");
+			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
 			Delta = previousPlantData.Health_PR_STCpercentage - tmpPlant.Health_PR_STCpercentage;
 			generalData.add(previousPlantData.Health_PR_STCpercentage + "%");
@@ -504,9 +530,10 @@ public class plant extends SelTestCase {
 			Delta = previousPlantData.Disconnected_Strings_percentage - tmpPlant.Disconnected_Strings_percentage;
 			generalData.add(previousPlantData.Disconnected_Strings_percentage + "%");
 			generalData.add(tmpPlant.Disconnected_Strings_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta)+ "%");
+			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Disconnected_Strings_status.trim().equals(tmpPlant.Disconnected_Strings_status.trim());
+			DeltaString = previousPlantData.Disconnected_Strings_status.trim()
+					.equals(tmpPlant.Disconnected_Strings_status.trim());
 			generalData.add(previousPlantData.Disconnected_Strings_status + "");
 			generalData.add(tmpPlant.Disconnected_Strings_status + "");
 			generalData.add(DeltaString + "");
@@ -531,7 +558,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Panel_Degradation_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Panel_Degradation_status.trim().equals(tmpPlant.Panel_Degradation_status.trim());
+			DeltaString = previousPlantData.Panel_Degradation_status.trim()
+					.equals(tmpPlant.Panel_Degradation_status.trim());
 			generalData.add(previousPlantData.Panel_Degradation_status + "");
 			generalData.add(tmpPlant.Panel_Degradation_status + "");
 			generalData.add(DeltaString + "");
@@ -558,7 +586,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.String_Data_integrity_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.String_Data_integrity_status.trim().equals(tmpPlant.String_Data_integrity_status.trim());
+			DeltaString = previousPlantData.String_Data_integrity_status.trim()
+					.equals(tmpPlant.String_Data_integrity_status.trim());
 			generalData.add(previousPlantData.String_Data_integrity_status + "");
 			generalData.add(tmpPlant.String_Data_integrity_status + "");
 			generalData.add(DeltaString + "");
@@ -585,7 +614,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Temperature_Coefficientpercentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Temperature_Coefficient__status.trim().equals( tmpPlant.Temperature_Coefficient__status.trim());
+			DeltaString = previousPlantData.Temperature_Coefficient__status.trim()
+					.equals(tmpPlant.Temperature_Coefficient__status.trim());
 			generalData.add(previousPlantData.Temperature_Coefficient__status + "");
 			generalData.add(tmpPlant.Temperature_Coefficient__status + "");
 			generalData.add(DeltaString + "");
@@ -610,7 +640,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Inverter_Downtime_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Inverter_Downtime__status.trim().equals( tmpPlant.Inverter_Downtime__status.trim());
+			DeltaString = previousPlantData.Inverter_Downtime__status.trim()
+					.equals(tmpPlant.Inverter_Downtime__status.trim());
 			generalData.add(previousPlantData.Inverter_Downtime__status + "");
 			generalData.add(tmpPlant.Inverter_Downtime__status + "");
 			generalData.add(DeltaString + "");
@@ -637,7 +668,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Inverter_Data_integrity_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Inverter_Data_integrity_status.trim().equals(tmpPlant.Inverter_Data_integrity_status.trim());
+			DeltaString = previousPlantData.Inverter_Data_integrity_status.trim()
+					.equals(tmpPlant.Inverter_Data_integrity_status.trim());
 			generalData.add(previousPlantData.Inverter_Data_integrity_status + "");
 			generalData.add(tmpPlant.Inverter_Data_integrity_status + "");
 			generalData.add(DeltaString + "");
@@ -666,7 +698,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Inverter_Efficiency_Below_Spec_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Inverter_Efficiency_Below_Spec_status.trim().equals(tmpPlant.Inverter_Efficiency_Below_Spec_status.trim());
+			DeltaString = previousPlantData.Inverter_Efficiency_Below_Spec_status.trim()
+					.equals(tmpPlant.Inverter_Efficiency_Below_Spec_status.trim());
 			generalData.add(previousPlantData.Inverter_Efficiency_Below_Spec_status + "");
 			generalData.add(tmpPlant.Inverter_Efficiency_Below_Spec_status + "");
 			generalData.add(DeltaString + "");
@@ -744,7 +777,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Inverter_Relative_Efficiency_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Inverter_Relative_Efficiency_status.trim().equals(tmpPlant.Inverter_Relative_Efficiency_status.trim());
+			DeltaString = previousPlantData.Inverter_Relative_Efficiency_status.trim()
+					.equals(tmpPlant.Inverter_Relative_Efficiency_status.trim());
 			generalData.add(previousPlantData.Inverter_Relative_Efficiency_status + "");
 			generalData.add(tmpPlant.Inverter_Relative_Efficiency_status + "");
 			generalData.add(DeltaString + "");
@@ -819,7 +853,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Temperature_Alert_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Temperature_Alert_status.trim().equals(tmpPlant.Temperature_Alert_status.trim());
+			DeltaString = previousPlantData.Temperature_Alert_status.trim()
+					.equals(tmpPlant.Temperature_Alert_status.trim());
 			generalData.add(previousPlantData.Temperature_Alert_status + "");
 			generalData.add(tmpPlant.Temperature_Alert_status + "");
 			generalData.add(DeltaString + "");
@@ -844,7 +879,8 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Frequency_Deviation_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Frequency_Deviation_status.trim().equals( tmpPlant.Frequency_Deviation_status.trim());
+			DeltaString = previousPlantData.Frequency_Deviation_status.trim()
+					.equals(tmpPlant.Frequency_Deviation_status.trim());
 			generalData.add(previousPlantData.Frequency_Deviation_status + "");
 			generalData.add(tmpPlant.Frequency_Deviation_status + "");
 			generalData.add(DeltaString + "");
@@ -869,11 +905,11 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Voltage_Deviation_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
-			DeltaString = previousPlantData.Voltage_Deviation_status.trim().equals(tmpPlant.Voltage_Deviation_status.trim());
+			DeltaString = previousPlantData.Voltage_Deviation_status.trim()
+					.equals(tmpPlant.Voltage_Deviation_status.trim());
 			generalData.add(previousPlantData.Voltage_Deviation_status + "");
 			generalData.add(tmpPlant.Voltage_Deviation_status + "");
 			generalData.add(DeltaString + "");
-
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				getDatatable().setCellData(SheetVariables.InsightsTabs, dataIndex + 4, tmpPlant.plant,
