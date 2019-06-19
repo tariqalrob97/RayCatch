@@ -15,7 +15,7 @@ import java.text.MessageFormat;
 import java.util.Calendar;
 
 
-public class XlsUtils {
+public class XlsUtils_backup {
 	public String path;
 	public FileInputStream fis = null;
 	public FileOutputStream fileOut = null;
@@ -29,7 +29,7 @@ public class XlsUtils {
 
 	public static loggerUtils logs = SelTestCase.logs;
 
-	public XlsUtils(String path) {
+	public XlsUtils_backup(String path) {
 		System.out.println("Inputs file: " + path);
 
 		this.path = path;
@@ -209,88 +209,79 @@ public class XlsUtils {
 			
 		}
 		
-		logs.debug("Row number is: "+rowNum +" for rowName: "+rowName);
+		logs.debug("Row number is: "+rowNum +"for rowName: "+rowName);
 		return rowNum+1;
 	}//getRowNumber
-	
-	
 	
 	
 	// returns true if data is set successfully else false
 	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data) {
 		try {
-			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber,data));
-			
+			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber,
+					data));
+			fis = new FileInputStream(path);
+			workbook = new XSSFWorkbook(fis);
+
 			int rowNum = getRowNumber(sheetName, PlantName);
-			int sheetIndex = workbook.getSheetIndex(sheetName);
 
-			sheet = workbook.getSheetAt(sheetIndex);
+			if (rowNum <= 0)
+				return false;
 
-			if (sheetIndex == -1) {
-				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Sheet "));
+			int index = workbook.getSheetIndex(sheetName);
+			int colNum = -1;
+			if (index == -1) {
+				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Sheet"));
+				return false;
+			}
+			sheet = workbook.getSheetAt(index);
+			row = sheet.getRow(0);
+			colNum = colNumber;
+			if (colNum == -1) {
+				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Col"));
 				return false;
 			} else {
-				logs.debug("sheet is valid and row exist");
-				row = sheet.getRow(rowNum - 1);
-				if (row == null) {
-					row = sheet.createRow(rowNum - 1);
-				} else {
-					logs.debug("row is valid");
-					cell = row.getCell(colNumber);
-					if (cell == null) {
-						cell = row.createCell(colNumber);
-					}
-					if (data.contains("Red")) {
-						my_style = workbook.createCellStyle();
-						my_font = workbook.createFont();
-						my_font.setColor(XSSFFont.COLOR_RED);
-						my_font.setFamily(XSSFFont.DEFAULT_FONT_SIZE);
-						my_font.setFontName("Arial");
-						my_style.setFont(my_font);
-						cell.setCellStyle(my_style);
-						data = data.replace("Red", "");
-					}
-					cell.setCellValue(data);
-					logs.debug("setting data done ");
-				}
-
+				// logs.debug(MessageFormat.format(LoggingMsg.COL_INDEX_MSG, colNum));
 			}
+
+			sheet.autoSizeColumn(colNum);
+			row = sheet.getRow(rowNum - 1);
+			if (row == null)
+				row = sheet.createRow(rowNum - 1);
+
+			cell = row.getCell(colNum);
+			if (cell == null)
+				cell = row.createCell(colNum);
+
+			if (data.contains("Red"))
+			{
+				my_style = workbook.createCellStyle();
+				my_font = workbook.createFont();
+				my_font.setColor(XSSFFont.COLOR_RED);
+				my_font.setFamily(XSSFFont.DEFAULT_FONT_SIZE);
+				my_font.setFontName("Arial");
+				my_style.setFont(my_font);
+				cell.setCellStyle(my_style);
+				data = data.replace("Red", "");
+			}
+			
+			if (!cell.getStringCellValue().equals(data))
+				cell.setCellValue(data);
+
+			fileOut = new FileOutputStream(path);
+			workbook.write(fileOut);
+			fileOut.close();
+			// fileOut = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		}
-
+		} /*
+			 * finally { if (fileOut != null) { try { fileOut.close(); } catch (IOException
+			 * e) { e.printStackTrace(); } } }
+			 */
 		return true;
 	}// setCell
 
-	public void writeExcelFile() throws FileNotFoundException, IOException {
-		try {
-			logs.debug("Writing data to excel sheet");
-			fileOut = new FileOutputStream(path);
-			workbook.write(fileOut);
-			fileOut.flush();
-			fileOut.close();
-			logs.debug("Writing Done");
-		} catch (Exception e) {
-			logs.debug("closing the file failed");
-			e.printStackTrace();
-		} finally {
-			logs.debug("try to clean file");
-			if (fileOut != null) {
-				try {
-					logs.debug("closing file again");
-					fileOut.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
 
-	public void readExcelFile() throws FileNotFoundException, IOException {
-		fis = new FileInputStream(path);
-		workbook = new XSSFWorkbook(fis);
-	}
 
 	// find whether sheets exists
 	public boolean isSheetExist(String sheetName) {

@@ -24,6 +24,7 @@ public class sqLiteUtils extends SelTestCase{
 		 //createNewDatabase(DatabaseName);
 		 //createNewTable(TableName, DatabaseName);
 		plant test = selectDataForTheDayBefore("demo","Italy Milan",TableName, DatabaseName);
+		plant.printPlant(test);
 		logs.debug("done");
 	}
 
@@ -223,7 +224,7 @@ public class sqLiteUtils extends SelTestCase{
 	private static plant selectDataForTheDayBefore(String user, String plant, String TableName, String DatabaseName, int negDays) {
 		getCurrentFunctionName(true);
 		String url = "jdbc:sqlite:"+EnvironmentFiles.getDatabasePath()+"/" + DatabaseName;
-		plant results = null; 
+		plant results = new plant(); 
 		
 		try (Connection conn = DriverManager.getConnection(url);) {
 			logs.debug(SqlStatements.SelectPreviousDate.replace("?1", user)

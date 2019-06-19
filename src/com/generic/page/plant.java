@@ -326,7 +326,7 @@ public class plant extends SelTestCase {
 			generalData.add(previousPlantData.Avilability_percentage + "%");
 			generalData.add(tmpPlant.Avilability_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
-
+			
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				getDatatable().setCellData(SheetVariables.GeneralTab, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex));
@@ -373,7 +373,6 @@ public class plant extends SelTestCase {
 			if (tmpPlant.strings___performance - PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) != 0)
 				generalData.add(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) + isRed);
 			else
-				generalData.add(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant) + "");
 			generalData.add(TestUtilities.roundingFormater
 					.format(PlantOverview_General.getCalculatedStringsPerformance(tmpPlant)) + "");
 			generalData.add(tmpPlant.strings___panel_degradation + "");

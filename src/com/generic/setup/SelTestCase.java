@@ -1,6 +1,7 @@
 package com.generic.setup;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -330,12 +331,14 @@ public class SelTestCase {
      * It adds the test case status into the html report and close the browser.
      * It reads email id from config file. If they are mentioned then framework will zip the html reports
      * and send it into corresponding email ids.
+     * @throws IOException 
+     * @throws FileNotFoundException 
      * @throws Exception
      */
     @AfterMethod
-    public void tearDown() {
+    public void tearDown() throws FileNotFoundException, IOException {
     	getCurrentFunctionName(true);
-    	
+    	getDatatable().writeExcelFile();
     	WebDriver driver = SelTestCase.getDriver();
         if (driver != null && !getBrowserName().contains(browsers.iOS)) {
             driver.quit();
