@@ -150,5 +150,5 @@ public class SqlStatements extends SelTestCase {
 			+ "Voltage_Deviation_faulty_devices ,\r\n" + "Voltage_Deviation_value ,\r\n"
 			+ "Voltage_Deviation_percentage ,\r\n" + "Voltage_Deviation_status \r\n" + ")\r\n";
 	
-	public static String SelectPreviousDate = "SELECT * FROM RayDailyData WHERE strftime('%s', raydate) BETWEEN strftime('%s', '?3') AND strftime('%s', '" + LocalDate.now() + "') and user = '?1' and plant = '?2'";
+	public static String SelectPreviousDate = "SELECT * FROM RayDailyData WHERE strftime('%s', raydate) BETWEEN strftime('%s', '?3') AND strftime('%s', '" + LocalDate.now() + "') and user = '?1' and plant = '?2'  ORDER by rowid DESC";
 }

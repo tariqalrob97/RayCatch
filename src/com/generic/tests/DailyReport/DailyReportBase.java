@@ -146,7 +146,7 @@ public class DailyReportBase extends SelTestCase {
 				plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant, TableName, DatabaseName);
 				
 				//Step 14 compare data provide judgment and write data to excel 
-				plant.comparPlantsAndwriteResults(tmpPlant,previousPlantData); 
+				//plant.comparPlantsAndwriteResults(tmpPlant,previousPlantData); 
 				
 			}
 

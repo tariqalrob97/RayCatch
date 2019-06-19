@@ -145,6 +145,7 @@ public class plant extends SelTestCase {
 	public String Voltage_Deviation_status = "Healthy";
 	
 	private static String isRed ="Red";
+	
 	// RC- ready
 	public static void printPlant(plant tmpPlant) {
 		getCurrentFunctionName(true);

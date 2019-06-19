@@ -215,35 +215,36 @@ public class sqLiteUtils extends SelTestCase{
 		getCurrentFunctionName(false);
 	}//insrtData
 
+	public static plant selectDataForTheDayBefore(String user, String plant, String TableName, String DatabaseName) {
+		return selectDataForTheDayBefore(user, plant, TableName, DatabaseName, 1);
+	}
 	
 	// This method selects a specific record of data in a specific table, based on the date 
-	public static plant selectDataForTheDayBefore(String user, String plant, String TableName, String DatabaseName) {
+	private static plant selectDataForTheDayBefore(String user, String plant, String TableName, String DatabaseName, int negDays) {
 		getCurrentFunctionName(true);
 		String url = "jdbc:sqlite:"+EnvironmentFiles.getDatabasePath()+"/" + DatabaseName;
 		plant results = null; 
 		
 		try (Connection conn = DriverManager.getConnection(url);) {
-			int negDays = 1;
-			if (LocalDate.now().getDayOfWeek().toString().contains("SUNDAY")) {
-				logs.debug("Detected Weeked Day: " + LocalDate.now().getDayOfWeek());
-				negDays = 3;
-			}
 			logs.debug(SqlStatements.SelectPreviousDate.replace("?1", user)
 					.replace("?2", plant).replace("?3", LocalDate.now().minusDays(negDays) + ""));
 			PreparedStatement ps = conn.prepareStatement(SqlStatements.SelectPreviousDate.replace("?1", user)
 					.replace("?2", plant).replace("?3", LocalDate.now().minusDays(negDays) + ""));
 
 			ResultSet rs = ps.executeQuery();
-
-			rs.next();	
-			results = parsePlantresult(rs);
+			
 			
 			if (rs.next())
-			{
-				new SQLException("More than one row returned for this function");
+				results = parsePlantresult(rs);
+			else {
+				logs.debug("Detected Weeked Day or null days: " + LocalDate.now().minusDays(negDays).getDayOfWeek());
+				if (LocalDate.now().getDayOfWeek().toString().contains("SUNDAY")) {
+					logs.debug("Detected Weeked Day: " + LocalDate.now().getDayOfWeek());
+					negDays = 2;
+				}
+				selectDataForTheDayBefore(user, plant, TableName, DatabaseName, negDays + 1);
 			}
-			
-			
+
 			closeConnection(conn);
 		} catch (SQLException e) {
 			logs.debug(e.getMessage());
