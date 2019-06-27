@@ -236,7 +236,10 @@ public class sqLiteUtils extends SelTestCase{
 			
 			
 			if (rs.next())
+			{
+				logs.debug("parsing results");
 				results = parsePlantresult(rs);
+			}
 			else {
 				logs.debug("Detected Weeked Day or null days: " + LocalDate.now().minusDays(negDays).getDayOfWeek());
 				if (LocalDate.now().getDayOfWeek().toString().contains("SUNDAY")) {

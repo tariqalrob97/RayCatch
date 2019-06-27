@@ -152,10 +152,10 @@ public class DailyReportBase extends SelTestCase {
 
 			}
 
-//			if ( availblePlants.size() != accountPlantes.trim().split("\n").length)
-//			{
-//				sassert().assertTrue(false, "Some plants are missing from web");
-//			}
+			if ( availblePlants.size() != accountPlantes.trim().split("\n").length)
+			{
+				sassert().assertTrue(false, "Some plants are missing from web");
+			}
 			
 			sassert().assertAll();
 			Common.testPass();
