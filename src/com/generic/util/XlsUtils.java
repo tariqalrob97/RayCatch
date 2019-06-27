@@ -2,8 +2,10 @@ package com.generic.util;
 
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.*;
 
@@ -217,7 +219,7 @@ public class XlsUtils {
 	
 	
 	// returns true if data is set successfully else false
-	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data) {
+	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data, boolean valid) {
 		try {
 			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber,data));
 			
@@ -240,16 +242,35 @@ public class XlsUtils {
 					if (cell == null) {
 						cell = row.createCell(colNumber);
 					}
+					
+					my_style = workbook.createCellStyle();
+					
+					//red color for differences 
 					if (data.contains("Red")) {
-						my_style = workbook.createCellStyle();
 						my_font = workbook.createFont();
 						my_font.setColor(XSSFFont.COLOR_RED);
 						my_font.setFamily(XSSFFont.DEFAULT_FONT_SIZE);
 						my_font.setFontName("Arial");
 						my_style.setFont(my_font);
-						cell.setCellStyle(my_style);
 						data = data.replace("Red", "");
 					}
+					
+					//mark invalid cells with red background
+					if (valid) {
+						my_style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+					} else {
+						my_style.setFillForegroundColor(IndexedColors.RED.getIndex());
+					}
+					
+					//maintain boarders 
+					my_style.setBorderBottom(BorderStyle.THIN);  
+					my_style.setBottomBorderColor(IndexedColors.BLACK.getIndex());  
+					my_style.setBorderRight(BorderStyle.THIN);  
+					my_style.setRightBorderColor(IndexedColors.BLACK.getIndex());  
+					my_style.setBorderTop(BorderStyle.THIN);  
+					my_style.setTopBorderColor(IndexedColors.BLACK.getIndex());  
+					
+					cell.setCellStyle(my_style);
 					cell.setCellValue(data);
 					logs.debug("setting data done ");
 				}
@@ -263,7 +284,7 @@ public class XlsUtils {
 		return true;
 	}// setCell
 
-	public void writeExcelFile() throws FileNotFoundException, IOException {
+	public void writeExcelFile() throws FileNotFoundException, IOException, InterruptedException {
 		try {
 			logs.debug("Writing data to excel sheet");
 			fileOut = new FileOutputStream(path);
@@ -278,6 +299,7 @@ public class XlsUtils {
 			logs.debug("try to clean file");
 			if (fileOut != null) {
 				try {
+					Thread.sleep(2000);
 					logs.debug("closing file again");
 					fileOut.close();
 				} catch (IOException e) {

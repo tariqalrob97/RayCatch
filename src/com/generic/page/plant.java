@@ -2,7 +2,6 @@ package com.generic.page;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 import com.generic.setup.ExceptionMsg;
@@ -12,6 +11,8 @@ import com.generic.util.TestUtilities;
 
 public class plant extends SelTestCase {
 
+	public boolean valid = true;
+	
 	public String user = "NA";
 	public String plant = "NA";
 	public String login = "FAIL";
@@ -150,8 +151,10 @@ public class plant extends SelTestCase {
 	public static void printPlant(plant tmpPlant) {
 		getCurrentFunctionName(true);
 		try {
+			logs.debug("valid:" + tmpPlant.valid);
 			logs.debug("user:" + tmpPlant.user);
 			logs.debug("plant:" + tmpPlant.plant);
+			logs.debug("login:" + tmpPlant.login);
 			logs.debug("PEI_value:" + tmpPlant.PEI_value);
 			logs.debug("PEI_percentage:" + tmpPlant.PEI_percentage);
 			logs.debug("PERF_value:" + tmpPlant.PERF_value);
@@ -329,7 +332,7 @@ public class plant extends SelTestCase {
 			
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				getDatatable().setCellData(SheetVariables.GeneralTab, dataIndex + 4, tmpPlant.plant,
-						generalData.get(dataIndex));
+						generalData.get(dataIndex), tmpPlant.valid);
 			}
 
 		} catch (NoSuchElementException e) {
@@ -386,7 +389,7 @@ public class plant extends SelTestCase {
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant,
-						generalData.get(dataIndex));
+						generalData.get(dataIndex), tmpPlant.valid);
 			}
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -435,7 +438,7 @@ public class plant extends SelTestCase {
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				getDatatable().setCellData(SheetVariables.HealthTab, dataIndex + 4, tmpPlant.plant,
-						generalData.get(dataIndex));
+						generalData.get(dataIndex), tmpPlant.valid);
 			}
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -495,7 +498,7 @@ public class plant extends SelTestCase {
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				getDatatable().setCellData(SheetVariables.HeatMapTab, dataIndex + 4, tmpPlant.plant,
-						generalData.get(dataIndex));
+						generalData.get(dataIndex), tmpPlant.valid);
 			}
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -915,7 +918,7 @@ public class plant extends SelTestCase {
 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
 				getDatatable().setCellData(SheetVariables.InsightsTabs, dataIndex + 4, tmpPlant.plant,
-						generalData.get(dataIndex));
+						generalData.get(dataIndex), tmpPlant.valid);
 			}
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {

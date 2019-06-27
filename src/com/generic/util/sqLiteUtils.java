@@ -224,7 +224,7 @@ public class sqLiteUtils extends SelTestCase{
 	private static plant selectDataForTheDayBefore(String user, String plant, String TableName, String DatabaseName, int negDays) {
 		getCurrentFunctionName(true);
 		String url = "jdbc:sqlite:"+EnvironmentFiles.getDatabasePath()+"/" + DatabaseName;
-		plant results = new plant(); 
+		plant results = null; 
 		
 		try (Connection conn = DriverManager.getConnection(url);) {
 			logs.debug(SqlStatements.SelectPreviousDate.replace("?1", user)
@@ -243,7 +243,13 @@ public class sqLiteUtils extends SelTestCase{
 					logs.debug("Detected Weeked Day: " + LocalDate.now().getDayOfWeek());
 					negDays = 2;
 				}
-				selectDataForTheDayBefore(user, plant, TableName, DatabaseName, negDays + 1);
+				if(negDays < 30)
+				{
+					selectDataForTheDayBefore(user, plant, TableName, DatabaseName, negDays + 1);
+				}else
+				{
+					sassert().assertTrue(false, "Either the plant"+plant+"-"+user+" has no huristical data or it is too old and more than 30 days");
+				}
 			}
 
 			closeConnection(conn);

@@ -288,7 +288,7 @@ public class TestUtilities extends SelTestCase {
 	public static double valueParser(String value)
 	{
 		getCurrentFunctionName(true);
-		double results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","")) ;
+		double results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","").replace("€","")) ;
 		if (value.contains("M"))
 		{
 			results = results*1000000;

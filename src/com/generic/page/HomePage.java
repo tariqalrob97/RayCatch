@@ -125,4 +125,18 @@ public class HomePage extends SelTestCase {
 		}
 	}
 
+	public static boolean isPlantOverViewLoaded() {
+
+		try {
+			getCurrentFunctionName(true);
+			getCurrentFunctionName(false);
+			return getDriver().findElements(By.cssSelector(PlantOverViewSelector.GeneralInfoContainer)).size() > 0;
+
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+	}
+
 }

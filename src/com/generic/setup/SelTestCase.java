@@ -333,10 +333,11 @@ public class SelTestCase {
      * and send it into corresponding email ids.
      * @throws IOException 
      * @throws FileNotFoundException 
+     * @throws InterruptedException 
      * @throws Exception
      */
     @AfterMethod
-    public void tearDown() throws FileNotFoundException, IOException {
+    public void tearDown() throws FileNotFoundException, IOException, InterruptedException {
     	getCurrentFunctionName(true);
     	getDatatable().writeExcelFile();
     	WebDriver driver = SelTestCase.getDriver();

@@ -1,6 +1,7 @@
 package com.generic.tests.DailyReport;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -67,7 +68,7 @@ public class DailyReportBase extends SelTestCase {
 			userdetails = (LinkedHashMap<String, String>) users.get(userName);
 			Testlogs.get().debug("User will be used is: " + userdetails);
 		}
-
+		
 		try {
 
 			// Step 1 do log-in
@@ -84,7 +85,7 @@ public class DailyReportBase extends SelTestCase {
 				Testlogs.get().debug(availblePlants.get(plantIndex).getText());
 			}
 			Testlogs.get().debug("Account plants " + accountPlantes.replace("\n", "<br>") + " plants");
-
+			
 			// Step 3 reiterate all plants and validate calculations
 			for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
 				// get all plants - to avoid element is not attached to the page document
@@ -102,41 +103,60 @@ public class DailyReportBase extends SelTestCase {
 				tmpPlant.user = userName;
 				tmpPlant.plant = Web_plant.getText();
 				tmpPlant.login = "PASS";
+				
+				// Step 6 check if the plant information had loaded
+				if (HomePage.isPlantOverViewLoaded())
+				{
 
-				PlantOverview_General.getGeneralPlantInfo(tmpPlant);
+					PlantOverview_General.getGeneralPlantInfo(tmpPlant);
 
-				// Step 6 get all plants insights and values for each plant
-				PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
+					// Step 7 get all plants insights and values for each plant
+					PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
 
-				// Step 7 Health indicators
-				PlantOverview_PlantHealthIndicators.getPlantHealthIndicators(tmpPlant);
+					// Step 8 Health indicators
+					PlantOverview_PlantHealthIndicators.getPlantHealthIndicators(tmpPlant);
 
-				// Step 8 Heat map
-				PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
+					// Step 9 Heat map
+					PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
 
-				// Step 9 Inverters tab data
-				HomePage.navigateToTab(PlantOverViewSelector.InvertersTab);
-				PlantOverview_PlantInverters.getInvertersTabGeneralInfo(tmpPlant);
+					// Step 10 Inverters tab data
+					HomePage.navigateToTab(PlantOverViewSelector.InvertersTab);
+					PlantOverview_PlantInverters.getInvertersTabGeneralInfo(tmpPlant);
 
-				// Step 10 Strings tab data
-				HomePage.navigateToTab(PlantOverViewSelector.StringsTab);
-				PlantOverview_PlantStrings.getStringsTabGeneralInfo(tmpPlant);
+					// Step 11 Strings tab data
+					HomePage.navigateToTab(PlantOverViewSelector.StringsTab);
+					PlantOverview_PlantStrings.getStringsTabGeneralInfo(tmpPlant);
 
-				// Step 11 print all data
+				}
+				else
+				{
+					logs.debug("the plant didn't loded correctely");
+					sassert().assertTrue(false, "Plant " + tmpPlant.plant +" was failed to load" );
+					tmpPlant.valid = false;
+				}
+				
+				// Step 12 print all data
 				plant.printPlant(tmpPlant);
 
-				// Step 12 insert tmpPlant into data base
+				// Step 13 insert tmpPlant into data base
 				sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
 
-				// Step 13 get the day before data from database
-				plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant,
-						TableName, DatabaseName);
+				// Step 14 get the day before data from database
+				plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant,TableName, DatabaseName);
 
-				// Step 14 compare data provide judgment and write data to excel
-				plant.comparPlantsAndwriteResults(tmpPlant, previousPlantData);
+				// Step 15 compare data provide judgment and write data to excel
+				if (previousPlantData != null)
+					plant.comparPlantsAndwriteResults(tmpPlant, previousPlantData);
+				else
+					logs.debug("Previous data for plant "+tmpPlant.plant+" is null");
 
 			}
 
+//			if ( availblePlants.size() != accountPlantes.trim().split("\n").length)
+//			{
+//				sassert().assertTrue(false, "Some plants are missing from web");
+//			}
+			
 			sassert().assertAll();
 			Common.testPass();
 		} catch (Throwable t) {
