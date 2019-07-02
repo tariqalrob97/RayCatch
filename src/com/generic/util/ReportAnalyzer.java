@@ -36,7 +36,7 @@ public class ReportAnalyzer {
 				diff = (format.parse(Cline.split(" ")[1]).getTime()) - (format.parse(Pline.split(" ")[1]).getTime());
 			} catch (Exception t) {
 				t.printStackTrace();
-				System.out.println("Line is not parsable" + current_line);
+				//System.out.println("Line is not parsable" + current_line);
 				diff = 0;
 			}
 
@@ -79,7 +79,7 @@ public class ReportAnalyzer {
 				try {
 					diff = (format.parse(Cline.split(" ")[1]).getTime())- (format.parse(Pline.split(" ")[1]).getTime());
 				} catch (Exception t) {
-					System.out.println("Line is not parsable");
+					//System.out.println("Line is not parsable");
 					diff = 0;
 				}
 				

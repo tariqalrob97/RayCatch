@@ -203,7 +203,7 @@ public class XlsUtils {
 		
 		for (int rowNumber = plantNamesStarts; rowNumber < getRowCount(sheetName); rowNumber++) {
 			row = sheet.getRow(rowNumber);
-			if (row.getCell(plantNameCol).getStringCellValue().trim().contains(rowName))
+			if (row.getCell(plantNameCol).getStringCellValue().trim().toLowerCase().equals(rowName.toLowerCase()))
 			{
 				rowNum = rowNumber;
 				break;
@@ -225,11 +225,11 @@ public class XlsUtils {
 			
 			int rowNum = getRowNumber(sheetName, PlantName);
 			int sheetIndex = workbook.getSheetIndex(sheetName);
-
+			
 			sheet = workbook.getSheetAt(sheetIndex);
 
-			if (sheetIndex == -1) {
-				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Sheet "));
+			if (sheetIndex == -1 || rowNum == 0) {
+				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Sheet ") + " or row is not exist");
 				return false;
 			} else {
 				logs.debug("sheet is valid and row exist");
