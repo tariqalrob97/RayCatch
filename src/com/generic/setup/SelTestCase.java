@@ -322,8 +322,8 @@ public class SelTestCase {
             logs.debug(MessageFormat.format(LoggingMsg.DEBUGGING_TEXT, t));
             throw new Exception(t);
         }
-        getCurrentFunctionName(false);
         logs.debug("Driver Details: "+getDriver());
+        getCurrentFunctionName(false);
     }
 
 
@@ -407,4 +407,5 @@ public class SelTestCase {
     	 ReportUtil.copyReportToC(SelTestCase.logDir,"C://AutoRepo");
     	 getCurrentFunctionName(false);
     }
+    
 }

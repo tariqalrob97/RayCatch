@@ -35,6 +35,7 @@ import org.xml.sax.SAXException;
 import com.generic.setup.EnvironmentFiles;
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
+import com.generic.setup.SheetVariables;
 
 public class TestUtilities extends SelTestCase {
 	public static DecimalFormat roundingFormater = new DecimalFormat("#########.00");
@@ -300,5 +301,54 @@ public class TestUtilities extends SelTestCase {
 		getCurrentFunctionName(false);
 		return results; 
 	}
-
+	
+	public static boolean checkIfExist(int[] arr, int value) {
+		for (int element : arr) {
+			if (element == value) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	public static boolean clearOnesheet(String SheetName)
+	{
+		getCurrentFunctionName(true);
+		boolean writing_passed = true;
+		int[] exceptions = {8,11,16,18,20};
+		int cols = 0; 
+		if (SheetName == SheetVariables.GeneralTab)
+			cols = 23;
+		if (SheetName == SheetVariables.Aggregation)
+			cols = 17;
+		if (SheetName == SheetVariables.HealthTab)
+			cols = 19;
+		if (SheetName == SheetVariables.HeatMapTab)
+			cols = 28;
+		if (SheetName == SheetVariables.InsightsTabs)
+			cols = 229;
+		
+		//Start clearing data from col 4 row 5
+		for (int col = 4; col < cols; col++) {
+			for (int row = 5; row < 23; row++) {
+				if (!TestUtilities.checkIfExist(exceptions, row))
+					writing_passed = writing_passed & getDatatable().setCellData(SheetName, col , row,"", true);
+			}
+		}
+		getCurrentFunctionName(false);	
+		return writing_passed;
+	}
+	public static boolean cleanReportsheet()
+	{
+    	getCurrentFunctionName(true);
+    	boolean writing_passed = true;
+    	writing_passed = writing_passed & clearOnesheet(SheetVariables.GeneralTab);
+    	writing_passed = writing_passed & clearOnesheet(SheetVariables.Aggregation);
+    	writing_passed = writing_passed & clearOnesheet(SheetVariables.HealthTab);
+    	writing_passed = writing_passed & clearOnesheet(SheetVariables.HeatMapTab);
+    	writing_passed = writing_passed & clearOnesheet(SheetVariables.InsightsTabs);
+		getCurrentFunctionName(false);
+		return writing_passed; 
+	}
 }

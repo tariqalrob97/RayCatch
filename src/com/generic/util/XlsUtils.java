@@ -215,15 +215,20 @@ public class XlsUtils {
 		return rowNum+1;
 	}//getRowNumber
 	
-	
+	// returns true if data is set successfully else false
+		public boolean setCellData(String sheetName, int colNumber, String PlantName, String data, boolean valid) {
+			int rowNumber  = getRowNumber(sheetName, PlantName);
+			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber,data));
+			return setCellData(sheetName, colNumber, rowNumber, data, valid);
+			
+		}
 	
 	
 	// returns true if data is set successfully else false
-	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data, boolean valid) {
+	public boolean setCellData(String sheetName, int colNumber, int rowNumber, String data, boolean valid) {
 		try {
-			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber,data));
-			
-			int rowNum = getRowNumber(sheetName, PlantName);
+						
+			int rowNum = rowNumber;
 			int sheetIndex = workbook.getSheetIndex(sheetName);
 			
 			sheet = workbook.getSheetAt(sheetIndex);
@@ -232,12 +237,12 @@ public class XlsUtils {
 				logs.debug(MessageFormat.format(LoggingMsg.NOT_EXIST_MSG, "Sheet ") + " or row is not exist");
 				return false;
 			} else {
-				logs.debug("sheet is valid and row exist");
 				row = sheet.getRow(rowNum - 1);
 				if (row == null) {
+					logs.debug("row is valid");
 					row = sheet.createRow(rowNum - 1);
 				} else {
-					logs.debug("row is valid");
+					
 					cell = row.getCell(colNumber);
 					if (cell == null) {
 						cell = row.createCell(colNumber);
@@ -272,7 +277,7 @@ public class XlsUtils {
 					
 					cell.setCellStyle(my_style);
 					cell.setCellValue(data);
-					logs.debug("setting data done ");
+					//logs.debug("setting data done ");
 				}
 
 			}

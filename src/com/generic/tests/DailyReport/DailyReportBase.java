@@ -1,7 +1,6 @@
 package com.generic.tests.DailyReport;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,6 +25,7 @@ import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
 import com.generic.util.ReportUtil;
+import com.generic.util.TestUtilities;
 import com.generic.util.dataProviderUtils;
 import com.generic.util.loggerUtils;
 import com.generic.util.sqLiteUtils;
@@ -68,6 +68,9 @@ public class DailyReportBase extends SelTestCase {
 			userdetails = (LinkedHashMap<String, String>) users.get(userName);
 			Testlogs.get().debug("User will be used is: " + userdetails);
 		}
+		
+		//clean the datasheet from last data 
+		TestUtilities.cleanReportsheet();
 		
 		try {
 
