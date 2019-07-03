@@ -330,10 +330,12 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Avilability_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 			
+			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				getDatatable().setCellData(SheetVariables.GeneralTab, dataIndex + 4, tmpPlant.plant,
+				writing_passed = writing_passed & getDatatable().setCellData(SheetVariables.GeneralTab, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex), tmpPlant.valid);
 			}
+			sassert().assertTrue(writing_passed,"writing data for plant "+tmpPlant.plant+" from user "+tmpPlant.user+" is failed");
 
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -387,10 +389,12 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.strings___availability + "");
 			generalData.add("0");
 
+			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant,
+				writing_passed = writing_passed & getDatatable().setCellData(SheetVariables.Aggregation, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex), tmpPlant.valid);
 			}
+			sassert().assertTrue(writing_passed,"writing data for plant "+tmpPlant.plant+" from user "+tmpPlant.user+" is failed");
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
@@ -436,10 +440,12 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Health_Power_Factor_percentage + "%");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
 
+			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				getDatatable().setCellData(SheetVariables.HealthTab, dataIndex + 4, tmpPlant.plant,
+				writing_passed = writing_passed & getDatatable().setCellData(SheetVariables.HealthTab, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex), tmpPlant.valid);
 			}
+			sassert().assertTrue(writing_passed,"writing data for plant "+tmpPlant.plant+" from user "+tmpPlant.user+" is failed");
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
@@ -496,10 +502,12 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Messing_data_Strings + "");
 			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
 
+			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				getDatatable().setCellData(SheetVariables.HeatMapTab, dataIndex + 4, tmpPlant.plant,
+				writing_passed = writing_passed & getDatatable().setCellData(SheetVariables.HeatMapTab, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex), tmpPlant.valid);
 			}
+			sassert().assertTrue(writing_passed,"writing data for plant "+tmpPlant.plant+" from user "+tmpPlant.user+" is failed");
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
@@ -916,10 +924,12 @@ public class plant extends SelTestCase {
 			generalData.add(tmpPlant.Voltage_Deviation_status + "");
 			generalData.add(DeltaString + "");
 
+			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
-				getDatatable().setCellData(SheetVariables.InsightsTabs, dataIndex + 4, tmpPlant.plant,
+				writing_passed = writing_passed & getDatatable().setCellData(SheetVariables.InsightsTabs, dataIndex + 4, tmpPlant.plant,
 						generalData.get(dataIndex), tmpPlant.valid);
 			}
+			sassert().assertTrue(writing_passed,"writing data for plant "+tmpPlant.plant+" from user "+tmpPlant.user+" is failed");
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));

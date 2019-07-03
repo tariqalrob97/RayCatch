@@ -95,7 +95,7 @@ public class DailyReportBase extends SelTestCase {
 				// Step 4 Navigate to plant status
 				HomePage.navigateToPlant(Web_plant);
 				sassert().assertTrue(accountPlantes.contains(Web_plant.getText()),
-						"Plant " + Web_plant.getText() + " is not exist in account plants");
+						"Plant " + Web_plant.getText() + " is not exist in account plants but existed in web");
 
 				// Step 5 get plant status general information
 				// Initiating new plant object to be used to store all plant object
@@ -152,9 +152,14 @@ public class DailyReportBase extends SelTestCase {
 
 			}
 
-			if ( availblePlants.size() != accountPlantes.trim().split("\n").length)
+			if ( availblePlants.size() < accountPlantes.trim().split("\n").length)
 			{
 				sassert().assertTrue(false, "Some plants are missing from web");
+			}else if (( availblePlants.size() > accountPlantes.trim().split("\n").length))
+			{
+				sassert().assertTrue(false, "Some plants are extra on web");
+			}else{
+				logs.debug("all plants exist in data store exist also on web"); 
 			}
 			
 			sassert().assertAll();
