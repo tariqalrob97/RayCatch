@@ -3,6 +3,8 @@ package com.generic.page;
 import java.text.MessageFormat;
 import java.util.NoSuchElementException;
 
+import org.openqa.selenium.By;
+
 import com.generic.selector.SignInSelectors;
 import com.generic.setup.ExceptionMsg;
 import com.generic.setup.SelTestCase;
@@ -40,8 +42,8 @@ public class SignIn extends SelTestCase {
 	public static void fillLoginFormAndClickSubmit(String userName, String Password) throws Exception {
 		try {
 			getCurrentFunctionName(true);
-			typeUsername(userName);
 			// typePassword(Password + ",pressEnter");
+			typeUsername(userName);
 			typePassword(Password);
 			clickLogin();
 			Thread.sleep(3000);
@@ -57,8 +59,7 @@ public class SignIn extends SelTestCase {
 	public static void clickLogin() throws Exception {
 		try {
 			getCurrentFunctionName(true);
-			String subStrArr = SignInSelectors.loginBtn;
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr);
+			getDriver().findElement(By.cssSelector(SignInSelectors.loginBtn)).click();
 			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -72,9 +73,7 @@ public class SignIn extends SelTestCase {
 	public static void typePassword(String password) throws Exception {
 		try {
 			getCurrentFunctionName(true);
-			String subStrArr = SignInSelectors.password;
-			String valuesArr = password;
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+			getDriver().findElement(By.id(SignInSelectors.password)).sendKeys(password);
 			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -87,9 +86,7 @@ public class SignIn extends SelTestCase {
 	public static void typeUsername(String userName) throws Exception {
 		try {
 			getCurrentFunctionName(true);
-			String subStrArr = SignInSelectors.userName;
-			String valuesArr = userName;
-			SelectorUtil.initializeSelectorsAndDoActions(subStrArr, valuesArr);
+			getDriver().findElement(By.id(SignInSelectors.userName)).sendKeys(userName);
 			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {

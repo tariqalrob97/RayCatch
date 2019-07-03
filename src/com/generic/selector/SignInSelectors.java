@@ -2,7 +2,7 @@ package com.generic.selector;
 public class SignInSelectors
 {
 	//done
-	public static final String loginBtn = "css,form>fieldset>div>button";
+	public static final String loginBtn = ".ytr_input-submit-sign-in";
 	public static final String  password = "login-password";
 	public static final String userName = "login-username";
 	public static final String plantName = "span.plant-name";
