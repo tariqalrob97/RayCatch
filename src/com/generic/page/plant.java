@@ -297,38 +297,45 @@ public class plant extends SelTestCase {
 		try {
 			ArrayList<String> generalData = new ArrayList<String>();
 			double Delta = 0;
+			String Deltas = "";
 
 			generalData.add(tmpPlant.login);
 
 			Delta = previousPlantData.PEI_value - tmpPlant.PEI_value;
 			generalData.add(previousPlantData.PEI_value + "");
-			generalData.add(tmpPlant.PEI_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			generalData.add(tmpPlant.PEI_value + "");		
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.PEI_percentage - tmpPlant.PEI_percentage;
 			generalData.add(previousPlantData.PEI_percentage + "%");
 			generalData.add(tmpPlant.PEI_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
-
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
+			
 			Delta = previousPlantData.PERF_value - tmpPlant.PERF_value;
 			generalData.add(previousPlantData.PERF_value + "");
 			generalData.add(tmpPlant.PERF_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.PERF_percentage - tmpPlant.PERF_percentage;
 			generalData.add(previousPlantData.PERF_percentage + "%");
 			generalData.add(tmpPlant.PERF_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			Delta = previousPlantData.Avilability_value - tmpPlant.Avilability_value;
 			generalData.add(previousPlantData.Avilability_value + "");
 			generalData.add(tmpPlant.Avilability_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Avilability_percentage - tmpPlant.Avilability_percentage;
 			generalData.add(previousPlantData.Avilability_percentage + "%");
 			generalData.add(tmpPlant.Avilability_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 			
 			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
@@ -414,31 +421,37 @@ public class plant extends SelTestCase {
 			ArrayList<String> generalData = new ArrayList<String>();
 
 			double Delta = 0;
+			String Deltas = "";
 
 			Delta = previousPlantData.Health_PRpercentage - tmpPlant.Health_PRpercentage;
 			generalData.add(previousPlantData.Health_PRpercentage + "%");
 			generalData.add(tmpPlant.Health_PRpercentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			Delta = previousPlantData.Health_PR_STCpercentage - tmpPlant.Health_PR_STCpercentage;
 			generalData.add(previousPlantData.Health_PR_STCpercentage + "%");
 			generalData.add(tmpPlant.Health_PR_STCpercentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			Delta = previousPlantData.Health_Data_integrity_percentage - tmpPlant.Health_Data_integrity_percentage;
 			generalData.add(previousPlantData.Health_Data_integrity_percentage + "%");
 			generalData.add(tmpPlant.Health_Data_integrity_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			Delta = previousPlantData.Health_plantAvilability_percentage - tmpPlant.Health_plantAvilability_percentage;
 			generalData.add(previousPlantData.Health_plantAvilability_percentage + "%");
 			generalData.add(tmpPlant.Health_plantAvilability_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			Delta = previousPlantData.Health_Power_Factor_percentage - tmpPlant.Health_Power_Factor_percentage;
 			generalData.add(previousPlantData.Health_Power_Factor_percentage + "%");
 			generalData.add(tmpPlant.Health_Power_Factor_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
@@ -461,46 +474,55 @@ public class plant extends SelTestCase {
 			ArrayList<String> generalData = new ArrayList<String>();
 
 			double Delta = 0;
-
+			String Deltas = "";
+			
 			Delta = previousPlantData.Healty_Inverters - tmpPlant.Healty_Inverters;
 			generalData.add(previousPlantData.Healty_Inverters + "");
 			generalData.add(tmpPlant.Healty_Inverters + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Healty_Strings - tmpPlant.Healty_Strings;
 			generalData.add(previousPlantData.Healty_Strings + "");
 			generalData.add(tmpPlant.Healty_Strings + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.OK_Inverters - tmpPlant.OK_Inverters;
 			generalData.add(previousPlantData.OK_Inverters + "");
 			generalData.add(tmpPlant.OK_Inverters + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.OK_Strings - tmpPlant.OK_Strings;
 			generalData.add(previousPlantData.OK_Strings + "");
 			generalData.add(tmpPlant.OK_Strings + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Faulty_Inverters - tmpPlant.Faulty_Inverters;
 			generalData.add(previousPlantData.Faulty_Inverters + "");
 			generalData.add(tmpPlant.Faulty_Inverters + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Faulty_Strings - tmpPlant.Faulty_Strings;
 			generalData.add(previousPlantData.Faulty_Strings + "");
 			generalData.add(tmpPlant.Faulty_Strings + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Messing_data_inverters - tmpPlant.Messing_data_inverters;
 			generalData.add(previousPlantData.Messing_data_inverters + "");
 			generalData.add(tmpPlant.Messing_data_inverters + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Messing_data_Strings - tmpPlant.Messing_data_Strings;
 			generalData.add(previousPlantData.Messing_data_Strings + "");
 			generalData.add(tmpPlant.Messing_data_Strings + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
@@ -523,406 +545,479 @@ public class plant extends SelTestCase {
 
 			double Delta = 0;
 			boolean DeltaString = false;
+			String Deltas = "";
 
+			
 			Delta = previousPlantData.Disconnected_Strings_total_devices - tmpPlant.Disconnected_Strings_total_devices;
 			generalData.add(previousPlantData.Disconnected_Strings_total_devices + "");
 			generalData.add(tmpPlant.Disconnected_Strings_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Disconnected_Strings_faulty_devices
 					- tmpPlant.Disconnected_Strings_faulty_devices;
 			generalData.add(previousPlantData.Disconnected_Strings_faulty_devices + "");
 			generalData.add(tmpPlant.Disconnected_Strings_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Disconnected_Strings_value - tmpPlant.Disconnected_Strings_value;
 			generalData.add(previousPlantData.Disconnected_Strings_value + "");
 			generalData.add(tmpPlant.Disconnected_Strings_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Disconnected_Strings_percentage - tmpPlant.Disconnected_Strings_percentage;
 			generalData.add(previousPlantData.Disconnected_Strings_percentage + "%");
 			generalData.add(tmpPlant.Disconnected_Strings_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Disconnected_Strings_status.trim()
 					.equals(tmpPlant.Disconnected_Strings_status.trim());
 			generalData.add(previousPlantData.Disconnected_Strings_status + "");
 			generalData.add(tmpPlant.Disconnected_Strings_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Panel_Degradation_total_devices - tmpPlant.Panel_Degradation_total_devices;
 			generalData.add(previousPlantData.Panel_Degradation_total_devices + "");
 			generalData.add(tmpPlant.Panel_Degradation_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
-
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+			
 			Delta = previousPlantData.Panel_Degradation_faulty_devices - tmpPlant.Panel_Degradation_faulty_devices;
 			generalData.add(previousPlantData.Panel_Degradation_faulty_devices + "");
 			generalData.add(tmpPlant.Panel_Degradation_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Panel_Degradation_value - tmpPlant.Panel_Degradation_value;
 			generalData.add(previousPlantData.Panel_Degradation_value + "");
 			generalData.add(tmpPlant.Panel_Degradation_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Panel_Degradation_percentage - tmpPlant.Panel_Degradation_percentage;
 			generalData.add(previousPlantData.Panel_Degradation_percentage + "%");
 			generalData.add(tmpPlant.Panel_Degradation_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Panel_Degradation_status.trim()
 					.equals(tmpPlant.Panel_Degradation_status.trim());
 			generalData.add(previousPlantData.Panel_Degradation_status + "");
 			generalData.add(tmpPlant.Panel_Degradation_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.String_Data_integrity_total_devices
 					- tmpPlant.String_Data_integrity_total_devices;
 			generalData.add(previousPlantData.String_Data_integrity_total_devices + "");
 			generalData.add(tmpPlant.String_Data_integrity_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.String_Data_integrity_faulty_devices
 					- tmpPlant.String_Data_integrity_faulty_devices;
 			generalData.add(previousPlantData.String_Data_integrity_faulty_devices + "");
 			generalData.add(tmpPlant.String_Data_integrity_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
-
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+			
 			Delta = previousPlantData.String_Data_integrity_value - tmpPlant.String_Data_integrity_value;
 			generalData.add(previousPlantData.String_Data_integrity_value + "");
 			generalData.add(tmpPlant.String_Data_integrity_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.String_Data_integrity_percentage - tmpPlant.String_Data_integrity_percentage;
 			generalData.add(previousPlantData.String_Data_integrity_percentage + "%");
 			generalData.add(tmpPlant.String_Data_integrity_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.String_Data_integrity_status.trim()
 					.equals(tmpPlant.String_Data_integrity_status.trim());
 			generalData.add(previousPlantData.String_Data_integrity_status + "");
 			generalData.add(tmpPlant.String_Data_integrity_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Temperature_Coefficient_total_devices
 					- tmpPlant.Temperature_Coefficient_total_devices;
 			generalData.add(previousPlantData.Temperature_Coefficient_total_devices + "");
 			generalData.add(tmpPlant.Temperature_Coefficient_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Temperature_Coefficient_faulty_devices
 					- tmpPlant.Temperature_Coefficient_faulty_devices;
 			generalData.add(previousPlantData.Temperature_Coefficient_faulty_devices + "");
 			generalData.add(tmpPlant.Temperature_Coefficient_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Temperature_Coefficient_value - tmpPlant.Temperature_Coefficient_value;
 			generalData.add(previousPlantData.Temperature_Coefficient_value + "");
 			generalData.add(tmpPlant.Temperature_Coefficient_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Temperature_Coefficientpercentage - tmpPlant.Temperature_Coefficientpercentage;
 			generalData.add(previousPlantData.Temperature_Coefficientpercentage + "%");
 			generalData.add(tmpPlant.Temperature_Coefficientpercentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Temperature_Coefficient__status.trim()
 					.equals(tmpPlant.Temperature_Coefficient__status.trim());
 			generalData.add(previousPlantData.Temperature_Coefficient__status + "");
 			generalData.add(tmpPlant.Temperature_Coefficient__status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Inverter_Downtime_total_devices - tmpPlant.Inverter_Downtime_total_devices;
 			generalData.add(previousPlantData.Inverter_Downtime_total_devices + "");
 			generalData.add(tmpPlant.Inverter_Downtime_total_devices + "");
-			generalData.add(Delta + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Inverter_Downtime_faulty_devices - tmpPlant.Inverter_Downtime_faulty_devices;
 			generalData.add(previousPlantData.Inverter_Downtime_faulty_devices + "");
 			generalData.add(tmpPlant.Inverter_Downtime_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Inverter_Downtime_value - tmpPlant.Inverter_Downtime_value;
 			generalData.add(previousPlantData.Inverter_Downtime_value + "");
 			generalData.add(tmpPlant.Inverter_Downtime_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Inverter_Downtime_percentage - tmpPlant.Inverter_Downtime_percentage;
 			generalData.add(previousPlantData.Inverter_Downtime_percentage + "%");
 			generalData.add(tmpPlant.Inverter_Downtime_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Inverter_Downtime__status.trim()
 					.equals(tmpPlant.Inverter_Downtime__status.trim());
 			generalData.add(previousPlantData.Inverter_Downtime__status + "");
 			generalData.add(tmpPlant.Inverter_Downtime__status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Inverter_Data_integrity_total_devices
 					- tmpPlant.Inverter_Data_integrity_total_devices;
 			generalData.add(previousPlantData.Inverter_Data_integrity_total_devices + "");
 			generalData.add(tmpPlant.Inverter_Data_integrity_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Inverter_Data_integrity_faulty_devices
 					- tmpPlant.Inverter_Data_integrity_faulty_devices;
 			generalData.add(previousPlantData.Inverter_Data_integrity_faulty_devices + "");
 			generalData.add(tmpPlant.Inverter_Data_integrity_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Inverter_Data_integrity_value - tmpPlant.Inverter_Data_integrity_value;
 			generalData.add(previousPlantData.Inverter_Data_integrity_value + "");
 			generalData.add(tmpPlant.Inverter_Data_integrity_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Inverter_Data_integrity_percentage - tmpPlant.Inverter_Data_integrity_percentage;
 			generalData.add(previousPlantData.Inverter_Data_integrity_percentage + "%");
 			generalData.add(tmpPlant.Inverter_Data_integrity_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
+
 
 			DeltaString = previousPlantData.Inverter_Data_integrity_status.trim()
 					.equals(tmpPlant.Inverter_Data_integrity_status.trim());
 			generalData.add(previousPlantData.Inverter_Data_integrity_status + "");
 			generalData.add(tmpPlant.Inverter_Data_integrity_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Inverter_Efficiency_Below_Spec_total_devices
 					- tmpPlant.Inverter_Efficiency_Below_Spec_total_devices;
 			generalData.add(previousPlantData.Inverter_Efficiency_Below_Spec_total_devices + "");
 			generalData.add(tmpPlant.Inverter_Efficiency_Below_Spec_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Inverter_Efficiency_Below_Spec_faulty_devices
 					- tmpPlant.Inverter_Efficiency_Below_Spec_faulty_devices;
 			generalData.add(previousPlantData.Inverter_Efficiency_Below_Spec_faulty_devices + "");
 			generalData.add(tmpPlant.Inverter_Efficiency_Below_Spec_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Inverter_Efficiency_Below_Spec_value
 					- tmpPlant.Inverter_Efficiency_Below_Spec_value;
 			generalData.add(previousPlantData.Inverter_Efficiency_Below_Spec_value + "");
 			generalData.add(tmpPlant.Inverter_Efficiency_Below_Spec_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Inverter_Efficiency_Below_Spec_percentage
 					- tmpPlant.Inverter_Efficiency_Below_Spec_percentage;
 			generalData.add(previousPlantData.Inverter_Efficiency_Below_Spec_percentage + "%");
 			generalData.add(tmpPlant.Inverter_Efficiency_Below_Spec_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
+
 
 			DeltaString = previousPlantData.Inverter_Efficiency_Below_Spec_status.trim()
 					.equals(tmpPlant.Inverter_Efficiency_Below_Spec_status.trim());
 			generalData.add(previousPlantData.Inverter_Efficiency_Below_Spec_status + "");
 			generalData.add(tmpPlant.Inverter_Efficiency_Below_Spec_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Late_Awakening_total_devices - tmpPlant.Late_Awakening_total_devices;
 			generalData.add(previousPlantData.Late_Awakening_total_devices + "");
 			generalData.add(tmpPlant.Late_Awakening_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Late_Awakening_faulty_devices - tmpPlant.Late_Awakening_faulty_devices;
 			generalData.add(previousPlantData.Late_Awakening_faulty_devices + "");
 			generalData.add(tmpPlant.Late_Awakening_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Late_Awakening_value - tmpPlant.Late_Awakening_value;
 			generalData.add(previousPlantData.Late_Awakening_value + "");
 			generalData.add(tmpPlant.Late_Awakening_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
+
 
 			Delta = previousPlantData.Late_Awakening_percentage - tmpPlant.Late_Awakening_percentage;
 			generalData.add(previousPlantData.Late_Awakening_percentage + "%");
 			generalData.add(tmpPlant.Late_Awakening_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Late_Awakening_status.trim().equals(tmpPlant.Late_Awakening_status.trim());
 			generalData.add(previousPlantData.Late_Awakening_status + "");
 			generalData.add(tmpPlant.Late_Awakening_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Mppt_total_devices - tmpPlant.Mppt_total_devices;
 			generalData.add(previousPlantData.Mppt_total_devices + "");
 			generalData.add(tmpPlant.Mppt_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Mppt_faulty_devices - tmpPlant.Mppt_faulty_devices;
 			generalData.add(previousPlantData.Mppt_faulty_devices + "");
 			generalData.add(tmpPlant.Mppt_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Mppt_value - tmpPlant.Mppt_value;
 			generalData.add(previousPlantData.Mppt_value + "");
 			generalData.add(tmpPlant.Mppt_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Mppt_percentage - tmpPlant.Mppt_percentage;
 			generalData.add(previousPlantData.Mppt_percentage + "%");
 			generalData.add(tmpPlant.Mppt_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Mppt_status.trim().equals(tmpPlant.Mppt_status.trim());
 			generalData.add(previousPlantData.Mppt_status + "");
 			generalData.add(tmpPlant.Mppt_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Inverter_Relative_Efficiency_total_devices
 					- tmpPlant.Inverter_Relative_Efficiency_total_devices;
 			generalData.add(previousPlantData.Inverter_Relative_Efficiency_total_devices + "");
 			generalData.add(tmpPlant.Inverter_Relative_Efficiency_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Inverter_Relative_Efficiency_faulty_devices
 					- tmpPlant.Inverter_Relative_Efficiency_faulty_devices;
 			generalData.add(previousPlantData.Inverter_Relative_Efficiency_faulty_devices + "");
 			generalData.add(tmpPlant.Inverter_Relative_Efficiency_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Inverter_Relative_Efficiency_value - tmpPlant.Inverter_Relative_Efficiency_value;
 			generalData.add(previousPlantData.Inverter_Relative_Efficiency_value + "");
 			generalData.add(tmpPlant.Inverter_Relative_Efficiency_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Inverter_Relative_Efficiency_percentage
 					- tmpPlant.Inverter_Relative_Efficiency_percentage;
 			generalData.add(previousPlantData.Inverter_Relative_Efficiency_percentage + "%");
 			generalData.add(tmpPlant.Inverter_Relative_Efficiency_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
-
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
+			
 			DeltaString = previousPlantData.Inverter_Relative_Efficiency_status.trim()
 					.equals(tmpPlant.Inverter_Relative_Efficiency_status.trim());
 			generalData.add(previousPlantData.Inverter_Relative_Efficiency_status + "");
 			generalData.add(tmpPlant.Inverter_Relative_Efficiency_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Clipping_total_devices - tmpPlant.Clipping_total_devices;
 			generalData.add(previousPlantData.Clipping_total_devices + "");
 			generalData.add(tmpPlant.Clipping_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Clipping_faulty_devices - tmpPlant.Clipping_faulty_devices;
 			generalData.add(previousPlantData.Clipping_faulty_devices + "");
 			generalData.add(tmpPlant.Clipping_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Clipping_value - tmpPlant.Clipping_value;
 			generalData.add(previousPlantData.Clipping_value + "");
 			generalData.add(tmpPlant.Clipping_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Clipping_percentage - tmpPlant.Clipping_percentage;
 			generalData.add(previousPlantData.Clipping_percentage + "%");
 			generalData.add(tmpPlant.Clipping_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Clipping_status.trim().equals(tmpPlant.Clipping_status.trim());
 			generalData.add(previousPlantData.Clipping_status + "");
 			generalData.add(tmpPlant.Clipping_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Power_Factor_total_devices - tmpPlant.Power_Factor_total_devices;
 			generalData.add(previousPlantData.Power_Factor_total_devices + "");
 			generalData.add(tmpPlant.Power_Factor_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Power_Factor_faulty_devices - tmpPlant.Power_Factor_faulty_devices;
 			generalData.add(previousPlantData.Power_Factor_faulty_devices + "");
 			generalData.add(tmpPlant.Power_Factor_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Power_Factor_value - tmpPlant.Power_Factor_value;
 			generalData.add(previousPlantData.Power_Factor_value + "");
 			generalData.add(tmpPlant.Power_Factor_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Power_Factor_percentage - tmpPlant.Power_Factor_percentage;
 			generalData.add(previousPlantData.Power_Factor_percentage + "%");
 			generalData.add(tmpPlant.Power_Factor_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Power_Factor_status.trim().equals(tmpPlant.Power_Factor_status.trim());
 			generalData.add(previousPlantData.Power_Factor_status + "");
 			generalData.add(tmpPlant.Power_Factor_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Temperature_Alert_total_devices - tmpPlant.Temperature_Alert_total_devices;
 			generalData.add(previousPlantData.Temperature_Alert_total_devices + "");
 			generalData.add(tmpPlant.Temperature_Alert_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Temperature_Alert_faulty_devices - tmpPlant.Temperature_Alert_faulty_devices;
 			generalData.add(previousPlantData.Temperature_Alert_faulty_devices + "");
 			generalData.add(tmpPlant.Temperature_Alert_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Temperature_Alert_value - tmpPlant.Temperature_Alert_value;
 			generalData.add(previousPlantData.Temperature_Alert_value + "");
 			generalData.add(tmpPlant.Temperature_Alert_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Temperature_Alert_percentage - tmpPlant.Temperature_Alert_percentage;
 			generalData.add(previousPlantData.Temperature_Alert_percentage + "%");
 			generalData.add(tmpPlant.Temperature_Alert_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Temperature_Alert_status.trim()
 					.equals(tmpPlant.Temperature_Alert_status.trim());
 			generalData.add(previousPlantData.Temperature_Alert_status + "");
 			generalData.add(tmpPlant.Temperature_Alert_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Frequency_Deviation_total_devices - tmpPlant.Frequency_Deviation_total_devices;
 			generalData.add(previousPlantData.Frequency_Deviation_total_devices + "");
 			generalData.add(tmpPlant.Frequency_Deviation_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Frequency_Deviation_faulty_devices - tmpPlant.Frequency_Deviation_faulty_devices;
 			generalData.add(previousPlantData.Frequency_Deviation_faulty_devices + "");
 			generalData.add(tmpPlant.Frequency_Deviation_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Frequency_Deviation_value - tmpPlant.Frequency_Deviation_value;
 			generalData.add(previousPlantData.Frequency_Deviation_value + "");
 			generalData.add(tmpPlant.Frequency_Deviation_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Frequency_Deviation_percentage - tmpPlant.Frequency_Deviation_percentage;
 			generalData.add(previousPlantData.Frequency_Deviation_percentage + "%");
 			generalData.add(tmpPlant.Frequency_Deviation_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Frequency_Deviation_status.trim()
 					.equals(tmpPlant.Frequency_Deviation_status.trim());
 			generalData.add(previousPlantData.Frequency_Deviation_status + "");
 			generalData.add(tmpPlant.Frequency_Deviation_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Delta = previousPlantData.Voltage_Deviation_total_devices - tmpPlant.Voltage_Deviation_total_devices;
 			generalData.add(previousPlantData.Voltage_Deviation_total_devices + "");
 			generalData.add(tmpPlant.Voltage_Deviation_total_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Voltage_Deviation_faulty_devices - tmpPlant.Voltage_Deviation_faulty_devices;
 			generalData.add(previousPlantData.Voltage_Deviation_faulty_devices + "");
 			generalData.add(tmpPlant.Voltage_Deviation_faulty_devices + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Voltage_Deviation_value - tmpPlant.Voltage_Deviation_value;
 			generalData.add(previousPlantData.Voltage_Deviation_value + "");
 			generalData.add(tmpPlant.Voltage_Deviation_value + "");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed);
 
 			Delta = previousPlantData.Voltage_Deviation_percentage - tmpPlant.Voltage_Deviation_percentage;
 			generalData.add(previousPlantData.Voltage_Deviation_percentage + "%");
 			generalData.add(tmpPlant.Voltage_Deviation_percentage + "%");
-			generalData.add(TestUtilities.roundingFormater.format(Delta) + "%");
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta == 0) ? Deltas : Deltas+isRed+"%");
 
 			DeltaString = previousPlantData.Voltage_Deviation_status.trim()
 					.equals(tmpPlant.Voltage_Deviation_status.trim());
 			generalData.add(previousPlantData.Voltage_Deviation_status + "");
 			generalData.add(tmpPlant.Voltage_Deviation_status + "");
-			generalData.add(DeltaString + "");
+			generalData.add((DeltaString == true) ? DeltaString+"" : DeltaString+isRed);
 
 			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
