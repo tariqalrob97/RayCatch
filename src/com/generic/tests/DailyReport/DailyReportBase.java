@@ -44,7 +44,7 @@ public class DailyReportBase extends SelTestCase {
 		testObject = test;
 	}
 
-	@DataProvider(name = "Login", parallel = true)
+	@DataProvider(name = "Login", parallel = false)
 	// concurrency maintenance on sheet reading
 	public static Object[][] loadTestData() throws Exception {
 		dataProviderUtils TDP = dataProviderUtils.getInstance();
@@ -68,9 +68,7 @@ public class DailyReportBase extends SelTestCase {
 			userdetails = (LinkedHashMap<String, String>) users.get(userName);
 			Testlogs.get().debug("User will be used is: " + userdetails);
 		}
-		
-		//clean the datasheet from last data 
-		TestUtilities.cleanReportsheet();
+	
 		
 		try {
 
