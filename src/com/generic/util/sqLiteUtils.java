@@ -248,7 +248,7 @@ public class sqLiteUtils extends SelTestCase{
 				}
 				if(negDays < 30)
 				{
-					selectDataForTheDayBefore(user, plant, TableName, DatabaseName, negDays + 1);
+					results = selectDataForTheDayBefore(user, plant, TableName, DatabaseName, negDays + 1);
 				}else
 				{
 					sassert().assertTrue(false, "Either the plant"+plant+"-"+user+" has no huristical data or it is too old and more than 30 days");

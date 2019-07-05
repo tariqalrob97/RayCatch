@@ -311,6 +311,15 @@ public class TestUtilities extends SelTestCase {
 		return false;
 	}
 	
+	public static boolean checkIfExist(String [] arr, String value) {
+		for (String element : arr) {
+			if (element.trim().equalsIgnoreCase( value.trim())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	public static boolean clearOnesheet(String SheetName)
 	{

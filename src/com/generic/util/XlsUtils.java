@@ -11,6 +11,8 @@ import org.apache.poi.xssf.usermodel.*;
 
 import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
+import com.generic.setup.SheetVariables;
+import com.sun.org.apache.bcel.internal.classfile.LocalVariable;
 
 import java.io.*;
 import java.text.MessageFormat;
@@ -196,14 +198,24 @@ public class XlsUtils {
 		return colNum;
 	}//getColName
 
-	private int getRowNumber(String sheetName, String rowName) {
+	private int getRowNumberOfPlant(String sheetName, String rowName) 
+	{
+		int guidCol = 3;
+		return getRowNumber(sheetName, rowName, guidCol );
+	}
+	
+	private int getRowNumberOfUser(String sheetName, String rowName) 
+	{
+		int guidCol = 2;
+		return getRowNumber(sheetName, rowName, guidCol );
+	}
+	
+	private int getRowNumber(String sheetName, String rowName, int guidCol) {
 		int rowNum = -1;  
 		int plantNamesStarts = 4 ; 
-		int plantNameCol = 3;
-		
 		for (int rowNumber = plantNamesStarts; rowNumber < getRowCount(sheetName); rowNumber++) {
 			row = sheet.getRow(rowNumber);
-			if (row.getCell(plantNameCol).getStringCellValue().trim().toLowerCase().equals(rowName.toLowerCase()))
+			if (row.getCell(guidCol).getStringCellValue().trim().toLowerCase().equals(rowName.toLowerCase()))
 			{
 				rowNum = rowNumber;
 				break;
@@ -215,14 +227,45 @@ public class XlsUtils {
 		return rowNum+1;
 	}//getRowNumber
 	
-	// returns true if data is set successfully else false
-		public boolean setCellData(String sheetName, int colNumber, String PlantName, String data, boolean valid) {
-			int rowNumber  = getRowNumber(sheetName, PlantName);
-			logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber,data));
-			return setCellData(sheetName, colNumber, rowNumber, data, valid);
-			
-		}
+	// returns true if data is set successfully else false - write plant data 
+	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data, boolean valid) {
+		int rowNumber = getRowNumberOfPlant(sheetName, PlantName);
+		logs.debug(
+				MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber, data));
+		return setCellData(sheetName, colNumber, rowNumber, data, valid);
+
+	}
 	
+	// returns true if data is set successfully else false - write user valid / not valid  
+	public boolean setUserValid(String user, boolean valid) {
+	int guideCol = 2;
+	int rowNumber = getRowNumberOfUser(SheetVariables.GeneralTab, user);
+	return setValid(user, guideCol,rowNumber, valid);
+	}
+	
+	// returns true if data is set successfully else false - write plant valid / not valid
+	public boolean setPlantValid(String plant, boolean valid) {
+		int guideCol = 3;
+		int rowNumber = getRowNumberOfPlant(SheetVariables.GeneralTab, plant);
+		return setValid(plant, guideCol,rowNumber ,valid);
+	}
+		
+	// returns true if data is set successfully else false - write valid / not valid
+	public boolean setValid(String user,int guideCol, int guidRow, boolean valid) {
+
+		String[] Sheets = { SheetVariables.GeneralTab, SheetVariables.Aggregation, SheetVariables.HealthTab,
+				SheetVariables.HeatMapTab, SheetVariables.InsightsTabs };
+		boolean writeUsersatus = true;
+		
+		for (String sheet : Sheets)
+		{
+			logs.debug("marking user/ plant " + user + " as  valid " + valid);
+			writeUsersatus = writeUsersatus &  setCellData(sheet, guideCol, guidRow, user, valid);
+		}
+		return writeUsersatus;
+		
+
+	}
 	
 	// returns true if data is set successfully else false
 	public boolean setCellData(String sheetName, int colNumber, int rowNumber, String data, boolean valid) {
@@ -266,6 +309,7 @@ public class XlsUtils {
 					} else {
 						my_style.setFillForegroundColor(IndexedColors.RED.getIndex());
 					}
+					my_style.setFillPattern(FillPatternType.SOLID_FOREGROUND);  
 					
 					//maintain boarders 
 					my_style.setBorderBottom(BorderStyle.THIN);  

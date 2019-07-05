@@ -1,6 +1,7 @@
 package com.generic.tests.DailyReport;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -68,100 +69,118 @@ public class DailyReportBase extends SelTestCase {
 			userdetails = (LinkedHashMap<String, String>) users.get(userName);
 			Testlogs.get().debug("User will be used is: " + userdetails);
 		}
-	
+		
+		 List<String> webPlants = new ArrayList<String>();
 		
 		try {
 
 			// Step 1 do log-in
 			Testlogs.get().debug("Login username/password is: " + userName + " " + (String) userdetails.get(SignIn.keys.password));
 			SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
-			sassert().assertTrue(SignIn.checkUserAccount(), LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
+			if (!SignIn.checkUserAccount()) {
+				sassert().assertTrue(false, LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
 
-			// Step 2 get available plants from web
-			List<WebElement> availblePlants = HomePage.getUserPlants();
-			String accountPlantes = (String) userdetails.get(SignIn.keys.plants);
+				//marking user as not valid user
+				getDatatable().setUserValid(userName, false);
+			} else {
+				Testlogs.get().debug("User was loggedin successfully");
 
-			Testlogs.get().debug("Found " + availblePlants.size() + " plants");
-			for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
-				Testlogs.get().debug(availblePlants.get(plantIndex).getText());
-			}
-			Testlogs.get().debug("Account plants " + accountPlantes.replace("\n", "<br>") + " plants");
-			
-			// Step 3 reiterate all plants and validate calculations
-			for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
-				// get all plants - to avoid element is not attached to the page document
-				List<WebElement> currentAvailablePlants = HomePage.getUserPlants();
-				WebElement Web_plant = currentAvailablePlants.get(plantIndex);
-
-				// Step 4 Navigate to plant status
-				HomePage.navigateToPlant(Web_plant);
-				sassert().assertTrue(accountPlantes.contains(Web_plant.getText()),
-						"Plant " + Web_plant.getText() + " is not exist in account plants but existed in web");
-
-				// Step 5 get plant status general information
-				// Initiating new plant object to be used to store all plant object
-				plant tmpPlant = new plant();
-				tmpPlant.user = userName;
-				tmpPlant.plant = Web_plant.getText();
-				tmpPlant.login = "PASS";
+				//Marking user as valid user 
+				getDatatable().setUserValid(userName, true);
 				
-				// Step 6 check if the plant information had loaded
-				if (HomePage.isPlantOverViewLoaded())
-				{
+				// Step 2 get available plants from web
+				List<WebElement> availblePlants = HomePage.getUserPlants();
+				String accountPlantes = (String) userdetails.get(SignIn.keys.plants);
 
-					PlantOverview_General.getGeneralPlantInfo(tmpPlant);
-
-					// Step 7 get all plants insights and values for each plant
-					PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
-
-					// Step 8 Health indicators
-					PlantOverview_PlantHealthIndicators.getPlantHealthIndicators(tmpPlant);
-
-					// Step 9 Heat map
-					PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
-
-					// Step 10 Inverters tab data
-					HomePage.navigateToTab(PlantOverViewSelector.InvertersTab);
-					PlantOverview_PlantInverters.getInvertersTabGeneralInfo(tmpPlant);
-
-					// Step 11 Strings tab data
-					HomePage.navigateToTab(PlantOverViewSelector.StringsTab);
-					PlantOverview_PlantStrings.getStringsTabGeneralInfo(tmpPlant);
-
+				Testlogs.get().debug("Found " + availblePlants.size() + " plants");
+				for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
+					Testlogs.get().debug(availblePlants.get(plantIndex).getText());
 				}
-				else
+				Testlogs.get().debug("Account plants " + accountPlantes.replace("\n", "<br>") + " plants");
+
+				// Step 3 reiterate all plants and validate calculations
+				for (int plantIndex = 0; plantIndex < availblePlants.size(); plantIndex++) {
+					// get all plants - to avoid element is not attached to the page document
+					List<WebElement> currentAvailablePlants = HomePage.getUserPlants();
+					WebElement Web_plant = currentAvailablePlants.get(plantIndex);
+
+					// Step 4 Navigate to plant status
+					HomePage.navigateToPlant(Web_plant);
+					sassert().assertTrue(accountPlantes.contains(Web_plant.getText()),
+							"Plant " + Web_plant.getText() + " is not exist in account plants but existed in web");
+
+					// Step 5 get plant status general information
+					// Initiating new plant object to be used to store all plant object
+					plant tmpPlant = new plant();
+					tmpPlant.user = userName;
+					tmpPlant.plant = Web_plant.getText();
+					webPlants.add(Web_plant.getText());
+					tmpPlant.login = "PASS";
+
+					// Step 6 check if the plant information had loaded
+					if (HomePage.isPlantOverViewLoaded()) {
+
+						PlantOverview_General.getGeneralPlantInfo(tmpPlant);
+
+						// Step 7 get all plants insights and values for each plant
+						PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
+
+						// Step 8 Health indicators
+						PlantOverview_PlantHealthIndicators.getPlantHealthIndicators(tmpPlant);
+
+						// Step 9 Heat map
+						PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
+
+						// Step 10 Inverters tab data
+						HomePage.navigateToTab(PlantOverViewSelector.InvertersTab);
+						PlantOverview_PlantInverters.getInvertersTabGeneralInfo(tmpPlant);
+
+						// Step 11 Strings tab data
+						HomePage.navigateToTab(PlantOverViewSelector.StringsTab);
+						PlantOverview_PlantStrings.getStringsTabGeneralInfo(tmpPlant);
+
+					} else {
+						logs.debug("the plant didn't loded correctely");
+						sassert().assertTrue(false, "Plant " + tmpPlant.plant + " was failed to load");
+						tmpPlant.valid = false;
+					}
+
+					// Step 12 print all data
+					plant.printPlant(tmpPlant);
+
+					// Step 13 insert tmpPlant into data base
+					sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
+
+					// Step 14 get the day before data from database
+					plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant,
+							TableName, DatabaseName);
+
+					// Step 15 compare data provide judgment and write data to excel
+					if (previousPlantData != null)
+						plant.comparPlantsAndwriteResults(tmpPlant, previousPlantData);
+					else
+						logs.debug("Previous data for plant " + tmpPlant.plant + " is null");
+
+				} // for loop
+
+				
+				String [] webPlantsArray =new String[webPlants.size()];
+				webPlantsArray = webPlants.toArray(webPlantsArray);
+				
+				for(String accountPlant: accountPlantes.trim().split("\n") )
 				{
-					logs.debug("the plant didn't loded correctely");
-					sassert().assertTrue(false, "Plant " + tmpPlant.plant +" was failed to load" );
-					tmpPlant.valid = false;
+					
+					if (TestUtilities.checkIfExist(webPlantsArray, accountPlant))
+					{
+						getDatatable().setPlantValid(accountPlant, true);
+					}else
+					{
+						getDatatable().setPlantValid(accountPlant, false);
+						sassert().assertTrue(false, "plants is missing from web "+ accountPlant);
+					}
 				}
 				
-				// Step 12 print all data
-				plant.printPlant(tmpPlant);
-
-				// Step 13 insert tmpPlant into data base
-				sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
-
-				// Step 14 get the day before data from database
-				plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant,TableName, DatabaseName);
-
-				// Step 15 compare data provide judgment and write data to excel
-				if (previousPlantData != null)
-					plant.comparPlantsAndwriteResults(tmpPlant, previousPlantData);
-				else
-					logs.debug("Previous data for plant "+tmpPlant.plant+" is null");
-
-			}
-
-			if ( availblePlants.size() < accountPlantes.trim().split("\n").length)
-			{
-				sassert().assertTrue(false, "Some plants are missing from web");
-			}else if (( availblePlants.size() > accountPlantes.trim().split("\n").length))
-			{
-				sassert().assertTrue(false, "Some plants are extra on web");
-			}else{
-				logs.debug("all plants exist in data store exist also on web"); 
-			}
+			} // else loggedin successfully
 			
 			sassert().assertAll();
 			Common.testPass();
