@@ -241,21 +241,17 @@ public class sqLiteUtils extends SelTestCase{
 				results = parsePlantresult(rs);
 			}
 			else {
-				logs.debug("Detected Weeked Day or null days: " + LocalDate.now().minusDays(negDays).getDayOfWeek());
-				if (LocalDate.now().getDayOfWeek().toString().contains("SUNDAY")) {
-					logs.debug("Detected Weeked Day: " + LocalDate.now().getDayOfWeek());
-					negDays = 2;
-				}
+				logs.debug("No data on date: " + LocalDate.now().minusDays(negDays) +" : "+ LocalDate.now().minusDays(negDays).getDayOfWeek());
 				if(negDays < 30)
 				{
-					results = selectDataForTheDayBefore(user, plant, TableName, DatabaseName, negDays + 1);
+					results = selectDataForTheDayBefore(user, plant, TableName, DatabaseName, negDays+1);
 				}else
 				{
 					sassert().assertTrue(false, "Either the plant"+plant+"-"+user+" has no huristical data or it is too old and more than 30 days");
 				}
 			}
-
 			closeConnection(conn);
+
 		} catch (SQLException e) {
 			logs.debug(e.getMessage());
 			Assert.assertTrue(false, e.getMessage());
