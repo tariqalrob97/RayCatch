@@ -2,14 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Login Regression" parallel="tests" thread-count="1" data-provider-thread-count="1">
 
-
-	<test name="Clearing Sheet" >
-		<parameter name="browserName" value="chrome"></parameter>
-		<classes>
-			<class name="com.generic.tests.DailyReport.clearSheet" />
-		</classes>
-	</test><!-- Test -->
-
 	<test name="Login Regression">
 		<parameter name="browserName" value="chrome"></parameter>
 		<classes>

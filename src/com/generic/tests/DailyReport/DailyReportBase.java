@@ -62,7 +62,8 @@ public class DailyReportBase extends SelTestCase {
 		// Important to add this for logging/reporting
 		setTestCaseReportName(SheetVariables.DailyReportTestCaseId);
 		logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC, testDataSheet + "." + caseId,
-				this.getClass().getCanonicalName(), desc, proprties.replace("\n", "<br>- ")));
+				this.getClass().getCanonicalName(), desc, proprties.replace("\n", "<br>- ")) +
+				"<b>User:</b> <font color='red'>"+ userName+"</font>");
 
 		LinkedHashMap<String, String> userdetails = null;
 		if (!userName.equals("")) {
