@@ -147,17 +147,16 @@ public class DailyReportBase extends SelTestCase {
 						tmpPlant.valid = false;
 					}
 
-					// Step 12 print all data
-					plant.printPlant(tmpPlant);
+					//plant.printPlant(tmpPlant);
 
-					// Step 13 insert tmpPlant into data base
+					// Step 12 insert tmpPlant into data base
 					sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
 
-					// Step 14 get the day before data from database
+					// Step 13 get the day before data from database
 					plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant,
 							TableName, DatabaseName);
 
-					// Step 15 compare data provide judgment and write data to excel
+					// Step 14 compare data provide judgment and write data to excel
 					if (previousPlantData != null)
 						plant.comparPlantsAndwriteResults(tmpPlant, previousPlantData);
 					else

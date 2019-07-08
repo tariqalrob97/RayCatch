@@ -223,15 +223,14 @@ public class XlsUtils {
 			
 		}
 		
-		logs.debug("Row number is: "+rowNum +" for rowName: "+rowName);
+		//logs.debug("Row number is: "+rowNum +" for rowName: "+rowName);
 		return rowNum+1;
 	}//getRowNumber
 	
 	// returns true if data is set successfully else false - write plant data 
 	public boolean setCellData(String sheetName, int colNumber, String PlantName, String data, boolean valid) {
 		int rowNumber = getRowNumberOfPlant(sheetName, PlantName);
-		logs.debug(
-				MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber, data));
+		//logs.debug(MessageFormat.format(LoggingMsg.SHEET_NAME_LOCATION_TO_WRITE, sheetName, PlantName, colNumber, data));
 		return setCellData(sheetName, colNumber, rowNumber, data, valid);
 
 	}
