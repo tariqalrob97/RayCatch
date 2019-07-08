@@ -249,7 +249,7 @@ public class ReportAnalyzer {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		//ReportAnalyzer.splitLogs();
+		//ReportAnalyzer.splitLogs(); 
 		//ReportAnalyzer.splitCases();
 		//ReportAnalyzer.copyScreenShots();
 		//ReportAnalyzer.analyze("F:\\WS\\SAS_FW/AutomationReport/AutoRep_12-26-2017142235//12.html",5000);
