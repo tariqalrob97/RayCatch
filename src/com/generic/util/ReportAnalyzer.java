@@ -243,7 +243,7 @@ public class ReportAnalyzer {
 					currentFile.delete();
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
+				} 
 			}
 		}
 	}
