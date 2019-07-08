@@ -61,34 +61,32 @@ public class DailyReportBase extends SelTestCase {
 		Testlogs.set(new loggerUtils("DailyReport " + getBrowserName()));
 		// Important to add this for logging/reporting
 		setTestCaseReportName(SheetVariables.DailyReportTestCaseId);
-		logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC, testDataSheet + ".<font color='red'>" + caseId+"</font>",
-				this.getClass().getCanonicalName(), desc, proprties.replace("\n", "<br>- ")) +
-				"<b>User:</b> <font color='red'>"+ userName+"</font>");
 
 		LinkedHashMap<String, String> userdetails = null;
 		if (!userName.equals("")) {
 			userdetails = (LinkedHashMap<String, String>) users.get(userName);
 			Testlogs.get().debug("User will be used is : " + userdetails);
 		}
-		
-		 List<String> webPlants = new ArrayList<String>();
-		
+
+		List<String> webPlants = new ArrayList<String>();
+
 		try {
 
 			// Step 1 do log-in
-			Testlogs.get().debug("Login username/password is: " + userName + " " + (String) userdetails.get(SignIn.keys.password));
+			Testlogs.get().debug(
+					"Login username/password is: " + userName + " " + (String) userdetails.get(SignIn.keys.password));
 			SignIn.fillLoginFormAndClickSubmit(userName, (String) userdetails.get(SignIn.keys.password));
 			if (!SignIn.checkUserAccount()) {
 				sassert().assertTrue(false, LoggingMsg.USER_IS_NOT_LOGGED_IN_SUCCESSFULLY);
 
-				//marking user as not valid user
+				// marking user as not valid user
 				getDatatable().setUserValid(userName, false);
 			} else {
 				Testlogs.get().debug("User was loggedin successfully");
 
-				//Marking user as valid user 
+				// Marking user as valid user
 				getDatatable().setUserValid(userName, true);
-				
+
 				// Step 2 get available plants from web
 				List<WebElement> availblePlants = HomePage.getUserPlants();
 				String accountPlantes = (String) userdetails.get(SignIn.keys.plants);
@@ -164,27 +162,37 @@ public class DailyReportBase extends SelTestCase {
 
 				} // for loop
 
-				
-				String [] webPlantsArray =new String[webPlants.size()];
+				String[] webPlantsArray = new String[webPlants.size()];
 				webPlantsArray = webPlants.toArray(webPlantsArray);
-				
-				for(String accountPlant: accountPlantes.trim().split("\n") )
-				{
-					
-					if (TestUtilities.checkIfExist(webPlantsArray, accountPlant))
-					{
+
+				for (String accountPlant : accountPlantes.trim().split("\n")) {
+
+					if (TestUtilities.checkIfExist(webPlantsArray, accountPlant)) {
 						getDatatable().setPlantValid(accountPlant, true);
-					}else
-					{
+					} else {
 						getDatatable().setPlantValid(accountPlant, false);
-						sassert().assertTrue(false, "plants is missing from web "+ accountPlant);
+						sassert().assertTrue(false, "plants is missing from web " + accountPlant);
 					}
 				}
-				
-			} // else loggedin successfully
-			
-			sassert().assertAll();
-			Common.testPass();
+
+			} // else logged in successfully
+
+			try {
+				sassert().assertAll();
+				logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC,
+						testDataSheet + ".<font color='red'>" + caseId + "</font>", this.getClass().getCanonicalName(),
+						desc, proprties.replace("\n", "<br>- ")) + "<b>User:</b> <font color='red'>" + userName
+						+ "</font>");
+				Common.testPass();
+			} catch (Throwable e) {
+				logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC,
+						testDataSheet + ".<font color='red'>" + caseId + "</font>", this.getClass().getCanonicalName(),
+						desc, proprties.replace("\n", "<br>- ")) + "<b>User:</b> <font color='red'>" + userName
+						+ "</font>" + "<br>" + "<b>FAIL Reason:</b> <font color='red'>" + "</font>"
+						+ e.getMessage().replace("\n", "").trim());
+				throw new Throwable("Test Failed", e);
+			}
+
 		} catch (Throwable t) {
 			setTestCaseDescription(getTestCaseDescription());
 			Testlogs.get().debug(MessageFormat.format(LoggingMsg.DEBUGGING_TEXT, t.getMessage()));
