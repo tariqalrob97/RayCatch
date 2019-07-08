@@ -68,7 +68,7 @@ public class DailyReportBase extends SelTestCase {
 		LinkedHashMap<String, String> userdetails = null;
 		if (!userName.equals("")) {
 			userdetails = (LinkedHashMap<String, String>) users.get(userName);
-			Testlogs.get().debug("User will be used is: " + userdetails);
+			Testlogs.get().debug("User will be used is : " + userdetails);
 		}
 		
 		 List<String> webPlants = new ArrayList<String>();
