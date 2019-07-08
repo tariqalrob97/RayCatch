@@ -46,7 +46,7 @@ public class SignIn extends SelTestCase {
 			typeUsername(userName);
 			typePassword(Password);
 			clickLogin();
-			Thread.sleep(3000);
+			Thread.sleep(5000);
 			getCurrentFunctionName(false);
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {

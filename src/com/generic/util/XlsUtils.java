@@ -348,7 +348,7 @@ public class XlsUtils {
 			logs.debug("try to clean file");
 			if (fileOut != null) {
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(4000);
 					logs.debug("closing file again");
 					fileOut.close();
 				} catch (IOException e) {

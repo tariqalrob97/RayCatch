@@ -57,7 +57,10 @@ public class DailyReportBase extends SelTestCase {
 	@SuppressWarnings("unchecked") // avoid warning from linked hashmap
 	@Test(dataProvider = "Login")
 	public void LoginRegressionTest(String caseId, String runTest, String desc, String proprties, String userName) {
-
+		String CaseDescription  = MessageFormat.format(LoggingMsg.TEST_CASE_DESC,
+				testDataSheet + ".<font color='fuchsia'>" + caseId + "</font>", this.getClass().getCanonicalName(),
+				desc, proprties.replace("\n", "<br>- ")) + "<b>User:</b> <font color='fuchsia'>" + userName
+				+ "</font>" ;
 		Testlogs.set(new loggerUtils("DailyReport " + getBrowserName()));
 		// Important to add this for logging/reporting
 		setTestCaseReportName(SheetVariables.DailyReportTestCaseId);
@@ -177,23 +180,12 @@ public class DailyReportBase extends SelTestCase {
 
 			} // else logged in successfully
 
-			try {
-				sassert().assertAll();
-				logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC,
-						testDataSheet + ".<font color='red'>" + caseId + "</font>", this.getClass().getCanonicalName(),
-						desc, proprties.replace("\n", "<br>- ")) + "<b>User:</b> <font color='red'>" + userName
-						+ "</font>");
-				Common.testPass();
-			} catch (Throwable e) {
-				logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC,
-						testDataSheet + ".<font color='red'>" + caseId + "</font>", this.getClass().getCanonicalName(),
-						desc, proprties.replace("\n", "<br>- ")) + "<b>User:</b> <font color='red'>" + userName
-						+ "</font>" + "<br>" + "<b>FAIL Reason:</b> <font color='red'>" + "</font>"
-						+ e.getMessage().replace("\n", "").trim());
-				throw new Throwable("Test Failed", e);
-			}
+			sassert().assertAll();
+			logCaseDetailds(CaseDescription);
+			Common.testPass();
 
 		} catch (Throwable t) {
+			logCaseDetailds(CaseDescription+ "<br><b><font color='red'>Failure Reason: </font></b>"+ t.getMessage().replace("\n", "").trim());
 			setTestCaseDescription(getTestCaseDescription());
 			Testlogs.get().debug(MessageFormat.format(LoggingMsg.DEBUGGING_TEXT, t.getMessage()));
 			t.printStackTrace();

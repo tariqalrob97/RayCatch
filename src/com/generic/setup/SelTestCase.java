@@ -193,7 +193,7 @@ public class SelTestCase {
     public static void logCaseDetailds(String msg)
     {
     	logs.debug("Case started: "+Thread.currentThread().getStackTrace()[2]);
-    	logs.debug("Case Description: "+msg);
+    	logs.debug("Case Description: <br>"+msg);
     }
     
     public static void getBrowserWait(String BrowserName)
