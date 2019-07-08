@@ -61,7 +61,7 @@ public class DailyReportBase extends SelTestCase {
 		Testlogs.set(new loggerUtils("DailyReport " + getBrowserName()));
 		// Important to add this for logging/reporting
 		setTestCaseReportName(SheetVariables.DailyReportTestCaseId);
-		logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC, testDataSheet + "." + caseId,
+		logCaseDetailds(MessageFormat.format(LoggingMsg.TEST_CASE_DESC, testDataSheet + ".<font color='red'>" + caseId+"</font>",
 				this.getClass().getCanonicalName(), desc, proprties.replace("\n", "<br>- ")) +
 				"<b>User:</b> <font color='red'>"+ userName+"</font>");
 
