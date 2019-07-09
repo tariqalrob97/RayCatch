@@ -1,6 +1,7 @@
 package com.generic.page;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
@@ -46,10 +47,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 		
 		try {
 			getCurrentFunctionName(false);
-			if(valueText.contains("$"))
-					return TestUtilities.valueParser(valueText.trim());
-			else
-					return 0;
+			return TestUtilities.valueParser(valueText.trim());
 		} 
 		
 		catch (Exception e) {
@@ -183,6 +181,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			else if (insightInfoLines[0].contains("Inverter Relative Efficiency")) {
 
+				logs.debug("fffffffffffffffffffffffff"+Arrays.toString(insightInfoLines));
 				tmpPlant.Inverter_Relative_Efficiency_total_devices = PlantOverview_PlantInsights
 						.getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Inverter_Relative_Efficiency_faulty_devices = PlantOverview_PlantInsights
@@ -291,6 +290,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 			}.getClass().getEnclosingMethod().getName()));
 			throw e;
 		}
+		getCurrentFunctionName(false);
 
 	}// fillInsigtsInfoIntoHeatMap
 

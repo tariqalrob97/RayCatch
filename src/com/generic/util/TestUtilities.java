@@ -289,7 +289,7 @@ public class TestUtilities extends SelTestCase {
 	public static double valueParser(String value)
 	{
 		getCurrentFunctionName(true);
-		double results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","").replace("€","").replace("£","")) ;
+		double results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","").replace("€","").replace("£","").replace("¥","")) ;
 		if (value.contains("M"))
 		{
 			results = results*1000000;
@@ -297,7 +297,7 @@ public class TestUtilities extends SelTestCase {
 		else if (value.contains("K"))
 			results = results*1000;
 		else
-			logs.debug("Not a value but a percentage");
+			logs.debug("no multipliers attached to parsed vlaues");
 		getCurrentFunctionName(false);
 		return results; 
 	}
