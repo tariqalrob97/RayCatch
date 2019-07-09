@@ -289,7 +289,12 @@ public class TestUtilities extends SelTestCase {
 	public static double valueParser(String value)
 	{
 		getCurrentFunctionName(true);
-		double results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","").replace("€","").replace("£","").replace("¥","")) ;
+		double results = 0;
+		
+		try {
+		results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","").replace("€","").replace("£","").replace("¥","")) ;
+		
+		
 		if (value.contains("M"))
 		{
 			results = results*1000000;
@@ -298,6 +303,11 @@ public class TestUtilities extends SelTestCase {
 			results = results*1000;
 		else
 			logs.debug("no multipliers attached to parsed vlaues");
+		}
+		catch(NumberFormatException e)
+		{
+			logs.debug("<font color = 'red' >Not a number: " + value + "</font>");
+		}
 		getCurrentFunctionName(false);
 		return results; 
 	}
