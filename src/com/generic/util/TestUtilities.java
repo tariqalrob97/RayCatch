@@ -38,7 +38,7 @@ import com.generic.setup.SelTestCase;
 import com.generic.setup.SheetVariables;
 
 public class TestUtilities extends SelTestCase {
-	public static DecimalFormat roundingFormater = new DecimalFormat("#########.00");
+	public static DecimalFormat roundingFormater = new DecimalFormat("################.00");
 	
 	public static void prepareLogs() throws Exception {
 		logs.debug(MessageFormat.format(LoggingMsg.CLEAR_LOGS_MSG, ""));

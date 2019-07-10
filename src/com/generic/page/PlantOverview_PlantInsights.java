@@ -47,7 +47,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 		
 		try {
 			getCurrentFunctionName(false);
-			return TestUtilities.valueParser(valueText.trim());
+			return Double.parseDouble(TestUtilities.roundingFormater.format(TestUtilities.valueParser(valueText.trim())));
 		} 
 		
 		catch (Exception e) {
@@ -277,7 +277,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 						.getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Disconnected_Strings_faulty_devices = PlantOverview_PlantInsights
 						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Disconnected_Strings_value = PlantOverview_PlantInsights.getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Disconnected_Strings_value = PlantOverview_PlantInsights.getInsightValue(insightInfoLines[insightValue]);			
 				tmpPlant.Disconnected_Strings_percentage = PlantOverview_PlantInsights
 						.getInsightPercentage(insightInfoLines[insightPercent]);
 				tmpPlant.Disconnected_Strings_status = PlantOverview_PlantInsights.getInsightStatus(insightInfoLines[status]);

@@ -27,7 +27,8 @@ public class PlantOverview_PlantStrings extends SelTestCase {
 			SelectorUtil.initializeSelectorsAndDoActions(selector);
 			String GrneralExtraIncomeValue = SelectorUtil.textValue.get();
 			getCurrentFunctionName(false);
-			return TestUtilities.valueParser(GrneralExtraIncomeValue);
+			logs.debug(Double.parseDouble(TestUtilities.roundingFormater.format(TestUtilities.valueParser(GrneralExtraIncomeValue)))+"taaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaar");
+			return Double.parseDouble(TestUtilities.roundingFormater.format(TestUtilities.valueParser(GrneralExtraIncomeValue)));
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
 			}.getClass().getEnclosingMethod().getName()));
