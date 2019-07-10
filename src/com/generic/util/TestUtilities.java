@@ -335,7 +335,8 @@ public class TestUtilities extends SelTestCase {
 	{
 		getCurrentFunctionName(true);
 		boolean writing_passed = true;
-		int[] exceptions = {8,11,16,18,20};
+		int max_cleared_rows = 31;
+		int[] exceptions = {8,11,16,18,20,23,26,28,31};
 		int cols = 0; 
 		if (SheetName == SheetVariables.GeneralTab)
 			cols = 23;
@@ -350,7 +351,7 @@ public class TestUtilities extends SelTestCase {
 		
 		//Start clearing data from col 4 row 5
 		for (int col = 4; col < cols; col++) {
-			for (int row = 5; row < 23; row++) {
+			for (int row = 5; row < max_cleared_rows; row++) {
 				if (!TestUtilities.checkIfExist(exceptions, row))
 					writing_passed = writing_passed & getDatatable().setCellData(SheetName, col , row,"", true);
 			}
