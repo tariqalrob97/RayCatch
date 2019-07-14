@@ -2,6 +2,7 @@ package com.generic.util;
 
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -39,9 +40,13 @@ public class XlsUtils {
 		this.path = path;
 		try {
 			fis = new FileInputStream(path);
-			workbook = new XSSFWorkbook(fis);
-			sheet = workbook.getSheetAt(0);
-			fis.close();
+			ZipSecureFile.setMinInflateRatio(0);
+			try {
+				workbook = new XSSFWorkbook(fis);
+				sheet = workbook.getSheetAt(0);
+			} finally {
+				fis.close();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
