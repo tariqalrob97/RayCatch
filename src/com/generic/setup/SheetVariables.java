@@ -11,6 +11,7 @@ public class SheetVariables {
 	
 	//SheerNames - Reports  
 	public static final String GeneralTab = "GeneralTab";
+	public static final String PerformanceTab = "PerformanceTab";
 	public static final String Aggregation = "Aggregation";
 	public static final String HealthTab = "HealthTab";
 	public static final String HeatMapTab = "HeatMapTab";

@@ -24,6 +24,10 @@ public class plant extends SelTestCase {
 	public double PERF_percentage = 0;
 	public double Avilability_value = 0;
 	public double Avilability_percentage = 0;
+	
+	// Performance 
+	public double Inverters_Performance_Percent  = 0;
+	public double Strings_Performance_Percent = 0;
 
 	// aggregation
 	public double inverters___Performance = 0;
@@ -160,6 +164,8 @@ public class plant extends SelTestCase {
 			logs.debug("PERF_value:" + tmpPlant.PERF_value);
 			logs.debug("PERF_percentage:" + tmpPlant.PERF_percentage);
 			logs.debug("Avilability_value:" + tmpPlant.Avilability_value);
+			logs.debug("Inverters_Performance_Percent:" + tmpPlant.Inverters_Performance_Percent);
+			logs.debug("Strings_Performance_Percent:" + tmpPlant.Strings_Performance_Percent);
 			logs.debug("Avilability_percentage:" + tmpPlant.Avilability_percentage);
 			logs.debug("inverters___Performance:" + tmpPlant.inverters___Performance);
 			logs.debug("inverters_Mppt:" + tmpPlant.inverters_Mppt);
@@ -278,6 +284,7 @@ public class plant extends SelTestCase {
 		getCurrentFunctionName(true);
 		try {
 			compareGeneralDataAndWriteResults(tmpPlant, previousPlantData);
+			comparePerformanceDataAndWriteResults(tmpPlant, previousPlantData);
 			compareAggregationDataAndWriteResults(tmpPlant, previousPlantData);
 			compareHealthDataAndWriteResults(tmpPlant, previousPlantData);
 			compareHeatMapDataAndWriteResults(tmpPlant, previousPlantData);
@@ -352,6 +359,43 @@ public class plant extends SelTestCase {
 		getCurrentFunctionName(false);
 
 	}// compareGeneralDataAndWriteResults
+	
+	
+	private static void comparePerformanceDataAndWriteResults(plant tmpPlant, plant previousPlantData) {
+		getCurrentFunctionName(true);
+		try {
+			ArrayList<String> generalData = new ArrayList<String>();
+			double Delta = 0;
+			String Deltas = "";
+
+
+			Delta = previousPlantData.Inverters_Performance_Percent - tmpPlant.Inverters_Performance_Percent;
+			generalData.add(previousPlantData.Inverters_Performance_Percent + "");
+			generalData.add(tmpPlant.Inverters_Performance_Percent + "");		
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta > 0.5 || Delta < -0.5 ) ? Deltas+isRed : Deltas);
+
+			Delta = previousPlantData.Strings_Performance_Percent - tmpPlant.Strings_Performance_Percent;
+			generalData.add(previousPlantData.Strings_Performance_Percent + "");
+			generalData.add(tmpPlant.Strings_Performance_Percent + "");		
+			Deltas = TestUtilities.roundingFormater.format(Delta);
+			generalData.add((Delta > 0.5 || Delta < -0.5) ? Deltas+isRed : Deltas);
+			
+			Boolean writing_passed = true; 
+			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
+				writing_passed = writing_passed & getDatatable().setCellData(SheetVariables.PerformanceTab, dataIndex + 4, tmpPlant.plant,
+						generalData.get(dataIndex), tmpPlant.valid);
+			}
+			sassert().assertTrue(writing_passed,"writing data for plant "+tmpPlant.plant+" from user "+tmpPlant.user+" is failed");
+
+		} catch (NoSuchElementException e) {
+			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+			}.getClass().getEnclosingMethod().getName()));
+			throw e;
+		}
+		getCurrentFunctionName(false);
+
+	}// comparePerformanceDataAndWriteResults
 
 	private static void compareAggregationDataAndWriteResults(plant tmpPlant, plant previousPlantData) {
 		getCurrentFunctionName(true);

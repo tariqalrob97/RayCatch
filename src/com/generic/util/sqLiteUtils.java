@@ -100,6 +100,8 @@ public class sqLiteUtils extends SelTestCase{
 					plantInfo.PERF_percentage +","+
 					plantInfo.Avilability_value +","+
 					plantInfo.Avilability_percentage +","+
+					plantInfo.Inverters_Performance_Percent +","+
+					plantInfo.Strings_Performance_Percent +","+
 					plantInfo.inverters___Performance +","+
 					plantInfo.inverters_Mppt +","+
 					plantInfo.inverters_relative_efficiency +","+
@@ -273,6 +275,8 @@ public class sqLiteUtils extends SelTestCase{
 		results.PERF_percentage = rs.getDouble("PERF_percentage");
 		results.Avilability_value = rs.getDouble("Avilability_value");
 		results.Avilability_percentage = rs.getDouble("Avilability_percentage");
+		results.Inverters_Performance_Percent = rs.getDouble("Inverters_Performance_Percent");
+		results.Strings_Performance_Percent = rs.getDouble("Strings_Performance_Percent");
 		results.inverters___Performance = rs.getDouble("inverters___Performance");
 		results.inverters_Mppt = rs.getDouble("inverters_Mppt");
 		results.inverters_relative_efficiency = rs.getDouble("inverters_relative_efficiency");

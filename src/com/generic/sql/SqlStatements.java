@@ -13,6 +13,8 @@ public class SqlStatements extends SelTestCase {
 			+ "PERF_value double NOT NULL DEFAULT 0,\r\n" + "PERF_percentage double NOT NULL DEFAULT 0,\r\n"
 			+ "Avilability_value double NOT NULL DEFAULT 0,\r\n"
 			+ "Avilability_percentage double NOT NULL DEFAULT 0,\r\n"
+			+ "Inverters_Performance_Percent double NOT NULL DEFAULT 0,\r\n"
+			+ "Strings_Performance_Percent double NOT NULL DEFAULT 0,\r\n"
 			+ "inverters___Performance double NOT NULL DEFAULT 0,\r\n" + "inverters_Mppt double NOT NULL DEFAULT 0,\r\n"
 			+ "inverters_relative_efficiency double NOT NULL DEFAULT 0,\r\n"
 			+ "inverters_efficiency_below_spec double NOT NULL DEFAULT 0,\r\n"
@@ -106,7 +108,7 @@ public class SqlStatements extends SelTestCase {
 			+ "Voltage_Deviation_status string NOT NULL DEFAULT 'Healthy'\r\n" + ");";
 
 	public static String insertStetment = "INSERT INTO TableName (user,plant,PEI_value ,\r\n" + "PEI_percentage ,\r\n" + "PERF_value ,\r\n"
-			+ "PERF_percentage ,\r\n" + "Avilability_value ,\r\n" + "Avilability_percentage ,\r\n"
+			+ "PERF_percentage ,\r\n" + "Avilability_value ,\r\n" + "Avilability_percentage ,\r\n"+ "Inverters_Performance_Percent ,\r\n"+ "Strings_Performance_Percent ,\r\n"
 			+ "inverters___Performance ,\r\n" + "inverters_Mppt ,\r\n" + "inverters_relative_efficiency ,\r\n"
 			+ "inverters_efficiency_below_spec ,\r\n" + "inverters___availability ,\r\n" + "inverters___downtime ,\r\n"
 			+ "strings___performance ,\r\n" + "strings___panel_degradation ,\r\n"

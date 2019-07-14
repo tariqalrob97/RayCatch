@@ -53,7 +53,7 @@ public class PlantOverview_PlantStrings extends SelTestCase {
 
 			tmpPlant.strings___performance = TestUtilities.valueParser(generalInfoContainerStrings[PERF_value_index]);
 
-			// TestUtilities.valueParser(generalInfoContainerStrings[PERF_percentage_index]);
+			tmpPlant.Strings_Performance_Percent = TestUtilities.valueParser(generalInfoContainerStrings[PERF_percentage_index]);
 
 			tmpPlant.strings___availability = TestUtilities.valueParser(generalInfoContainerStrings[Avilability_value_index]);	
 			//tmpPlant.Avilability_percentage = TestUtilities.valueParser(generalInfoContainerStrings[Avilability_percentage_index]);

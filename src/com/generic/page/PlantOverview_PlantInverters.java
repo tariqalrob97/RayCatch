@@ -53,7 +53,7 @@ public class PlantOverview_PlantInverters extends SelTestCase {
 
 			tmpPlant.inverters___Performance = TestUtilities.valueParser(generalInfoContainerStrings[PERF_value_index]);
 			//getInvertersTabOverallPerformancePercentage
-			// TestUtilities.valueParser(generalInfoContainerStrings[PERF_percentage_index]);
+			tmpPlant.Inverters_Performance_Percent = TestUtilities.valueParser(generalInfoContainerStrings[PERF_percentage_index]);
 
 			tmpPlant.inverters___availability = TestUtilities.valueParser(generalInfoContainerStrings[Avilability_value_index]);
 			

@@ -339,6 +339,8 @@ public class TestUtilities extends SelTestCase {
 		int cols = 0; 
 		if (SheetName == SheetVariables.GeneralTab)
 			cols = 23;
+		if (SheetName == SheetVariables.PerformanceTab)
+			cols = 10;
 		if (SheetName == SheetVariables.Aggregation)
 			cols = 17;
 		if (SheetName == SheetVariables.HealthTab)
@@ -363,6 +365,7 @@ public class TestUtilities extends SelTestCase {
     	getCurrentFunctionName(true);
     	boolean writing_passed = true;
     	writing_passed = writing_passed & clearOnesheet(SheetVariables.GeneralTab);
+    	writing_passed = writing_passed & clearOnesheet(SheetVariables.PerformanceTab);
     	writing_passed = writing_passed & clearOnesheet(SheetVariables.Aggregation);
     	writing_passed = writing_passed & clearOnesheet(SheetVariables.HealthTab);
     	writing_passed = writing_passed & clearOnesheet(SheetVariables.HeatMapTab);

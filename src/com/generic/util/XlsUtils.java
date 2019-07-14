@@ -257,7 +257,7 @@ public class XlsUtils {
 	// returns true if data is set successfully else false - write valid / not valid
 	public boolean setValid(String user,int guideCol, int guidRow, boolean valid) {
 
-		String[] Sheets = { SheetVariables.GeneralTab, SheetVariables.Aggregation, SheetVariables.HealthTab,
+		String[] Sheets = { SheetVariables.GeneralTab,SheetVariables.PerformanceTab, SheetVariables.Aggregation, SheetVariables.HealthTab,
 				SheetVariables.HeatMapTab, SheetVariables.InsightsTabs };
 		boolean writeUsersatus = true;
 		
