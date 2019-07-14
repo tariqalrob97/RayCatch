@@ -292,8 +292,7 @@ public class TestUtilities extends SelTestCase {
 		double results = 0;
 		
 		try {
-		results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","").replace("€","").replace("£","").replace("¥","")) ;
-		
+		results = Double.parseDouble(value.trim().replace("K", "").replace("M","").replace("$","").replace("%","").replace("€","").replace("£","").replace("¥","").replace(",", "")) ;
 		
 		if (value.contains("M"))
 		{

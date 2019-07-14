@@ -113,7 +113,7 @@ public class HomePage extends SelTestCase {
 		try {
 			getCurrentFunctionName(true);
 			WebElement GeneralInfoContainer = getDriver()
-					.findElement(By.cssSelector(PlantOverViewSelector.GeneralInfoContainer));
+					.findElement(By.cssSelector(PlantOverViewSelector.PlantGeneralInfoContainer));
 
 			getCurrentFunctionName(false);
 			return GeneralInfoContainer;
@@ -124,13 +124,51 @@ public class HomePage extends SelTestCase {
 			throw e;
 		}
 	}
+	
+	// done RC
+		public static WebElement getInvertersGeneralInfoContainer() {
+
+			try {
+				getCurrentFunctionName(true);
+				WebElement GeneralInfoContainer = getDriver()
+						.findElement(By.cssSelector(PlantOverViewSelector.InvertersGeneralInfoContainer));
+
+				getCurrentFunctionName(false);
+				return GeneralInfoContainer;
+
+			} catch (NoSuchElementException e) {
+				logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+				}.getClass().getEnclosingMethod().getName()));
+				throw e;
+			}
+		}
+		
+		// done RC
+		public static WebElement getStringsGeneralInfoContainer() {
+
+			try {
+				getCurrentFunctionName(true);
+				WebElement GeneralInfoContainer = getDriver()
+						.findElement(By.cssSelector(PlantOverViewSelector.StringsGeneralInfoContainer));
+
+				getCurrentFunctionName(false);
+				return GeneralInfoContainer;
+
+			} catch (NoSuchElementException e) {
+				logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
+				}.getClass().getEnclosingMethod().getName()));
+				throw e;
+			}
+		}
+
+
 
 	public static boolean isPlantOverViewLoaded() {
 
 		try {
 			getCurrentFunctionName(true);
 			getCurrentFunctionName(false);
-			return getDriver().findElements(By.cssSelector(PlantOverViewSelector.GeneralInfoContainer)).size() > 0;
+			return getDriver().findElements(By.cssSelector(PlantOverViewSelector.PlantGeneralInfoContainer)).size() > 0;
 
 		} catch (NoSuchElementException e) {
 			logs.debug(MessageFormat.format(ExceptionMsg.PageFunctionFailed, new Object() {
@@ -138,5 +176,7 @@ public class HomePage extends SelTestCase {
 			throw e;
 		}
 	}
+
+	
 
 }

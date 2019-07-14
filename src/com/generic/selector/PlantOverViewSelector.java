@@ -13,6 +13,7 @@ public class PlantOverViewSelector {
 	public static final String Insight = ".finding-item.ng-star-inserted";
 	public static final String InvertersTab ="a.tab-link:nth-child(2)";
 	public static final String StringsTab ="a.tab-link:nth-child(3)";
-	public static final String GeneralInfoContainer =".main-info-container";
-	
+	public static final String PlantGeneralInfoContainer =".main-info-container";
+	public static final String InvertersGeneralInfoContainer =".main-info-container";
+	public static final String StringsGeneralInfoContainer =".main-info-container";
 }
