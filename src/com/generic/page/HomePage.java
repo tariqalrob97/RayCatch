@@ -62,6 +62,7 @@ public class HomePage extends SelTestCase {
 	public static List<WebElement> getAllInsights() throws Exception {
 		try {
 			getCurrentFunctionName(true);
+			Thread.sleep(1000);
 			List<WebElement> allInsights = getDriver().findElements(By.cssSelector(PlantOverViewSelector.Insight));
 			logs.debug("Found " + allInsights.size() + " Insights");
 			getCurrentFunctionName(false);

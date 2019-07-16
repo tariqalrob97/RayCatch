@@ -334,8 +334,8 @@ public class TestUtilities extends SelTestCase {
 	{
 		getCurrentFunctionName(true);
 		boolean writing_passed = true;
-		int max_cleared_rows = 31;
-		int[] exceptions = {8,11,16,18,20,23,26,28,31};
+		int max_cleared_rows = 32;
+		int[] exceptions = {9,12,17,19,21,24,27,29,32};
 		int cols = 0; 
 		if (SheetName == SheetVariables.GeneralTab)
 			cols = 23;
