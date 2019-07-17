@@ -1,21 +1,9 @@
 package com.generic.page;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.NoSuchElementException;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import com.generic.selector.PlantOverViewSelector;
-import com.generic.selector.SignInSelectors;
 import com.generic.setup.ExceptionMsg;
-import com.generic.setup.LoggingMsg;
 import com.generic.setup.SelTestCase;
-import com.generic.util.SelectorUtil;
 import com.generic.util.TestUtilities;
 
 public class PlantOverview_PlantInverters extends SelTestCase {
