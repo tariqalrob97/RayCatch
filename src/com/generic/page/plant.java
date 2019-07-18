@@ -65,6 +65,7 @@ public class plant extends SelTestCase {
 	public double Disconnected_Strings_percentage = 0;
 	public String Disconnected_Strings_status = "Healthy";
 
+	//same as Recoverable DC power
 	public double Panel_Degradation_total_devices = 0;
 	public double Panel_Degradation_faulty_devices = 0;
 	public double Panel_Degradation_value = 0;

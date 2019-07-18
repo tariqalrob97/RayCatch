@@ -104,223 +104,172 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 			int insightPercent = 4;
 			int totalDevices = insightInfoLines.length - 2; // NegativeIndex to cover both Faulty and OK status
 
-			
-			
-			if (insightInfoLines[0].contains("Panel Degradation")) {
-				tmpPlant.Panel_Degradation_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]); // This includes faulty and OK status
-				tmpPlant.Panel_Degradation_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Panel_Degradation_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Panel_Degradation_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Panel_Degradation_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+			if (insightInfoLines[name].trim().contains("Recoverable DC power")) {
+				tmpPlant.Panel_Degradation_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]); 
+				tmpPlant.Panel_Degradation_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Panel_Degradation_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Panel_Degradation_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Panel_Degradation_status = getInsightStatus(insightInfoLines[status]);
 			}
 
-			else if (insightInfoLines[0].contains("Inverter Efficiency Below Spec")) {
+			else if (insightInfoLines[name].trim().contains("Inverter Efficiency Below Spec")) {
 
-				tmpPlant.Inverter_Efficiency_Below_Spec_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Inverter_Efficiency_Below_Spec_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Inverter_Efficiency_Below_Spec_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Inverter_Efficiency_Below_Spec_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Inverter_Efficiency_Below_Spec_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
-				
-			}
-
-			else if (insightInfoLines[0].contains("Voltage Deviation")) {
-
-				tmpPlant.Voltage_Deviation_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Voltage_Deviation_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Voltage_Deviation_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Voltage_Deviation_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Voltage_Deviation_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Inverter_Efficiency_Below_Spec_total_devices = getInsightTotalDevices(
+						insightInfoLines[totalDevices]);
+				tmpPlant.Inverter_Efficiency_Below_Spec_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Inverter_Efficiency_Below_Spec_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Inverter_Efficiency_Below_Spec_percentage = getInsightPercentage(
+						insightInfoLines[insightPercent]);
+				tmpPlant.Inverter_Efficiency_Below_Spec_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("MPPT")) {
+			else if (insightInfoLines[name].trim().contains("Voltage Deviation")) {
 
-				tmpPlant.Mppt_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Mppt_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Mppt_value = PlantOverview_PlantInsights.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Mppt_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Mppt_status = PlantOverview_PlantInsights.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Voltage_Deviation_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Voltage_Deviation_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Voltage_Deviation_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Voltage_Deviation_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Voltage_Deviation_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("String Data Integrity")) {
+			else if (insightInfoLines[name].trim().contains("MPPT")) {
 
-				tmpPlant.String_Data_integrity_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.String_Data_integrity_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.String_Data_integrity_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.String_Data_integrity_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.String_Data_integrity_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Mppt_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Mppt_faulty_devices = getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Mppt_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Mppt_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Mppt_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("Inverter Relative Efficiency")) {
+			// need to check with Tariq why this has been added
+			else if (insightInfoLines[name].trim().contains("String Data Integrity")) {
 
-				tmpPlant.Inverter_Relative_Efficiency_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Inverter_Relative_Efficiency_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Inverter_Relative_Efficiency_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Inverter_Relative_Efficiency_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Inverter_Relative_Efficiency_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.String_Data_integrity_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.String_Data_integrity_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.String_Data_integrity_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.String_Data_integrity_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.String_Data_integrity_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("Inverter Downtime")) {
+			else if (insightInfoLines[name].trim().contains("Inverter Relative Efficiency")) {
 
-				tmpPlant.Inverter_Downtime_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Inverter_Downtime_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Inverter_Downtime_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Inverter_Downtime_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Inverter_Downtime__status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Inverter_Relative_Efficiency_total_devices = getInsightTotalDevices(
+						insightInfoLines[totalDevices]);
+				tmpPlant.Inverter_Relative_Efficiency_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Inverter_Relative_Efficiency_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Inverter_Relative_Efficiency_percentage = getInsightPercentage(
+						insightInfoLines[insightPercent]);
+				tmpPlant.Inverter_Relative_Efficiency_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("Late Awakening")) {
+			else if (insightInfoLines[name].trim().contains("Inverter Downtime")) {
 
-				tmpPlant.Late_Awakening_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Late_Awakening_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Late_Awakening_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Late_Awakening_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Late_Awakening_status = PlantOverview_PlantInsights.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Inverter_Downtime_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Inverter_Downtime_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Inverter_Downtime_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Inverter_Downtime_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Inverter_Downtime__status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("Clipping")) {
+			else if (insightInfoLines[name].trim().contains("Late Awakening")) {
 
-				tmpPlant.Clipping_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Clipping_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Clipping_value = PlantOverview_PlantInsights.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Clipping_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Clipping_status = PlantOverview_PlantInsights.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Late_Awakening_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Late_Awakening_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Late_Awakening_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Late_Awakening_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Late_Awakening_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("Temperature Alert")) {
+			else if (insightInfoLines[name].trim().contains("Clipping")) {
 
-				tmpPlant.Temperature_Alert_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Temperature_Alert_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Temperature_Alert_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Temperature_Alert_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Temperature_Alert_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Clipping_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Clipping_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Clipping_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Clipping_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Clipping_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("Frequency Deviation")) {
+			else if (insightInfoLines[name].trim().contains("Temperature Alert")) {
 
-				tmpPlant.Frequency_Deviation_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Frequency_Deviation_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Frequency_Deviation_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Frequency_Deviation_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Frequency_Deviation_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Temperature_Alert_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Temperature_Alert_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Temperature_Alert_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Temperature_Alert_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Temperature_Alert_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("Temperature Coefficient")) {
+			else if (insightInfoLines[name].trim().contains("Frequency Deviation")) {
 
-				tmpPlant.Temperature_Coefficient_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Temperature_Coefficient_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Temperature_Coefficient_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Temperature_Coefficientpercentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Temperature_Coefficient__status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+				tmpPlant.Frequency_Deviation_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Frequency_Deviation_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Frequency_Deviation_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Frequency_Deviation_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Frequency_Deviation_status = getInsightStatus(insightInfoLines[status]);
 
 			}
 
-			else if (insightInfoLines[0].contains("Disconnected Strings")) {
+			else if (insightInfoLines[name].trim().contains("Temperature Coefficient")) {
 
-				tmpPlant.Disconnected_Strings_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Disconnected_Strings_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Disconnected_Strings_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Disconnected_Strings_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Disconnected_Strings_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
-			}
-			
-			else if (insightInfoLines[0].contains("Power Factor")) {
+				tmpPlant.Temperature_Coefficient_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Temperature_Coefficient_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Temperature_Coefficient_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Temperature_Coefficientpercentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Temperature_Coefficient__status = getInsightStatus(insightInfoLines[status]);
 
-				tmpPlant.Power_Factor_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Power_Factor_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Power_Factor_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Power_Factor_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Power_Factor_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
 			}
-			
-			else if (insightInfoLines[0].contains("Inverter Data Integrity")) {
 
-				tmpPlant.Inverter_Data_integrity_total_devices = PlantOverview_PlantInsights
-						.getInsightTotalDevices(insightInfoLines[totalDevices]);
-				tmpPlant.Inverter_Data_integrity_faulty_devices = PlantOverview_PlantInsights
-						.getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
-				tmpPlant.Inverter_Data_integrity_value = PlantOverview_PlantInsights
-						.getInsightValue(insightInfoLines[insightValue]);
-				tmpPlant.Inverter_Data_integrity_percentage = PlantOverview_PlantInsights
-						.getInsightPercentage(insightInfoLines[insightPercent]);
-				tmpPlant.Inverter_Data_integrity_status = PlantOverview_PlantInsights
-						.getInsightStatus(insightInfoLines[status]);
+			else if (insightInfoLines[name].trim().contains("Disconnected Strings")) {
+
+				tmpPlant.Disconnected_Strings_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Disconnected_Strings_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Disconnected_Strings_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Disconnected_Strings_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Disconnected_Strings_status = getInsightStatus(insightInfoLines[status]);
 			}
-			
+
+			else if (insightInfoLines[name].trim().contains("Power Factor")) {
+
+				tmpPlant.Power_Factor_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Power_Factor_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Power_Factor_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Power_Factor_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Power_Factor_status = getInsightStatus(insightInfoLines[status]);
+			}
+
+			else if (insightInfoLines[name].trim().contains("Inverter Data Integrity")) {
+
+				tmpPlant.Inverter_Data_integrity_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
+				tmpPlant.Inverter_Data_integrity_faulty_devices = getInsightTotalFaultyDevices(
+						insightInfoLines[numberOfNotHealtyDevices]);
+				tmpPlant.Inverter_Data_integrity_value = getInsightValue(insightInfoLines[insightValue]);
+				tmpPlant.Inverter_Data_integrity_percentage = getInsightPercentage(insightInfoLines[insightPercent]);
+				tmpPlant.Inverter_Data_integrity_status = getInsightStatus(insightInfoLines[status]);
+			} else {
+				sassert().assertTrue(false, "<font color=red><b>NOT HANDELED INSIGHT</b></font>");
+			}
+
 		}
 
 		catch (Exception e) {
