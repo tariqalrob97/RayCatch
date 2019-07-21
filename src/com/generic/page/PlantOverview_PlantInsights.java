@@ -104,7 +104,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 			int insightPercent = 4;
 			int totalDevices = insightInfoLines.length - 2; // NegativeIndex to cover both Faulty and OK status
 
-			if (insightInfoLines[name].trim().contains("Recoverable DC power")) {
+			if (insightInfoLines[name].trim().toLowerCase().contains("Recoverable DC power".toLowerCase())) {
 				tmpPlant.Panel_Degradation_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]); 
 				tmpPlant.Panel_Degradation_faulty_devices = getInsightTotalFaultyDevices(
 						insightInfoLines[numberOfNotHealtyDevices]);
@@ -113,7 +113,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 				tmpPlant.Panel_Degradation_status = getInsightStatus(insightInfoLines[status]);
 			}
 
-			else if (insightInfoLines[name].trim().contains("Inverter Efficiency Below Spec")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Inverter Efficiency Below Spec".toLowerCase())) {
 
 				tmpPlant.Inverter_Efficiency_Below_Spec_total_devices = getInsightTotalDevices(
 						insightInfoLines[totalDevices]);
@@ -126,7 +126,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Voltage Deviation")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Voltage Deviation".toLowerCase())) {
 
 				tmpPlant.Voltage_Deviation_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Voltage_Deviation_faulty_devices = getInsightTotalFaultyDevices(
@@ -137,7 +137,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("MPPT")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("MPPT".toLowerCase())) {
 
 				tmpPlant.Mppt_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Mppt_faulty_devices = getInsightTotalFaultyDevices(insightInfoLines[numberOfNotHealtyDevices]);
@@ -148,7 +148,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 			}
 
 			// need to check with Tariq why this has been added
-			else if (insightInfoLines[name].trim().contains("String Data Integrity")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("String Data Integrity".toLowerCase())) {
 
 				tmpPlant.String_Data_integrity_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.String_Data_integrity_faulty_devices = getInsightTotalFaultyDevices(
@@ -159,7 +159,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Inverter Relative Efficiency")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Inverter Relative Efficiency".toLowerCase())) {
 
 				tmpPlant.Inverter_Relative_Efficiency_total_devices = getInsightTotalDevices(
 						insightInfoLines[totalDevices]);
@@ -172,7 +172,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Inverter Downtime")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Inverter Downtime".toLowerCase())) {
 
 				tmpPlant.Inverter_Downtime_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Inverter_Downtime_faulty_devices = getInsightTotalFaultyDevices(
@@ -183,7 +183,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Late Awakening")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Late Awakening".toLowerCase())) {
 
 				tmpPlant.Late_Awakening_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Late_Awakening_faulty_devices = getInsightTotalFaultyDevices(
@@ -194,7 +194,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Clipping")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Clipping".toLowerCase())) {
 
 				tmpPlant.Clipping_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Clipping_faulty_devices = getInsightTotalFaultyDevices(
@@ -205,7 +205,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Temperature Alert")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Temperature Alert".toLowerCase())) {
 
 				tmpPlant.Temperature_Alert_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Temperature_Alert_faulty_devices = getInsightTotalFaultyDevices(
@@ -216,7 +216,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Frequency Deviation")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Frequency Deviation".toLowerCase())) {
 
 				tmpPlant.Frequency_Deviation_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Frequency_Deviation_faulty_devices = getInsightTotalFaultyDevices(
@@ -227,7 +227,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Temperature Coefficient")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Temperature Coefficient".toLowerCase())) {
 
 				tmpPlant.Temperature_Coefficient_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Temperature_Coefficient_faulty_devices = getInsightTotalFaultyDevices(
@@ -238,7 +238,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 			}
 
-			else if (insightInfoLines[name].trim().contains("Disconnected Strings")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Disconnected Strings".toLowerCase())) {
 
 				tmpPlant.Disconnected_Strings_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Disconnected_Strings_faulty_devices = getInsightTotalFaultyDevices(
@@ -248,7 +248,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 				tmpPlant.Disconnected_Strings_status = getInsightStatus(insightInfoLines[status]);
 			}
 
-			else if (insightInfoLines[name].trim().contains("Power Factor")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Power Factor".toLowerCase())) {
 
 				tmpPlant.Power_Factor_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Power_Factor_faulty_devices = getInsightTotalFaultyDevices(
@@ -258,7 +258,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 				tmpPlant.Power_Factor_status = getInsightStatus(insightInfoLines[status]);
 			}
 
-			else if (insightInfoLines[name].trim().contains("Inverter Data Integrity")) {
+			else if (insightInfoLines[name].trim().toLowerCase().contains("Inverter Data Integrity".toLowerCase())) {
 
 				tmpPlant.Inverter_Data_integrity_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]);
 				tmpPlant.Inverter_Data_integrity_faulty_devices = getInsightTotalFaultyDevices(
@@ -291,7 +291,7 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 			for (int insightIndex = 0; insightIndex < availbleInsights.size(); insightIndex++) {
 				WebElement insight = availbleInsights.get(insightIndex);
 
-				if (!insight.getText().contains("Healthy")) {
+				if (!insight.getText().toLowerCase().contains("Healthy".toLowerCase())) {
 					String insightInfo = insight.getText();
 					fillInsigtsIntoPlantObj(tmpPlant, insightInfo);
 				}
