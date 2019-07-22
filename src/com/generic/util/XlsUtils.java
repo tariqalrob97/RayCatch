@@ -307,6 +307,16 @@ public class XlsUtils {
 						data = data.replace("Red", "");
 					}
 					
+					//red color for differences 
+					if (data.contains("Blue")) {
+						my_font = workbook.createFont();
+						my_font.setColor(IndexedColors.BLUE.getIndex());
+						my_font.setFamily(XSSFFont.DEFAULT_FONT_SIZE);
+						my_font.setFontName("Arial");
+						my_style.setFont(my_font);
+						data = data.replace("Blue", "");
+					}
+					
 					//mark invalid cells with red background
 					if (valid) {
 						my_style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
