@@ -169,6 +169,15 @@ public class HomePage extends SelTestCase {
 		try {
 			getCurrentFunctionName(true);
 			getCurrentFunctionName(false);
+			
+			try {
+				logs.debug("Sleeping for 2 seconds to get large data");
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				logs.debug("Sleeping for 2 seconds failed");
+				e.printStackTrace();
+			}			
+			
 			return getDriver().findElements(By.cssSelector(PlantOverViewSelector.PlantGeneralInfoContainer)).size() > 0;
 
 		} catch (NoSuchElementException e) {
