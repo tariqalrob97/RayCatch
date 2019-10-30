@@ -78,12 +78,18 @@ public class Common extends SelTestCase {
 				return new InternetExplorerDriver(capabilities);
 
 			} else if (browser.equalsIgnoreCase("chrome")) {
+			
+				
 
 				System.setProperty("webdriver.chrome.driver", PagesURLs.getDriversPath(browser));
 				ChromeOptions co = new ChromeOptions();
 				driver = new ChromeDriver(co);
 				driver.manage().timeouts().pageLoadTimeout(60,TimeUnit.SECONDS);
 				driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+				
+				
+				
+				
 				return driver;
 
 			} else if (browser.equalsIgnoreCase("safari_grid")) {

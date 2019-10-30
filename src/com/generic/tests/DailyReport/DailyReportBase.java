@@ -119,19 +119,23 @@ public class DailyReportBase extends SelTestCase {
 					webPlants.add(Web_plant.getText());
 					tmpPlant.login = "PASS";
 
+					Thread.sleep(1000);
+					Testlogs.get().debug("refreshed");
+					getDriver().navigate().refresh();
+					
 					// Step 6 check if the plant information had loaded
 					if (HomePage.isPlantOverViewLoaded()) {
 
-						PlantOverview_General.getGeneralPlantInfo(tmpPlant);
+//						PlantOverview_General.getGeneralPlantInfo(tmpPlant);
 
-						// Step 7 get all plants insights and values for each plant
-						PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
+//						// Step 7 get all plants insights and values for each plant
+//						PlantOverview_PlantInsights.getPlantInsights(tmpPlant);
 
 						// Step 8 Health indicators
 						PlantOverview_PlantHealthIndicators.getPlantHealthIndicators(tmpPlant);
 
-						// Step 9 Heat map
-						PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
+//						// Step 9 Heat map
+//						PlantOverview_PlantHeatmap.getPlantHeatMapNumbers(tmpPlant);
 
 						// Step 10 Inverters tab data
 						HomePage.navigateToTab(PlantOverViewSelector.InvertersTab);
@@ -149,33 +153,34 @@ public class DailyReportBase extends SelTestCase {
 
 					//plant.printPlant(tmpPlant);
 
-					// Step 12 insert tmpPlant into data base
-					sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
+//					// Step 12 insert tmpPlant into data base
+//					sqLiteUtils.insertData(tmpPlant, TableName, DatabaseName);
 
-					// Step 13 get the day before data from database
-					plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant,
-							TableName, DatabaseName);
+//					// Step 13 get the day before data from database
+//					plant previousPlantData = sqLiteUtils.selectDataForTheDayBefore(tmpPlant.user, tmpPlant.plant,
+//							TableName, DatabaseName);
 
-					// Step 14 compare data provide judgment and write data to excel
-					if (previousPlantData != null)
-						plant.comparPlantsAndwriteResults(tmpPlant, previousPlantData);
-					else
-						logs.debug("Previous data for plant " + tmpPlant.plant + " is null");
+//					// Step 14 compare data provide judgment and write data to excel
+//					if (previousPlantData != null)
+//						plant.comparPlantsAndwriteResults(tmpPlant, previousPlantData);
+//					else
+//						logs.debug("Previous data for plant " + tmpPlant.plant + " is null");
+					plant.comparPlantsAndwriteResults(tmpPlant, tmpPlant);
 
 				} // for loop
 
-				String[] webPlantsArray = new String[webPlants.size()];
-				webPlantsArray = webPlants.toArray(webPlantsArray);
-
-				for (String accountPlant : accountPlantes.trim().split("\n")) {
-
-					if (TestUtilities.checkIfExist(webPlantsArray, accountPlant)) {
-						getDatatable().setPlantValid(accountPlant, true);
-					} else {
-						getDatatable().setPlantValid(accountPlant, false);
-						sassert().assertTrue(false, "plants is missing from web " + accountPlant);
-					}
-				}
+//				String[] webPlantsArray = new String[webPlants.size()];
+//				webPlantsArray = webPlants.toArray(webPlantsArray);
+//
+//				for (String accountPlant : accountPlantes.trim().split("\n")) {
+//
+//					if (TestUtilities.checkIfExist(webPlantsArray, accountPlant)) {
+//						getDatatable().setPlantValid(accountPlant, true);
+//					} else {
+//						getDatatable().setPlantValid(accountPlant, false);
+//						sassert().assertTrue(false, "plants is missing from web " + accountPlant);
+//					}
+//				}
 
 			} // else logged in successfully
 
