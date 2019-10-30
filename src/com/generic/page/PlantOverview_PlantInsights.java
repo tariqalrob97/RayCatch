@@ -1,6 +1,7 @@
 package com.generic.page;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 import com.generic.setup.ExceptionMsg;
@@ -10,6 +11,8 @@ import com.generic.util.TestUtilities;
 public class PlantOverview_PlantInsights extends SelTestCase {
 
 	public static double getInsightTotalDevices(String totalDevicesText) {
+		
+		
 		getCurrentFunctionName(true);
 		try {
 			getCurrentFunctionName(false);
@@ -23,7 +26,6 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 	public static double getInsightTotalFaultyDevices(String totalFaultyDevicesText) {
 		getCurrentFunctionName(true);
-
 		try {
 			getCurrentFunctionName(false);
 			return Double.parseDouble(totalFaultyDevicesText.trim().substring(
@@ -91,19 +93,21 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 		try {
 			String[] insightInfoLines = insightInfo.replace("arrow_drop_down", "").replace("0:", "\n").split("\n");
 			// The following is insightInfoLines
-			/*
-			 * panel degradation Contact us for a full revamping plan. Faulty (54) $8.63K
-			 * 0.05% total devices54 investigate
-			 */
-
+			// [Recoverable DC power, Start a panel replacement process. Contact us for
+			// guidance if needed., $11,803, 3.01%, Faulty (60), Total Devices60, Comment
+			// (0), INVESTIGATE]
+			
+			//logs.debug("insightInfoLines"+Arrays.toString(insightInfoLines));
+			
 			// columns
 			int name = 0;
-			int status = 2;
-			int numberOfNotHealtyDevices = 2;
-			int insightValue = 3;
-			int insightPercent = 4;
-			int totalDevices = insightInfoLines.length - 2; // NegativeIndex to cover both Faulty and OK status
-
+			int status = 4;
+			int numberOfNotHealtyDevices = 4;
+			int insightValue = 2;
+			int insightPercent = 3;
+			int totalDevices = insightInfoLines.length - 3; // NegativeIndex to cover both Faulty and OK status
+					
+			
 			if (insightInfoLines[name].trim().toLowerCase().contains("Recoverable DC power".toLowerCase())) {
 				tmpPlant.Panel_Degradation_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]); 
 				tmpPlant.Panel_Degradation_faulty_devices = getInsightTotalFaultyDevices(
