@@ -1,6 +1,7 @@
 package com.generic.page;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 import com.generic.setup.ExceptionMsg;
@@ -92,13 +93,11 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 		try {
 			String[] insightInfoLines = insightInfo.replace("arrow_drop_down", "").replace("0:", "\n").split("\n");
 			// The following is insightInfoLines
-			/*
-			 * panel degradation Contact us for a full revamping plan. Faulty (54) $8.63K
-			 * 0.05% total devices54 investigate
-			 */
-
+			// [Recoverable DC power, Start a panel replacement process. Contact us for
+			// guidance if needed., $11,803, 3.01%, Faulty (60), Total Devices60, Comment
+			// (0), INVESTIGATE]
 			
-			
+			//logs.debug("insightInfoLines"+Arrays.toString(insightInfoLines));
 			
 			// columns
 			int name = 0;
