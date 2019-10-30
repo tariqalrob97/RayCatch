@@ -10,6 +10,8 @@ import com.generic.util.TestUtilities;
 public class PlantOverview_PlantInsights extends SelTestCase {
 
 	public static double getInsightTotalDevices(String totalDevicesText) {
+		
+		
 		getCurrentFunctionName(true);
 		try {
 			getCurrentFunctionName(false);
@@ -23,7 +25,6 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 
 	public static double getInsightTotalFaultyDevices(String totalFaultyDevicesText) {
 		getCurrentFunctionName(true);
-
 		try {
 			getCurrentFunctionName(false);
 			return Double.parseDouble(totalFaultyDevicesText.trim().substring(
@@ -96,14 +97,18 @@ public class PlantOverview_PlantInsights extends SelTestCase {
 			 * 0.05% total devices54 investigate
 			 */
 
+			
+			
+			
 			// columns
 			int name = 0;
-			int status = 2;
-			int numberOfNotHealtyDevices = 2;
-			int insightValue = 3;
-			int insightPercent = 4;
-			int totalDevices = insightInfoLines.length - 2; // NegativeIndex to cover both Faulty and OK status
-
+			int status = 4;
+			int numberOfNotHealtyDevices = 4;
+			int insightValue = 2;
+			int insightPercent = 3;
+			int totalDevices = insightInfoLines.length - 3; // NegativeIndex to cover both Faulty and OK status
+					
+			
 			if (insightInfoLines[name].trim().toLowerCase().contains("Recoverable DC power".toLowerCase())) {
 				tmpPlant.Panel_Degradation_total_devices = getInsightTotalDevices(insightInfoLines[totalDevices]); 
 				tmpPlant.Panel_Degradation_faulty_devices = getInsightTotalFaultyDevices(
