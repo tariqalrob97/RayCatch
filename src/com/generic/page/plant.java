@@ -371,7 +371,8 @@ public class plant extends SelTestCase {
 			String Deltas = "";
 
 
-			Delta = previousPlantData.Inverters_Performance_Percent - tmpPlant.Inverters_Performance_Percent;
+			//Delta = previousPlantData.Inverters_Performance_Percent - tmpPlant.Inverters_Performance_Percent;
+			Delta = tmpPlant.inverters___Performance;
 			generalData.add(previousPlantData.Inverters_Performance_Percent + "");
 			generalData.add(tmpPlant.Inverters_Performance_Percent + "");		
 			Deltas = TestUtilities.roundingFormater.format(Delta);
