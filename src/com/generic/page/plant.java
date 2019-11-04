@@ -376,13 +376,17 @@ public class plant extends SelTestCase {
 			generalData.add(previousPlantData.Inverters_Performance_Percent + "");
 			generalData.add(tmpPlant.Inverters_Performance_Percent + "");		
 			Deltas = TestUtilities.roundingFormater.format(Delta);
-			generalData.add((Delta > 0.5 || Delta < -0.5 ) ? Deltas+isRed+"%" : Deltas);
+			//generalData.add((Delta > 0.5 || Delta < -0.5 ) ? Deltas+isRed+"%" : Deltas);
+			generalData.add((Delta > 0.5 || Delta < -0.5 ) ? Deltas+isRed : Deltas);
 
-			Delta = previousPlantData.Strings_Performance_Percent - tmpPlant.Strings_Performance_Percent;
+			//Delta = previousPlantData.Strings_Performance_Percent - tmpPlant.Strings_Performance_Percent;
+			Delta = tmpPlant.inverters___Performance;
 			generalData.add(previousPlantData.Strings_Performance_Percent + "");
 			generalData.add(tmpPlant.Strings_Performance_Percent + "");		
 			Deltas = TestUtilities.roundingFormater.format(Delta);
-			generalData.add((Delta > 0.5 || Delta < -0.5 ) ? Deltas+isRed+"%" : Deltas);
+			//generalData.add((Delta > 0.5 || Delta < -0.5 ) ? Deltas+isRed+"%" : Deltas);
+			generalData.add((Delta > 0.5 || Delta < -0.5 ) ? Deltas+isRed : Deltas);
+			
 			
 			Boolean writing_passed = true; 
 			for (int dataIndex = 0; dataIndex < generalData.size(); dataIndex++) {
