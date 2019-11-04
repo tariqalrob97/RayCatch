@@ -380,7 +380,7 @@ public class plant extends SelTestCase {
 			generalData.add((Delta > 0.5 || Delta < -0.5 ) ? Deltas+isRed : Deltas);
 
 			//Delta = previousPlantData.Strings_Performance_Percent - tmpPlant.Strings_Performance_Percent;
-			Delta = tmpPlant.inverters___Performance;
+			Delta = tmpPlant.strings___performance; 
 			generalData.add(previousPlantData.Strings_Performance_Percent + "");
 			generalData.add(tmpPlant.Strings_Performance_Percent + "");		
 			Deltas = TestUtilities.roundingFormater.format(Delta);
